@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind utilities;
+
+@import 'pretendard/dist/web/variable/pretendardvariable.css';
 
 :root {
   --background: #ffffff;
