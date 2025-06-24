@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className="font-pretendard bg-white">
         <ReactQueryProvider>
           <Header />
-          <main className="min-h-screen">{children}</main>
+          <main>{children}</main>
         </ReactQueryProvider>
       </body>
     </html>
