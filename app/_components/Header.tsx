@@ -54,6 +54,7 @@ export default function Header() {
               <Image
                 src={isColors ? LogoWhite : Logo}
                 alt="logo"
+                priority
               />
             </Link>
           </h1>

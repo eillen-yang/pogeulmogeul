@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
+import './globals.css'
 import ReactQueryProvider from './_providers/ReactQueryProvider'
 import Header from './_components/Header'
-import './globals.css'
 
 export const metadata: Metadata = {
   title: '포글모글',
