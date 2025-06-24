@@ -40,7 +40,7 @@ export default function Header() {
   return (
     <header
       className={clsx(
-        'fixed flex items-center w-full h-[7.5rem]',
+        'fixed top-0 flex items-center w-full h-[7.5rem]',
         isColors ? 'bg-[var(--main-color)]' : 'bg-white',
       )}
     >
