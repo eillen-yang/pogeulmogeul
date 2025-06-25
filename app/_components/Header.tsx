@@ -74,7 +74,7 @@ export default function Header() {
             {/* 로그인 안했을 경우 */}
             <div className="flex gap-2 font-semibold text-xl">
               <Link
-                href={'/auth/login'}
+                href={'/auth/social'}
                 className="block py-2 px-7 text-white rounded-3xl border border-white bg-[var(--main-color)] hover:bg-[var(--main-hover-color)]"
               >
                 로그인

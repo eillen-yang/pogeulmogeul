@@ -43,17 +43,12 @@ body {
   line-height: 1.5;
 }
 
-a {
-  text-decoration: none;
-}
-
 ul,
 ol {
   list-style: none;
 }
 
 button {
-  all: unset;
   cursor: pointer;
 }
 
@@ -65,12 +60,18 @@ svg {
   height: auto;
 }
 
+input {
+  padding: 16px 20px;
+  width: auto;
+  border: 1px solid #d7d7dc;
+  border-radius: 12px;
+}
+
 input,
 textarea,
 select {
   font: inherit;
   color: inherit;
   background: transparent;
-  border: none;
   outline: none;
 }

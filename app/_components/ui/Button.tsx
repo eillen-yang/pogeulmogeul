@@ -4,22 +4,28 @@ type ButtonProps = {
   children: React.ReactNode
   variant?: 'primary' | 'secondary' | 'ghost'
   className?: string
+  disabled?: boolean
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   [key: string]: any
 }
 
 const base =
-  'h-[5.6rem] bg-[var(--main-color)] rounded-xl px-4 py-2 text-sm font-medium transition'
+  'flex-1 h-[4.6rem] px-6 rounded-full text-2xl font-medium transition-shadow duration-200'
 
 const variants = {
-  primary: 'bg-primary text-white hover:bg-indigo-700',
+  primary:
+    'bg-[var(--main-color)] text-white shadow-md hover:bg-[var(--main-hover-color)] disabled:bg-[#2e1dad]',
+  ghost:
+    'bg-[#f5f5f9] text-[#333] hover:bg-[#e8e8f0]disabled:bg-[#f5f5f9] disabled:text-[#aaa]',
   secondary: 'bg-secondary text-white hover:bg-indigo-500',
-  ghost: 'bg-transparent text-primary hover:bg-primary/10',
 }
 
 export const Button = ({
   children,
   variant = 'primary',
   className,
+  disabled,
+  onClick,
   ...props
 }: ButtonProps) => {
   return (
