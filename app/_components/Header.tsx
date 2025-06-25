@@ -2,14 +2,14 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import LogoWhite from '@/public/logo_white.svg'
-import Logo from '@/public/logo.svg'
-import CalenderWhite from '@/public/white_canlendar.svg'
-import Calender from '@/public/black_canlendar.svg'
-import TalkWhite from '@/public/white_talk.svg'
-import Talk from '@/public/black_talk.svg'
-import Menu from '@/public/menu.svg'
-import MenuHover from '@/public/menu_hover.svg'
+import LogoWhite from '@/public/logo/logo_white.svg'
+import Logo from '@/public/logo/logo.svg'
+import CalenderWhite from '@/public/icon/white_canlendar.svg'
+import Calender from '@/public/icon/black_canlendar.svg'
+import TalkWhite from '@/public/icon/white_talk.svg'
+import Talk from '@/public/icon/black_talk.svg'
+import Menu from '@/public/dummy.svg'
+import MenuHover from '@/public/dummy_hover.svg'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
@@ -72,7 +72,7 @@ export default function Header() {
               />
             </Link>
             {/* 로그인 안했을 경우 */}
-            <div className="flex gap-5 font-semibold text-xl">
+            <div className="flex gap-2 font-semibold text-xl">
               <Link
                 href={'/auth/login'}
                 className="block py-2 px-7 text-white rounded-3xl border border-white bg-[var(--main-color)] hover:bg-[var(--main-hover-color)]"
