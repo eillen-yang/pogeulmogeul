@@ -25,7 +25,7 @@ export default function Sidebar() {
   }, [pathname])
 
   return (
-    <aside className="w-64">
+    <aside className="fixed w-64 z-50">
       <nav>
         <ul className="text-xl">
           {/* 포글모글 추천 */}

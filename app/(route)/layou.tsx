@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import Sidebar from '../_components/Sidebar'
 import MainContent from './_components/MainContent'
+import ReactQueryProvider from '../_providers/ReactQueryProvider'
+import Header from '../_components/Header'
 
-export default function Layout() {
+type Props = { children: ReactNode }
+
+export default function Layout({ children }: Props) {
   return (
-    <div className="mt-[7.5rem] min-h-[calc(100dvh-7.5rem)] bg-amber-100">
-      <div className="container mx-auto px-3">
-        <div className="flex flex-row">
-          <Sidebar />
-          <section className="flex-1">
-            <MainContent />
-          </section>
+    <ReactQueryProvider>
+      <Header />
+      <main>
+        <div className="mt-[7.5rem] min-h-[calc(100dvh-7.5rem)] pb-20 bg-white">
+          <div className="container mx-auto px-3">
+            <div className="flex flex-row">
+              <Sidebar />
+              <section className="flex-1">
+                <MainContent children={children} />
+              </section>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+    </ReactQueryProvider>
   )
 }
