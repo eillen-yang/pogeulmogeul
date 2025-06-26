@@ -13,7 +13,7 @@ export default function MainContent({ children }: Props) {
   return (
     <>
       {pathname === '/' ? (
-        <div className="flex flex-col gap-14 pl-80 min-h-dvh">
+        <div className="flex flex-col gap-14">
           {/* 구해요 섹션 */}
           <div className="flex gap-4 flex-wrap">
             <div className="flex-1">

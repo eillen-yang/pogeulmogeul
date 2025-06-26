@@ -8,6 +8,7 @@ import clsx from 'clsx'
 export default function Sidebar() {
   const pathname = usePathname()
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const activeStyle = 'bg-purple-100 font-semibold rounded-4xl'
 
   const toggleMenu = (menu: string) => {
     setOpenMenu((prev) => (prev === menu ? null : menu))
@@ -32,7 +33,7 @@ export default function Sidebar() {
           <li
             className={clsx(
               'py-4 px-5 w-full rounded-4xl',
-              pathname === '/' && 'bg-purple-100 font-semibold',
+              pathname === '/' && activeStyle,
             )}
           >
             <Link
@@ -48,7 +49,7 @@ export default function Sidebar() {
             <button
               className={clsx(
                 'block mb-3 w-full text-left',
-                openMenu === 'model' && 'font-semibold',
+                openMenu === 'model' && activeStyle,
               )}
               onClick={() => toggleMenu('model')}
             >
@@ -59,8 +60,7 @@ export default function Sidebar() {
                 <li
                   className={clsx(
                     'py-4 px-5 w-full rounded-4xl',
-                    pathname === '/post/model_wantit' &&
-                      'bg-purple-100 font-semibold',
+                    pathname === '/post/model_wantit' && activeStyle,
                   )}
                 >
                   <Link
@@ -73,8 +73,7 @@ export default function Sidebar() {
                 <li
                   className={clsx(
                     'py-4 px-5 w-full rounded-4xl',
-                    pathname === '/post/model_doit' &&
-                      'bg-purple-100 font-semibold',
+                    pathname === '/post/model_doit' && activeStyle,
                   )}
                 >
                   <Link
@@ -93,7 +92,7 @@ export default function Sidebar() {
             <button
               className={clsx(
                 'block mb-3 w-full text-left',
-                openMenu === 'photo' && 'font-semibold',
+                openMenu === 'photo' && activeStyle,
               )}
               onClick={() => toggleMenu('photo')}
             >
@@ -105,7 +104,7 @@ export default function Sidebar() {
                   className={clsx(
                     'py-4 px-5 w-full rounded-4xl',
                     pathname === '/post/photographer_wantit' &&
-                      'bg-purple-100 font-semibold',
+                      activeStyle,
                   )}
                 >
                   <Link
@@ -119,7 +118,7 @@ export default function Sidebar() {
                   className={clsx(
                     'py-4 px-5 w-full rounded-4xl',
                     pathname === '/post/photographer_doit' &&
-                      'bg-purple-100 font-semibold',
+                      activeStyle,
                   )}
                 >
                   <Link
@@ -137,8 +136,7 @@ export default function Sidebar() {
           <li
             className={clsx(
               'py-4 px-5 w-full bg-white hover:bg-gray-100 rounded-4xl',
-              pathname === '/post/photoshop' &&
-                'bg-purple-100 font-semibold',
+              pathname === '/post/photoshop' && activeStyle,
             )}
           >
             <Link
@@ -153,8 +151,7 @@ export default function Sidebar() {
           <li
             className={clsx(
               'py-4 px-5 w-full bg-white hover:bg-gray-100 rounded-4xl',
-              pathname === '/post/free' &&
-                'bg-purple-100 font-semibold',
+              pathname === '/post/free' && activeStyle,
             )}
           >
             <Link
