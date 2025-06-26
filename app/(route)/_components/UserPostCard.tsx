@@ -10,7 +10,7 @@ export default function UserPostCard() {
 
   return (
     <div className="flex p-3">
-      <Link href={`/:postId`}>
+      <Link href={`${pathname}/:postId`}>
         <img
           width={160}
           height={160}
@@ -25,7 +25,7 @@ export default function UserPostCard() {
           <span>2024.02.20 13:00</span>
         </div>
         <Link
-          href={`/:postId`}
+          href={`${pathname}/:postId`}
           className="text-2xl text-[var(--color-10)] font-bold leading-none"
         >
           스튜디오 촬영 가능한 모델 구합니다! 스튜디오 촬영 가능한

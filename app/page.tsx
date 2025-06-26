@@ -2,9 +2,9 @@ import React, { ReactNode } from 'react'
 import Layout from './(route)/layou'
 
 type Props = {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export default function Home() {
-  return <Layout />
+export default function Home({ children }: Props) {
+  return <Layout children={children} />
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import ReactQueryProvider from './_providers/ReactQueryProvider'
-import Header from './_components/Header'
+import AuthSession from './_components/AuthSession'
 
 export const metadata: Metadata = {
   title: '포글모글',
@@ -17,10 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-pretendard bg-white">
-        <ReactQueryProvider>
-          <Header />
-          <main>{children}</main>
-        </ReactQueryProvider>
+        <AuthSession>{children}</AuthSession>
       </body>
     </html>
   )
