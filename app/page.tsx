@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import Layout from './(route)/layou'
+import Layout from './(route)/layout'
 
 type Props = {
   children: React.ReactNode
