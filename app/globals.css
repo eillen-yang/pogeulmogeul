@@ -2,10 +2,13 @@
 @import 'pretendard/dist/web/variable/pretendardvariable.css';
 
 /* @theme {
-  --breakpoint-*: initial;
-  --breakpoint-tablet: 40rem;
-  --breakpoint-laptop: 64rem;
-  --breakpoint-desktop: 80rem;
+  --container-center: 'true';
+  --container-padding: 1.2rem;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
 } */
 
 :root {

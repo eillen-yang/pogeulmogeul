@@ -40,11 +40,11 @@ export default function Header() {
   return (
     <header
       className={clsx(
-        'fixed top-0 flex items-center w-full h-[7.5rem]',
+        'fixed top-0 flex items-center w-full h-[7.5rem] z-50',
         isColors ? 'bg-[var(--main-color)]' : 'bg-white',
       )}
     >
-      <div className="container m-0 mx-auto">
+      <div className="container mx-auto px-3">
         <div className="flex justify-between items-center">
           <h1>
             <Link
