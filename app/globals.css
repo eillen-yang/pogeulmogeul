@@ -1,28 +1,80 @@
-@tailwind utilities;
-
+@import 'tailwindcss';
 @import 'pretendard/dist/web/variable/pretendardvariable.css';
+
+/* @theme {
+  --container-center: 'true';
+  --container-padding: 1.2rem;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+} */
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-1: #efeff4;
+  --color-2: #d7d7dc;
+  --color-3: #bdbdc2;
+  --color-4: #a3a3a8;
+  --color-5: #8f8f94;
+  --color-6: #7b7b80;
+  --color-7: #747479;
+  --color-8: #69696e;
+  --color-9: #5f5f64;
+  --color-10: #4e4e53;
+  --main-color: #250996;
+  --main-hover-color: #3416ae;
+  --red-color: #f55454;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  font-size: 62.5%;
 }
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Pretendard', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f9fafb; /* Tailwind의 bg-background */
+  color: #111827; /* Tailwind의 text */
+  line-height: 1.5;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input {
+  padding: 16px 20px;
+  width: auto;
+  border: 1px solid #d7d7dc;
+  border-radius: 12px;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  outline: none;
 }
