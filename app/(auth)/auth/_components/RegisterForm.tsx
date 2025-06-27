@@ -7,17 +7,8 @@ import { Button } from '@/app/_components/ui/Button'
 import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
 import { useSignup } from '@/app/hooks/useSignup'
 import { useCheckStore } from '@/app/stores/checkStore'
+import { RegisterFormData } from '@/app/types/form'
 import { useForm } from 'react-hook-form'
-
-export type RegisterFormData = {
-  email: string
-  password: string
-  confirmPassword: string
-  nickname: string
-  gender: string
-  nation: string
-  bio?: string
-}
 
 export default function RegisterForm() {
   const {

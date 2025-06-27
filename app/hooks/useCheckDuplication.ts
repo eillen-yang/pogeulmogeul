@@ -12,7 +12,7 @@ export const useCheckDuplication = () => {
 
     try {
       const res = await fetch(
-        `/user/duplicate/email?email=${encodeURIComponent(email)}`,
+        `${process.env.NEXT_PUBLIC_ENDPOINT}/user/duplicate/email`,
       )
       const data = await res.json()
 
@@ -34,7 +34,7 @@ export const useCheckDuplication = () => {
 
     try {
       const res = await fetch(
-        `/user/duplicate/name?nickname=${encodeURIComponent(nickname)}`,
+        `${process.env.NEXT_PUBLIC_ENDPOINT}/user/duplicate/name}`,
       )
 
       const data = await res.json()
