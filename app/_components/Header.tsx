@@ -80,7 +80,7 @@ export default function Header() {
                 로그인
               </Link>
               <Link
-                href={'/auth/signup'}
+                href={'/auth/signup/step01'}
                 className="block py-2 px-7 text-[var(--main-color)] bg-white hover:bg-[var(--main-color)] hover:text-white rounded-3xl border border-white hover:border hover:border-white"
               >
                 회원가입

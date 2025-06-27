@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <>
       <Header />
-      <div className="flex items-center justify-center h-dvh">
+      <div className="flex items-center justify-center w-full h-dvh">
         {children}
       </div>
     </>
