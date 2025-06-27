@@ -12,8 +12,8 @@ export default function UserPofileCard() {
       <div className="flex items-center gap-4">
         <Link href={'/:username'}>
           <Image
-            width={56}
-            height={56}
+            width={46}
+            height={46}
             src={profile}
             alt="profile"
           />
