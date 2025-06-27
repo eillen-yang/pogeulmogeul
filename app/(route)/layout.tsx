@@ -12,7 +12,7 @@ export default function Layout({ children }: Props) {
       <Header />
       <main>
         <div className="mt-[7.5rem] min-h-[calc(100dvh-7.5rem)] pb-20 bg-white">
-          <div className="container mx-auto px-3">
+          <div className="relative container mx-auto">
             <div className="flex flex-row">
               <Sidebar />
               <section className="flex-1">
