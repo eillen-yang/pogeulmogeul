@@ -48,7 +48,7 @@ export default function Sidebar() {
           <li className="py-4 px-5 w-full bg-white hover:bg-gray-100 rounded-4xl">
             <button
               className={clsx(
-                'block mb-3 w-full text-left',
+                'block w-full text-left',
                 openMenu === 'model' && activeStyle,
               )}
               onClick={() => toggleMenu('model')}
@@ -91,7 +91,7 @@ export default function Sidebar() {
           <li className="py-4 px-5 w-full bg-white hover:bg-gray-100 rounded-4xl">
             <button
               className={clsx(
-                'block mb-3 w-full text-left',
+                'block w-full text-left',
                 openMenu === 'photo' && activeStyle,
               )}
               onClick={() => toggleMenu('photo')}

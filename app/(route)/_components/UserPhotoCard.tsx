@@ -7,7 +7,7 @@ export default function UserPhotoCard() {
     <div className="max-w-[calc(100%/3-6px)] flex-auto">
       <Link
         href={'/:username'}
-        className={`relative flex flex-1/3 w-full h-fit pb-[400px] rounded-3xl bg-no-repeat bg-center bg-cover`}
+        className={`relative flex flex-1/3 w-full h-fit pb-[350px] rounded-3xl bg-no-repeat bg-center bg-cover`}
         style={{
           backgroundImage: `url(${faker.image.avatar()})`,
         }}
