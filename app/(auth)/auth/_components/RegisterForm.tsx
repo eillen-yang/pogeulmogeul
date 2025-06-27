@@ -5,10 +5,11 @@ import SelectField from '@/app/_components/fields/SelectField'
 import TextareaField from '@/app/_components/fields/TextareaField'
 import { Button } from '@/app/_components/ui/Button'
 import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
+import { useSignup } from '@/app/hooks/useSignup'
 import { useCheckStore } from '@/app/stores/checkStore'
 import { useForm } from 'react-hook-form'
 
-type RegisterFormData = {
+export type RegisterFormData = {
   email: string
   password: string
   confirmPassword: string
@@ -27,6 +28,7 @@ export default function RegisterForm() {
   } = useForm<RegisterFormData>()
   const { checkEmail, checkNickname } = useCheckDuplication()
   const { emailChecked, nicknameChecked } = useCheckStore()
+  const { mutate: signup, isPending } = useSignup()
 
   const handleCheckEmail = async () => {
     const email = watch('email')
@@ -53,7 +55,7 @@ export default function RegisterForm() {
       return
     }
 
-    console.log('제출 데이터', data)
+    signup(data)
   }
   return (
     <form
