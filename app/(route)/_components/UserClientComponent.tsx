@@ -3,9 +3,9 @@
 import { TabType } from '@/app/types/Tabs'
 import PostProfile from './PostProfile'
 import { TabMenu } from './TabMenu'
-import UserPostCard from './UserPostCard'
 import { useState } from 'react'
 import UserImages from './UserImages'
+import UserProfileContent from './UserProfileContent'
 
 const TABS: TabType[] = ['작성글', '상대방 이미지']
 export default function UserClientComponent() {
@@ -24,7 +24,7 @@ export default function UserClientComponent() {
           onTabChange={setActiveTab}
           userName="대상혁"
         />
-        {activeTab === '작성글' && <UserPostCard />}
+        {activeTab === '작성글' && <UserProfileContent />}
         {activeTab === '상대방 이미지' && <UserImages />}
       </div>
     </div>

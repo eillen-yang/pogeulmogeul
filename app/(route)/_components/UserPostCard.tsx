@@ -13,7 +13,7 @@ export default function UserPostCard({ url }: Props) {
   const pathname = usePathname()
 
   return (
-    <div className="flex p-3">
+    <div className="flex gap-3 p-3">
       <Link href={`${pathname}/:postId`}>
         <img
           width={160}
@@ -23,7 +23,7 @@ export default function UserPostCard({ url }: Props) {
           alt="모델구해요 게시글 이미지"
         />
       </Link>
-      <div className="flex flex-col gap-1.5 pl-3 mt-2">
+      <div className="flex flex-col gap-1.5">
         <div className="text-lg text-[var(--color-4)] font-semibold">
           <span>서울 · </span>
           <span>2024.02.20 13:00</span>
