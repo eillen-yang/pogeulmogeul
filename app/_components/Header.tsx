@@ -61,16 +61,17 @@ export default function Header() {
           <div className="flex items-center gap-5 text-white">
             <Link href={'/:username/canlendar'}>
               <Image
+                width={16}
                 src={isColors ? CalenderWhite : Calender}
                 alt="calender icon"
               />
             </Link>
-            <Link href={'/:username/chatting'}>
+            {/* <Link href={'/:username/chatting'}>
               <Image
                 src={isColors ? TalkWhite : Talk}
                 alt="Talk icon"
               />
-            </Link>
+            </Link> */}
             {/* 로그인 안했을 경우 */}
             <div className="flex gap-2 font-semibold text-xl">
               <Link
