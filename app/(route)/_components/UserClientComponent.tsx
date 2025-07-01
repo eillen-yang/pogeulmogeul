@@ -1,0 +1,32 @@
+'use client'
+
+import { TabType } from '@/app/types/Tabs'
+import PostProfile from './PostProfile'
+import { TabMenu } from './TabMenu'
+import UserPostCard from './UserPostCard'
+import { useState } from 'react'
+import UserImages from './UserImages'
+
+const TABS: TabType[] = ['작성글', '상대방 이미지']
+export default function UserClientComponent() {
+  const [activeTab, setActiveTab] = useState<TabType>(TABS[0])
+
+  return (
+    <div className="flex gap-4 pb-64">
+      <div className="flex-1">
+        <PostProfile />
+      </div>
+
+      <div className="flex-1/4 h-full">
+        <TabMenu
+          tabs={TABS}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          userName="대상혁"
+        />
+        {activeTab === '작성글' && <UserPostCard />}
+        {activeTab === '상대방 이미지' && <UserImages />}
+      </div>
+    </div>
+  )
+}

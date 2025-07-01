@@ -1,15 +1,20 @@
+'use client'
+
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 type Props = {
-  url: string
+  url?: string
 }
 
 export default function UserPostCard({ url }: Props) {
+  const pathname = usePathname()
+
   return (
     <div className="flex p-3">
-      <Link href={`${url}/:postId`}>
+      <Link href={`${pathname}/:postId`}>
         <img
           width={160}
           height={160}

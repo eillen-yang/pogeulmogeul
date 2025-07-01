@@ -97,13 +97,13 @@ export default function PostProfile() {
                   얼굴, 전신, 기타
                 </p>
               </div>
-              <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+              <div className="flex gap-2 py-4 px-5 rounded-2xl border border-[var(--color-1)]">
                 <span className="flex-1 text-lg font-bold">
                   날짜/시간
                 </span>
                 <p className="flex-3/5 text-lg font-normal">
-                  2024.03.13. 금요일 오후 12:00 ~ 2024.03.13. 금요일
-                  오후 01:00
+                  2024.03.13. 금요일 PM12:00 ~ 2024.03.13. 금요일
+                  PM01:00
                 </p>
               </div>
               <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">

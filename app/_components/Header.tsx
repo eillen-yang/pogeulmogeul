@@ -105,14 +105,14 @@ export default function Header() {
               {isOpen && (
                 <ul className="absolute right-0 mt-3 flex flex-col gap-3 px-7 py-5 w-40 bg-white text-[var(--color-10)] text-xl font-semibold shadow-lg rounded-lg z-50">
                   <li className="hover:underline">
-                    <Link href={':username/mypage'}>마이페이지</Link>
+                    <Link href={':username/me'}>마이페이지</Link>
                   </li>
                   <li className="hover:underline">
                     <Link href={':username/calender'}>캘린더</Link>
                   </li>
-                  <li className="hover:underline">
+                  {/* <li className="hover:underline">
                     <Link href={':username/chatting'}>채팅</Link>
-                  </li>
+                  </li> */}
                   <li className="hover:underline">
                     <Link href={':username/heart-list'}>
                       관심목록
