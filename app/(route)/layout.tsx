@@ -1,14 +1,13 @@
 import React, { ReactNode } from 'react'
 import Sidebar from '../_components/Sidebar'
 import MainContent from './_components/MainContent'
-import ReactQueryProvider from '../_providers/ReactQueryProvider'
 import Header from '../_components/Header'
 
 type Props = { children: ReactNode }
 
 export default function Layout({ children }: Props) {
   return (
-    <ReactQueryProvider>
+    <>
       <Header />
       <main>
         <div className="mt-[7.5rem] min-h-[calc(100dvh-7.5rem)] pb-20 bg-white">
@@ -24,6 +23,6 @@ export default function Layout({ children }: Props) {
           </div>
         </div>
       </main>
-    </ReactQueryProvider>
+    </>
   )
 }
