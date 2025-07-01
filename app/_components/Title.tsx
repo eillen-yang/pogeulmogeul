@@ -21,17 +21,15 @@ export const Title = ({
 
   return (
     <div className="flex items-center justify-between gap-3 mt-5">
-      <Tag>
+      <Tag className="pb-5 font-bold text-3xl">
+        {highlight}
         {prefix && (
-          <h2 className="pb-5 font-bold text-3xl">
-            {highlight}
-            <span className="text-[var(--main-color)]">{prefix}</span>
-            {suffix}
-          </h2>
+          <span className="text-[var(--main-color)]">{prefix}</span>
         )}
+        {suffix}
       </Tag>
       {href && (
-        <div className="flex flex-row text-xl">
+        <div className="flex flex-row items-center text-xl">
           <Link href={href}>더보기</Link>
           <Image
             width={16}
