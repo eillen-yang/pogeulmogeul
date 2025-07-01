@@ -9,5 +9,5 @@ export type TabMenuProps = {
   postCount?: number
   tabs: TabType[]
   activeTab: TabType
-  onTabChange?: (tab: TabType) => void
+  onTabChange: (tab: TabType) => void
 }
