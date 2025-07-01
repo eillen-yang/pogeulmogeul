@@ -24,7 +24,11 @@ export default function UserClientComponent() {
           onTabChange={setActiveTab}
           userName="대상혁"
         />
-        {activeTab === '작성글' && <UserProfileContent />}
+        {activeTab === '작성글' && (
+          <ul className="flex flex-col gap-5">
+            <UserProfileContent />
+          </ul>
+        )}
         {activeTab === '상대방 이미지' && <UserImages />}
       </div>
     </div>

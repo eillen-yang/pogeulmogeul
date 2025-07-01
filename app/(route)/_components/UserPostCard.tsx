@@ -14,7 +14,7 @@ export default function UserPostCard({ url }: Props) {
 
   return (
     <div className="flex gap-3 p-3">
-      <Link href={`${pathname}/:postId`}>
+      <Link href={`post/:categoryJob/:postId`}>
         <img
           width={160}
           height={160}
