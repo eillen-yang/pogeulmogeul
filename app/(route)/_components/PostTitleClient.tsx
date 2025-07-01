@@ -1,7 +1,7 @@
 'use client'
 
 import { Title } from '@/app/_components/Title'
-import { TITLE_MAP, TitleKey } from '@/app/constants/titleMap'
+import { TITLE_MAP, TitleKey } from '@/app/_constants/titleMap'
 import { usePathname } from 'next/navigation'
 
 export default function PostTitleClient() {
