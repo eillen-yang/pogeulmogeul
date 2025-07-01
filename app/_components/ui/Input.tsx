@@ -12,14 +12,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={clsx(
-            'w-full text-2xl border border-[#d7d7dc] rounded-md focus:outline-none focus:ring-2 focus:ring-black',
+            'w-full text-2xl border border-[var(--color-2)] rounded-2xl focus:outline-none focus:ring-2 focus:ring-[var(--main-color)]',
             error && 'border-red-500',
             className,
           )}
           {...props}
         />
         {error && (
-          <p className="text-sm text-red-500 mt-1">{error}</p>
+          <p className="text-lg text-red-500 mt-1">{error}</p>
         )}
       </div>
     )
