@@ -13,6 +13,8 @@ export default function Page() {
         <div className="flex flex-col gap-2 w-[40rem] text-2xl font-medium">
           <label htmlFor="">이메일</label>
           <input
+            className="border border-[var(--color-2)] rounded-2xl"
+            placeholder="이메일을 입력해주세요."
             type="email"
             width={415}
             height={55}
@@ -21,6 +23,8 @@ export default function Page() {
         <div className="flex flex-col gap-2 w-[40rem] text-2xl font-medium">
           <label htmlFor="">비밀번호</label>
           <input
+            className="border border-[var(--color-2)] rounded-2xl"
+            placeholder="비밀번호를 입력해주세요."
             type="password"
             width={415}
             height={55}

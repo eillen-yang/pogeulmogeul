@@ -1,4 +1,4 @@
-import { RegisterFormData } from '@/app/types/form'
+import { RegisterFormData } from '@/app/types/User'
 
 export const authService = {
   signup: async (formData: RegisterFormData) => {

@@ -6,26 +6,31 @@ type TextareaFieldProps = {
   register: any
   required?: boolean
   placeholder?: string
+  error?: string
 }
 
-export default function TextareaField({
+export default function TextareaOutlineField({
   label,
   name,
   register,
   placeholder,
   required = false,
+  error,
 }: TextareaFieldProps) {
   return (
-    <div>
-      <label className="block mb-1 text-xl font-semibold">
+    <div className="flex gap-10 py-5 border border-[var(--color-2)] rounded-2xl text-2xl">
+      <span className="flex-1 text-center font-semibold">
         {label}
-      </label>
+      </span>
       <Textarea
         rows={6}
         {...register}
+        variant="unstyled"
         placeholder={placeholder}
-        className="border p-5 rounded w-full min-h-[150px] text-2xl"
+        error={error}
+        className="w-full min-h-[150px]"
       />
+      {error}
     </div>
   )
 }

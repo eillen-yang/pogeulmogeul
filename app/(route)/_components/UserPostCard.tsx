@@ -1,16 +1,15 @@
-'use client'
-
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
-import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 
-export default function UserPostCard() {
-  const pathname = usePathname()
+type Props = {
+  url: string
+}
 
+export default function UserPostCard({ url }: Props) {
   return (
     <div className="flex p-3">
-      <Link href={`${pathname}/:postId`}>
+      <Link href={`${url}/:postId`}>
         <img
           width={160}
           height={160}
@@ -25,7 +24,7 @@ export default function UserPostCard() {
           <span>2024.02.20 13:00</span>
         </div>
         <Link
-          href={`${pathname}/:postId`}
+          href={`${url}/:postId`}
           className="text-2xl text-[var(--color-10)] font-bold leading-none"
         >
           스튜디오 촬영 가능한 모델 구합니다! 스튜디오 촬영 가능한

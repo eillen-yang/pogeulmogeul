@@ -8,9 +8,9 @@ export default function Layout({
   return (
     <>
       <Header />
-      <div className="flex items-center justify-center w-full h-dvh">
-        {children}
-      </div>
+      <main className="flex items-center justify-center w-full py-20 mt-[7.5rem] min-h-[calc(100dvh-7.5rem)] bg-white">
+        <div className="">{children}</div>
+      </main>
     </>
   )
 }

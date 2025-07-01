@@ -1,3 +1,5 @@
+import Input from '../ui/Input'
+
 type InputFieldProps = {
   label: string
   name: string
@@ -9,7 +11,7 @@ type InputFieldProps = {
   error?: string
 }
 
-export default function InputField({
+export default function InputInlineField({
   label,
   name,
   type = 'text',
@@ -25,7 +27,7 @@ export default function InputField({
         {label}
       </label>
       <div className="flex gap-2">
-        <input
+        <Input
           type={type}
           {...register}
           placeholder={placeholder}
@@ -33,7 +35,7 @@ export default function InputField({
         />
         {button}
       </div>
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      {error && <p className="text-red-500 text-md mt-2">{error}</p>}
     </div>
   )
 }

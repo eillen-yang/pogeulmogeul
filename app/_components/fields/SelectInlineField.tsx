@@ -1,3 +1,5 @@
+import Select from '../ui/Select'
+
 type SelectFieldProps = {
   label: string
   name: string
@@ -7,7 +9,7 @@ type SelectFieldProps = {
   error?: string
 }
 
-export default function SelectField({
+export default function SelectInlineField({
   label,
   name,
   options,
@@ -20,7 +22,7 @@ export default function SelectField({
       <label className="block mb-1 text-xl font-semibold">
         {label}
       </label>
-      <select
+      <Select
         {...register}
         defaultValue=""
         className="border p-2 rounded w-full bg-[#d7d7dc]"
@@ -39,8 +41,8 @@ export default function SelectField({
             {opt}
           </option>
         ))}
-      </select>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      </Select>
+      {error && <p className="text-red-500 text-lg mt-1">{error}</p>}
     </div>
   )
 }

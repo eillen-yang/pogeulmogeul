@@ -22,7 +22,7 @@ export default function MainContent({ children }: Props) {
                 highlight="사진작가가 "
                 href="/post/model_wantit"
               />
-              <UserPostProfileCard />
+              <UserPostProfileCard url="/post/model_wantit" />
             </div>
             <div className="flex-1">
               <Title
@@ -30,7 +30,9 @@ export default function MainContent({ children }: Props) {
                 highlight="모델이 "
                 href="/post/photographer_wantit"
               />
-              <UserPostProfileCard />
+              <UserPostProfileCard
+                url={'/post/photographer_wantit'}
+              />
             </div>
           </div>
 

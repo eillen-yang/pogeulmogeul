@@ -1,13 +1,17 @@
 'use client'
 
-import InputField from '@/app/_components/fields/InputField'
-import SelectField from '@/app/_components/fields/SelectField'
+import InputField from '@/app/_components/fields/InputInlineField'
+import SelectField from '@/app/_components/fields/SelectInlineField'
 import TextareaField from '@/app/_components/fields/TextareaField'
 import { Button } from '@/app/_components/ui/Button'
+import {
+  genderOptions,
+  nationalityOptions,
+} from '@/app/_constants/selectOptions'
 import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
 import { useSignup } from '@/app/hooks/useSignup'
 import { useCheckStore } from '@/app/stores/checkStore'
-import { RegisterFormData } from '@/app/types/form'
+import { User } from '@/app/types/User'
 import { useForm } from 'react-hook-form'
 
 export default function RegisterForm() {
@@ -16,7 +20,7 @@ export default function RegisterForm() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<RegisterFormData>()
+  } = useForm<User>()
   const { checkEmail, checkNickname } = useCheckDuplication()
   const { emailChecked, nicknameChecked } = useCheckStore()
   const { mutate: signup, isPending } = useSignup()
@@ -51,7 +55,7 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="min-w-[415px] text-xl"
+      className="min-w-[415px] text-2xl flex flex-col gap-5"
     >
       <InputField
         label="이메일 *"
@@ -136,7 +140,7 @@ export default function RegisterForm() {
         })}
         error={errors.gender?.message as string | undefined}
         required
-        options={['여성', '남성']}
+        options={genderOptions}
       />
       {/* <SelectField
         label="국적 *"
@@ -146,15 +150,7 @@ export default function RegisterForm() {
         })}
         error={errors.nation?.message as string | undefined}
         required
-        options={[
-          '아시아',
-          '유럽',
-          '중동',
-          '아프리카',
-          '북아메리카',
-          '남아메리카',
-          '오세아니아',
-        ]}
+        options={nationalityOptions}
       /> */}
       <TextareaField
         label="자기소개"
@@ -165,7 +161,7 @@ export default function RegisterForm() {
 
       <Button
         type="submit"
-        className="w-full min-w-"
+        className="py-5"
       >
         가입하기
       </Button>

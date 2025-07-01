@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import AuthSession from './_components/AuthSession'
+import ReactQueryProvider from './_providers/ReactQueryProvider'
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-pretendard bg-white">
-        <AuthSession>{children}</AuthSession>
+        <ReactQueryProvider>
+          {/* <AuthSession> */}
+          {children}
+          {/* </AuthSession> */}
+        </ReactQueryProvider>
       </body>
     </html>
   )
