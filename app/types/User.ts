@@ -1,10 +1,11 @@
 export interface User {
   email: string
-  password: string
-  password2: string
+  passwd: string
+  passwd2: string
   name: string
   gender: string
   nationality: string
+  city: string
   intro?: string
 }
 

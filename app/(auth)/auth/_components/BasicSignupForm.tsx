@@ -5,6 +5,7 @@ import SelectField from '@/app/_components/fields/SelectInlineField'
 import TextareaField from '@/app/_components/fields/TextareaField'
 import { Button } from '@/app/_components/ui/Button'
 import {
+  cityOptions,
   genderOptions,
   nationalityOptions,
 } from '@/app/_constants/selectOptions'
@@ -41,7 +42,7 @@ export default function BasicSignupForm() {
     alert(message)
   }
 
-  const password = watch('password')
+  const passwd = watch('passwd')
 
   const onSubmit = (data: any) => {
     if (!emailChecked) {
@@ -87,29 +88,29 @@ export default function BasicSignupForm() {
       />
       <InputField
         label="비밀번호 *"
-        name="password"
+        name="passwd"
         type="password"
-        register={register('password', {
+        register={register('passwd', {
           required: '비밀번호는 필수입니다.',
           minLength: {
             value: 8,
             message: '비밀번호는 8자 이상이어야 합니다.',
           },
         })}
-        error={errors.password?.message as string | undefined}
+        error={errors.passwd?.message as string | undefined}
         placeholder="비밀번호를 입력해주세요. (8자리 이상)"
         required
       />
       <InputField
         label="비밀번호 확인 *"
-        name="password2"
+        name="passwd2"
         type="password"
-        register={register('password2', {
+        register={register('passwd2', {
           required: '비밀번호 확인은 필수입니다.',
           validate: (value) =>
-            value === password || '비밀번호가 일치하지 않습니다.',
+            value === passwd || '비밀번호가 일치하지 않습니다.',
         })}
-        error={errors.password2?.message as string | undefined}
+        error={errors.passwd2?.message as string | undefined}
         placeholder="비밀번호를 한번 더 입력 해주세요."
         required
       />
@@ -155,6 +156,16 @@ export default function BasicSignupForm() {
         error={errors.nationality?.message as string | undefined}
         required
         options={nationalityOptions}
+      />
+      <SelectField
+        label="지역 *"
+        name="city"
+        register={register('city', {
+          required: '지역을 선택해주세요.',
+        })}
+        error={errors.city?.message as string | undefined}
+        required
+        options={cityOptions}
       />
       <TextareaField
         label="자기소개"

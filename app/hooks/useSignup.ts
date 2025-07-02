@@ -11,8 +11,7 @@ export const useSignup = (type: 'basic' | 'model' | 'pro-photo') => {
       authService.signup(formData, type),
     onSuccess: () => {
       if (type === 'basic') {
-        alert('회원가입이 완료되었습니다.')
-        router.push('/step03')
+        router.push('/auth/signup/step03')
       }
       if (type === 'model') {
         router.push('/step02/model_user')

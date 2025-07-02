@@ -19,10 +19,10 @@ export default function Page() {
           메인으로 돌아가기
         </Link>
         <Link
-          href={'/:username'}
+          href={'/auth/login'}
           className="p-4 w-full border border-[var(--color-5)] rounded-4xl"
         >
-          마이페이지 둘러보기
+          로그인
         </Link>
       </div>
     </div>
