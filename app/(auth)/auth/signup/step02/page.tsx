@@ -1,4 +1,4 @@
-import RegisterForm from '../../_components/RegisterForm'
+import BasicSignupForm from '../../_components/BasicSignupForm'
 
 export default function Page() {
   return (
@@ -8,7 +8,7 @@ export default function Page() {
         회원정보를 입력해주세요.
       </h2>
 
-      <RegisterForm />
+      <BasicSignupForm />
     </div>
   )
 }

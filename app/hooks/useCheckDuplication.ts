@@ -13,6 +13,15 @@ export const useCheckDuplication = () => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_ENDPOINT}/user/duplicate/email`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        },
       )
       const data = await res.json()
 
@@ -34,7 +43,16 @@ export const useCheckDuplication = () => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ENDPOINT}/user/duplicate/name}`,
+        `${process.env.NEXT_PUBLIC_ENDPOINT}/user/duplicate/name`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: nickname.trim(),
+          }),
+        },
       )
 
       const data = await res.json()

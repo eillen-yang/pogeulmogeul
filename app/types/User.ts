@@ -1,9 +1,20 @@
 export interface User {
   email: string
   password: string
-  confirmPassword: string
-  nickname: string
+  password2: string
+  name: string
   gender: string
-  nation: string
-  bio?: string
+  nationality: string
+  intro?: string
 }
+
+export interface ModelUser {
+  email: string
+  height: string
+  weight: string
+  top: string
+  bottom: string
+  shoes: string
+}
+
+export interface Photographer {}

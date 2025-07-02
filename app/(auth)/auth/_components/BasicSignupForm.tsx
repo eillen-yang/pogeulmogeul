@@ -11,10 +11,12 @@ import {
 import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
 import { useSignup } from '@/app/hooks/useSignup'
 import { useCheckStore } from '@/app/stores/checkStore'
+import { Auth } from '@/app/types/Auth'
 import { User } from '@/app/types/User'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function RegisterForm() {
+export default function BasicSignupForm() {
   const {
     register,
     handleSubmit,
@@ -23,7 +25,9 @@ export default function RegisterForm() {
   } = useForm<User>()
   const { checkEmail, checkNickname } = useCheckDuplication()
   const { emailChecked, nicknameChecked } = useCheckStore()
-  const { mutate: signup, isPending } = useSignup()
+
+  const [signupType, setSignupType] = useState<Auth>('basic')
+  const { mutate: signup, isPending } = useSignup(signupType)
 
   const handleCheckEmail = async () => {
     const email = watch('email')
@@ -32,7 +36,7 @@ export default function RegisterForm() {
   }
 
   const handleCheckNickname = async () => {
-    const nickname = watch('nickname')
+    const nickname = watch('name')
     const message = await checkNickname(nickname)
     alert(message)
   }
@@ -98,28 +102,28 @@ export default function RegisterForm() {
       />
       <InputField
         label="비밀번호 확인 *"
-        name="confirmPassword"
+        name="password2"
         type="password"
-        register={register('confirmPassword', {
+        register={register('password2', {
           required: '비밀번호 확인은 필수입니다.',
           validate: (value) =>
             value === password || '비밀번호가 일치하지 않습니다.',
         })}
-        error={errors.confirmPassword?.message as string | undefined}
+        error={errors.password2?.message as string | undefined}
         placeholder="비밀번호를 한번 더 입력 해주세요."
         required
       />
       <InputField
         label="닉네임 *"
-        name="nickname"
-        register={register('nickname', {
+        name="name"
+        register={register('name', {
           required: '닉네임은 필수입니다.',
           minLength: {
             value: 2,
             message: '닉네임은 2자 이상이어야 합니다.',
           },
         })}
-        error={errors.nickname?.message as string | undefined}
+        error={errors.name?.message as string | undefined}
         required
         placeholder="닉네임을 입력해주세요."
         button={
@@ -142,28 +146,45 @@ export default function RegisterForm() {
         required
         options={genderOptions}
       />
-      {/* <SelectField
+      <SelectField
         label="국적 *"
-        name="nation"
-        register={register('nation', {
+        name="nationality"
+        register={register('nationality', {
           required: '국적을 선택해주세요.',
         })}
-        error={errors.nation?.message as string | undefined}
+        error={errors.nationality?.message as string | undefined}
         required
         options={nationalityOptions}
-      /> */}
+      />
       <TextareaField
         label="자기소개"
-        name="bio"
+        name="intro"
         placeholder="소개글을 작성하여 신뢰도를 높여주세요!"
-        register={register('bio')}
+        register={register('intro')}
       />
 
       <Button
+        onClick={() => setSignupType('basic')}
         type="submit"
         className="py-5"
       >
-        가입하기
+        일반회원으로 가입하기
+      </Button>
+      <Button
+        variant="ghost"
+        type="submit"
+        className="py-5"
+        onClick={() => setSignupType('model')}
+      >
+        모델회원으로 가입하기
+      </Button>
+      <Button
+        variant="ghost"
+        type="submit"
+        className="py-5"
+        onClick={() => setSignupType('pro-photo')}
+      >
+        사진작가회원으로 가입하기
       </Button>
     </form>
   )

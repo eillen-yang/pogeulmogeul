@@ -3,14 +3,23 @@ import { useRouter } from 'next/navigation'
 import { authService } from '../api/services/authService'
 import { User } from '../types/User'
 
-export const useSignup = () => {
+export const useSignup = (type: 'basic' | 'model' | 'pro-photo') => {
   const router = useRouter()
 
   const mutation = useMutation({
-    mutationFn: (formData: User) => authService.signup(formData),
+    mutationFn: (formData: User) =>
+      authService.signup(formData, type),
     onSuccess: () => {
-      alert('회원가입이 완료되었습니다.')
-      router.push('/step03')
+      if (type === 'basic') {
+        alert('회원가입이 완료되었습니다.')
+        router.push('/step03')
+      }
+      if (type === 'model') {
+        router.push('/step02/model_user')
+      }
+      if (type === 'pro-photo') {
+        router.push('/step02/photographer')
+      }
     },
     onError: (error: any) => {
       alert(error.message || '회원가입 실패')

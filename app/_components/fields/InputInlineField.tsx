@@ -28,12 +28,13 @@ export default function InputInlineField({
       </label>
       <div className="flex gap-2">
         <Input
+          name={name}
           type={type}
           {...register}
           placeholder={placeholder}
           className="border p-2 rounded w-full"
         />
-        {button}
+        {button && button}
       </div>
       {error && <p className="text-red-500 text-md mt-2">{error}</p>}
     </div>

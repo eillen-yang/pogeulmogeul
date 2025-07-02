@@ -1,9 +1,10 @@
-import { RegisterFormData } from '@/app/types/User'
+import { Auth } from '@/app/types/Auth'
+import { User } from '@/app/types/User'
 
 export const authService = {
-  signup: async (formData: RegisterFormData) => {
+  signup: async (formData: User, type: Auth) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ENDPOINT}/user/join/basic`,
+      `${process.env.NEXT_PUBLIC_ENDPOINT}/user/join/${type}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
