@@ -1,23 +1,35 @@
+'use client'
+
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { authService } from '../api/services/authService'
-import { User } from '../types/User'
+import { ModelUser, User } from '../types/User'
+import { UserType } from '../types/Auth'
 
-export const useSignup = (type: 'basic' | 'model' | 'pro-photo') => {
+export const useSignup = (type: UserType) => {
   const router = useRouter()
 
   const mutation = useMutation({
-    mutationFn: (formData: User) =>
-      authService.signup(formData, type),
-    onSuccess: () => {
+    mutationFn: async ({
+      formData,
+      type,
+    }: {
+      formData: User | ModelUser
+      type: UserType
+    }) => {
+      await authService.signup(formData, type)
+
+      return { formData, type }
+    },
+    onSuccess: ({ formData, type }) => {
       if (type === 'basic') {
         router.push('/auth/signup/step03')
+        return
       }
       if (type === 'model') {
-        router.push('/step02/model_user')
-      }
-      if (type === 'pro-photo') {
-        router.push('/step02/photographer')
+        router.replace('/auth/signup/step02/model')
+      } else if (type === 'pro-photo') {
+        router.replace('/auth/signup/step02/pro-photo')
       }
     },
     onError: (error: any) => {

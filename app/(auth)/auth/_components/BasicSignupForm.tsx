@@ -1,6 +1,6 @@
 'use client'
 
-import InputField from '@/app/_components/fields/InputInlineField'
+import InputInlineField from '@/app/_components/fields/InputInlineField'
 import SelectField from '@/app/_components/fields/SelectInlineField'
 import TextareaField from '@/app/_components/fields/TextareaField'
 import { Button } from '@/app/_components/ui/Button'
@@ -10,14 +10,16 @@ import {
   nationalityOptions,
 } from '@/app/_constants/selectOptions'
 import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
-import { useSignup } from '@/app/hooks/useSignup'
+import { useSignupFlow } from '@/app/hooks/useSignupFlow'
 import { useCheckStore } from '@/app/stores/checkStore'
-import { Auth } from '@/app/types/Auth'
+import { UserType } from '@/app/types/Auth'
 import { User } from '@/app/types/User'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function BasicSignupForm() {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -27,8 +29,8 @@ export default function BasicSignupForm() {
   const { checkEmail, checkNickname } = useCheckDuplication()
   const { emailChecked, nicknameChecked } = useCheckStore()
 
-  const [signupType, setSignupType] = useState<Auth>('basic')
-  const { mutate: signup, isPending } = useSignup(signupType)
+  const [signupType, setSignupType] = useState<UserType>('basic')
+  const { handleSignupFlow } = useSignupFlow()
 
   const handleCheckEmail = async () => {
     const email = watch('email')
@@ -44,25 +46,22 @@ export default function BasicSignupForm() {
 
   const passwd = watch('passwd')
 
-  const onSubmit = (data: any) => {
-    if (!emailChecked) {
-      alert('이메일 중복검사를 완료해주세요.')
+  const onSubmit = (data: User) => {
+    if (!emailChecked || !nicknameChecked) {
+      alert('중복검사를 완료해주세요.')
       return
     }
+    console.log('data', data)
 
-    if (!nicknameChecked) {
-      alert('닉네임 중복검사를 완료해주세요.')
-      return
-    }
-
-    signup(data)
+    handleSignupFlow(data, signupType)
   }
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="min-w-[415px] text-2xl flex flex-col gap-5"
+      className="w-full flex flex-col gap-5"
     >
-      <InputField
+      <InputInlineField
         label="이메일 *"
         name="email"
         register={register('email', {
@@ -74,7 +73,7 @@ export default function BasicSignupForm() {
         })}
         error={errors.email?.message as string | undefined}
         required
-        type="email"
+        type="text"
         placeholder="이메일을 입력해 주세요."
         button={
           <Button
@@ -86,7 +85,7 @@ export default function BasicSignupForm() {
           </Button>
         }
       />
-      <InputField
+      <InputInlineField
         label="비밀번호 *"
         name="passwd"
         type="password"
@@ -101,7 +100,7 @@ export default function BasicSignupForm() {
         placeholder="비밀번호를 입력해주세요. (8자리 이상)"
         required
       />
-      <InputField
+      <InputInlineField
         label="비밀번호 확인 *"
         name="passwd2"
         type="password"
@@ -114,7 +113,7 @@ export default function BasicSignupForm() {
         placeholder="비밀번호를 한번 더 입력 해주세요."
         required
       />
-      <InputField
+      <InputInlineField
         label="닉네임 *"
         name="name"
         register={register('name', {
