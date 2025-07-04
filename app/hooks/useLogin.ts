@@ -26,7 +26,7 @@ export const useLogin = () => {
       console.log('로그인 응답', user)
 
       setAuth(user, token)
-      // router.replace('/')
+      router.replace('/')
     },
     onError: (error: any) => {
       alert(error.message || '로그인 실패')

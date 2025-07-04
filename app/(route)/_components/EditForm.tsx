@@ -6,12 +6,16 @@ import InputOutlineField from '@/app/_components/fields/InputOutlineField'
 import SelectOutlineField from '@/app/_components/fields/SelectOutlineField'
 import TextareaOutlineField from '@/app/_components/fields/TextareaOutlineField'
 import { Button } from '@/app/_components/ui/Button'
+import { useAuthStore } from '@/app/stores/authStore'
 import { Post } from '@/app/types/Post'
 import getCategoryOptionsByPath from '@/app/utils/getCategoryOptionsByPath'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 export default function EditForm() {
+  const router = useRouter()
+  const { user } = useAuthStore()
+
   const pathname = usePathname()
   const isFree = pathname.includes('free')
   const isPhotoshop = pathname.includes('photoshop')
@@ -50,6 +54,11 @@ export default function EditForm() {
     })
     formData.append('request', requestBlob)
     formData.append('Title', data.title)
+  }
+
+  if (!user) {
+    router.replace('/auth/login')
+    return
   }
 
   return (

@@ -6,6 +6,7 @@ import { useSignupStore } from '@/app/stores/signupStore'
 import { User, ModelUser } from '@/app/types/User'
 import { UserType } from '@/app/types/Auth'
 
+// useSignup()과 중복이 너무 많아서 안쓰는 hook
 export const useSignupFlow = () => {
   const router = useRouter()
   const { setBasicInfo } = useSignupStore()

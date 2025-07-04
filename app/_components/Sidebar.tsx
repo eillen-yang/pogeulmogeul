@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import clsx from 'clsx'
+import { useAuthStore } from '../stores/authStore'
 
 export default function Sidebar() {
   const pathname = usePathname()
