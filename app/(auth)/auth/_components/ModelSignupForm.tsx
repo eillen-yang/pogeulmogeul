@@ -36,7 +36,7 @@ export default function ModelSignupForm() {
     console.log('email', modelData, userEmail, finalData)
 
     if (signupType === 'model') {
-      signup({ formData: finalData, type: 'model' })
+      signup({ formData: finalData, type: signupType })
       clearSignup()
       router.push('/auth/signup/step03')
     }

@@ -52,7 +52,7 @@ export default function PhotographerSignupForm() {
     }
 
     if (signupType === 'pro-photo') {
-      signup({ formData, type: 'pro-photo' })
+      signup({ formData, type: signupType })
       clearSignup()
     }
   }

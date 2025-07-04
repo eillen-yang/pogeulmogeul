@@ -3,7 +3,8 @@
 import InputInlineField from '@/app/_components/fields/InputInlineField'
 import { Button } from '@/app/_components/ui/Button'
 import { useLogin } from '@/app/hooks/useLogin'
-import { LoginFormData } from '@/app/types/Auth'
+import { LoginFormData, UserType } from '@/app/types/Auth'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function LoginForm() {
@@ -14,11 +15,10 @@ export default function LoginForm() {
   } = useForm<LoginFormData>()
 
   const { mutate: login } = useLogin()
+  const [userType, setUserType] = useState<UserType>('basic')
 
   const onSubmit = (data: LoginFormData) => {
-    console.log('data', data)
-
-    login(data)
+    login({ ...data, type: userType })
   }
   return (
     <form

@@ -10,16 +10,15 @@ import {
   nationalityOptions,
 } from '@/app/_constants/selectOptions'
 import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
+import { useSignup } from '@/app/hooks/useSignup'
 import { useSignupFlow } from '@/app/hooks/useSignupFlow'
 import { useCheckStore } from '@/app/stores/checkStore'
 import { UserType } from '@/app/types/Auth'
 import { User } from '@/app/types/User'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function BasicSignupForm() {
-  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -30,7 +29,7 @@ export default function BasicSignupForm() {
   const { emailChecked, nicknameChecked } = useCheckStore()
 
   const [signupType, setSignupType] = useState<UserType>('basic')
-  const { handleSignupFlow } = useSignupFlow()
+  const { mutate: signup } = useSignup()
 
   const handleCheckEmail = async () => {
     const email = watch('email')
@@ -51,9 +50,7 @@ export default function BasicSignupForm() {
       alert('중복검사를 완료해주세요.')
       return
     }
-    console.log('data', data)
-
-    handleSignupFlow(data, signupType)
+    signup({ formData: data, type: signupType })
   }
 
   return (
