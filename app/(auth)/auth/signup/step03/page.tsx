@@ -11,18 +11,18 @@ export default function Page() {
         <br />
         완료되었습니다.
       </h2>
-      <div className="flex flex-col items-center justify-center text-center gap-5 text-xl min-w-[420px]">
+      <div className="flex flex-col items-center justify-center text-center gap-5 text-xl min-w-[400px] font-semibold">
         <Link
           href={'/'}
-          className="p-4 w-full bg-[var(--main-color)] text-white rounded-4xl"
+          className="p-5 w-full bg-[var(--main-color)] text-white rounded-4xl"
         >
           메인으로 돌아가기
         </Link>
         <Link
-          href={'/:username'}
-          className="p-4 w-full border border-[var(--color-5)] rounded-4xl"
+          href={'/auth/login'}
+          className="p-5 w-full border border-[var(--color-5)] rounded-4xl"
         >
-          마이페이지 둘러보기
+          로그인
         </Link>
       </div>
     </div>

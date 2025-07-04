@@ -30,6 +30,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button
+      onClick={onClick}
       className={cn(base, variants[variant], className)}
       {...props}
     >

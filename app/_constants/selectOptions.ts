@@ -1,14 +1,24 @@
 // 회원가입
-export const genderOptions = ['여자', '남자']
-export const nationalityOptions = [
-  '아시아',
-  '유럽',
-  '중동',
-  '아프리카',
-  '북아메리카',
-  '남아메리카',
-  '오세아니아',
+export const genderOptions = ['여성', '남성']
+export const cityOptions = [
+  '서울',
+  '인천',
+  '경기',
+  '부산',
+  '대구',
+  '대전',
+  '세종',
+  '울산',
+  '제주',
+  '충북',
+  '충남',
+  '경북',
+  '경남',
+  '전북',
+  '전남',
+  '기타',
 ]
+export const nationalityOptions = ['내국인', '외국인']
 
 // 글쓰기
 export const modelCategoryOptions = [

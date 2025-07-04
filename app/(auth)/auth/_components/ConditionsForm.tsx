@@ -41,10 +41,7 @@ export default function ConditionsForm() {
   const isRequiredChecked = agreements.privacy && agreements.terms
 
   return (
-    <form
-      action=""
-      className="min-w-[415px]"
-    >
+    <form className="w-full">
       {AGREEMENTS.map(({ label, key, required }) => (
         <div
           key={key}
