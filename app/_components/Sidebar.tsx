@@ -4,12 +4,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import clsx from 'clsx'
+import { useAuthStore } from '../stores/authStore'
 
 export default function Sidebar() {
   const pathname = usePathname()
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const activeStyle = 'bg-purple-100 font-semibold rounded-4xl'
 
+  const isPost = pathname.includes('post')
+  const isEdit = pathname.includes('edit')
   const toggleMenu = (menu: string) => {
     setOpenMenu((prev) => (prev === menu ? null : menu))
   }
@@ -28,7 +31,7 @@ export default function Sidebar() {
   return (
     <aside className="fixed w-64 z-50">
       <nav>
-        <ul className="text-xl">
+        <ul className="text-2xl">
           {/* 포글모글 추천 */}
           <li
             className={clsx(
@@ -163,6 +166,15 @@ export default function Sidebar() {
           </li>
         </ul>
       </nav>
+
+      {isPost && !isEdit && (
+        <Link
+          href={`${pathname}/edit`}
+          className="block mt-5 w-full px-4 py-6 border border-[var(--main-color)] text-center rounded-4xl text-2xl text-[var(--main-color)] hover:underline hover:bg-[var(--main-color)] hover:text-white"
+        >
+          게시글 작성
+        </Link>
+      )}
     </aside>
   )
 }

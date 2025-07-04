@@ -1,3 +1,40 @@
+import PostProfile from '@/app/(route)/_components/PostProfile'
+import { faker } from '@faker-js/faker'
+
 export default function Page() {
-  return <div>게시글 상세페이지 입니다.</div>
+  return (
+    <div className="flex gap-4 pb-64">
+      <div className="flex-1/4">
+        <PostProfile />
+      </div>
+
+      <div className="flex-1 p-5 h-full border border-[var(--color-2)] rounded-2xl">
+        <p className="mb-5 text-[var(--color-10)] text-lg font-bold">
+          이미지
+        </p>
+        <div className="flex flex-col gap-7">
+          <img
+            className="w-full rounded-2xl"
+            src={faker.image.avatar()}
+            alt="상세페이지 이미지"
+          />
+          <img
+            className="w-full rounded-2xl"
+            src={faker.image.avatar()}
+            alt="상세페이지 이미지"
+          />
+          <img
+            className="w-full rounded-2xl"
+            src={faker.image.avatar()}
+            alt="상세페이지 이미지"
+          />
+          <img
+            className="w-full rounded-2xl"
+            src={faker.image.avatar()}
+            alt="상세페이지 이미지"
+          />
+        </div>
+      </div>
+    </div>
+  )
 }

@@ -63,11 +63,16 @@ svg {
   height: auto;
 }
 
-input {
-  padding: 16px 20px;
-  width: auto;
-  border: 1px solid #d7d7dc;
-  border-radius: 12px;
+input,
+textarea,
+select {
+  width: 100%;
+}
+
+input,
+select {
+  height: 48px;
+  padding: 8px 12px;
 }
 
 input,
@@ -77,4 +82,10 @@ select {
   color: inherit;
   background: transparent;
   outline: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

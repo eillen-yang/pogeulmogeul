@@ -10,7 +10,7 @@ type ButtonProps = {
 }
 
 const base =
-  'flex-1 h-[4.6rem] px-6 rounded-full text-2xl font-medium transition-shadow duration-200'
+  'min-w-38 flex-1 h-[4.6rem] px-6 rounded-full text-2xl font-semibold transition-shadow duration-200'
 
 const variants = {
   primary:
@@ -30,6 +30,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <button
+      onClick={onClick}
       className={cn(base, variants[variant], className)}
       {...props}
     >

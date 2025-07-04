@@ -34,7 +34,7 @@ export default function Page() {
           이메일로 시작하기
         </Link>
         <Link
-          href={'/auth/signup'}
+          href={'/auth/signup/step01'}
           className="text-[var(--color-6)] text-lg underline"
         >
           회원가입 하러가기

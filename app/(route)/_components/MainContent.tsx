@@ -15,14 +15,14 @@ export default function MainContent({ children }: Props) {
       {pathname === '/' ? (
         <div className="flex flex-col gap-14">
           {/* 구해요 섹션 */}
-          <div className="flex gap-4 flex-wrap">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex-1">
               <Title
                 prefix="모델 구해요! "
                 highlight="사진작가가 "
                 href="/post/model_wantit"
               />
-              <UserPostProfileCard />
+              <UserPostProfileCard url="/post/model_wantit" />
             </div>
             <div className="flex-1">
               <Title
@@ -30,7 +30,9 @@ export default function MainContent({ children }: Props) {
                 highlight="모델이 "
                 href="/post/photographer_wantit"
               />
-              <UserPostProfileCard />
+              <UserPostProfileCard
+                url={'/post/photographer_wantit'}
+              />
             </div>
           </div>
 
@@ -40,7 +42,7 @@ export default function MainContent({ children }: Props) {
               prefix="PICK!"
               highlight="포글모글 추천 "
             />
-            <div className="flex flex-row gap-4 flex-wrap">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <UserPhotoCard />
               <UserPhotoCard />
               <UserPhotoCard />
