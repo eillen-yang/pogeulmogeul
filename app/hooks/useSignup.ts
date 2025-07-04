@@ -3,10 +3,10 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { authService } from '../api/services/authService'
-import { ModelUser, User } from '../types/User'
+import { ModelUser, PhotographerUser, User } from '../types/User'
 import { UserType } from '../types/Auth'
 
-export const useSignup = (type: UserType) => {
+export const useSignup = () => {
   const router = useRouter()
 
   const mutation = useMutation({
@@ -14,22 +14,29 @@ export const useSignup = (type: UserType) => {
       formData,
       type,
     }: {
-      formData: User | ModelUser
+      formData: User | ModelUser | PhotographerUser | FormData
       type: UserType
     }) => {
       await authService.signup(formData, type)
 
       return { formData, type }
     },
-    onSuccess: ({ formData, type }) => {
+    onSuccess: ({ type }) => {
+      const currentPath = window.location.pathname
       if (type === 'basic') {
         router.push('/auth/signup/step03')
         return
       }
+
+      if (currentPath.includes('/step02')) {
+        router.push('/auth/signup/step03')
+        return
+      }
+
       if (type === 'model') {
-        router.replace('/auth/signup/step02/model')
+        router.push('/auth/signup/step02/model')
       } else if (type === 'pro-photo') {
-        router.replace('/auth/signup/step02/pro-photo')
+        router.push('/auth/signup/step02/pro-photo')
       }
     },
     onError: (error: any) => {

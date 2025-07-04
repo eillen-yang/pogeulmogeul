@@ -18,4 +18,13 @@ export interface ModelUser {
   shoes: string
 }
 
-export interface Photographer {}
+export interface PhotographerUser {
+  RequestBody: {
+    email: string
+    businessTrip: string
+    correction: string
+    production: string
+    url: string
+  }
+  File: FileList
+}

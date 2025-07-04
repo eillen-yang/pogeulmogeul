@@ -1,7 +1,7 @@
 import Input from '../ui/Input'
 
 type InputFieldProps = {
-  label: string
+  label?: string
   name: string
   type?: string
   register: any

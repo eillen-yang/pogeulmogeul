@@ -1,14 +1,20 @@
 import { UserType, LoginFormData } from '@/app/types/Auth'
-import { ModelUser, User } from '@/app/types/User'
+import { ModelUser, PhotographerUser, User } from '@/app/types/User'
 
 export const authService = {
-  signup: async (formData: User | ModelUser, type: UserType) => {
+  signup: async (
+    formData: User | ModelUser | PhotographerUser | FormData,
+    type: UserType,
+  ) => {
+    const isFormData = formData instanceof FormData
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_ENDPOINT}/user/join/${type}`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: isFormData
+          ? undefined
+          : { 'Content-Type': 'application/json' },
+        body: isFormData ? formData : JSON.stringify(formData),
       },
     )
 

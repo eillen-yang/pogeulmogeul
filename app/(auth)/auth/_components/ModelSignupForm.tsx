@@ -19,11 +19,12 @@ export default function ModelSignupForm() {
   } = useForm<Omit<ModelUser, 'email'>>()
   const [signupType, setSignupType] = useState<UserType>('model')
   const { userEmail, clearSignup } = useSignupStore()
-  const { mutate: signup, isPending } = useSignup(signupType)
+  const { mutate: signup, isPending } = useSignup()
 
   const onSubmit = (modelData: Omit<ModelUser, 'email'>) => {
     if (!userEmail) {
       alert('회원가입 정보가 누락되었습니다.')
+      router.replace('/auth/signup/step01')
       return
     }
 
