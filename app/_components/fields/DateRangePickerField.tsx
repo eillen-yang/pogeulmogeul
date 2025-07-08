@@ -5,17 +5,17 @@ import 'react-datepicker/dist/react-datepicker.css'
 interface DateRangePickerFieldProps {
   control: Control<any>
   firstDate: string
-  endDate: string
+  lastDate: string
   firstDateError?: string
-  endDateError?: string
+  lastDateError?: string
 }
 
 export default function DateRangePickerField({
   control,
   firstDate,
-  endDate,
+  lastDate,
   firstDateError,
-  endDateError,
+  lastDateError,
 }: DateRangePickerFieldProps) {
   const now = new Date()
 
@@ -55,7 +55,8 @@ export default function DateRangePickerField({
             rules={{ required: '시작일을 선택해주세요.' }}
             render={({ field }) => (
               <DatePicker
-                selected={field.value || now}
+                placeholderText="시작일을 선택해주세요."
+                selected={field.value ?? null}
                 onChange={field.onChange}
                 showTimeSelect
                 timeFormat="hh:mm aa"
@@ -78,12 +79,13 @@ export default function DateRangePickerField({
 
           {/* 종료일 */}
           <Controller
-            name={endDate}
+            name={lastDate}
             control={control}
             rules={{ required: '종료일을 선택해주세요.' }}
             render={({ field }) => (
               <DatePicker
-                selected={field.value || now}
+                placeholderText="종료일을 선택해주세요."
+                selected={field.value ?? null}
                 onChange={field.onChange}
                 showTimeSelect
                 timeFormat="hh:mm aa"
@@ -106,10 +108,10 @@ export default function DateRangePickerField({
         </div>
       </div>
 
-      {(firstDateError || endDateError) && (
+      {(firstDateError || lastDateError) && (
         <div className="text-red-500 text-sm flex gap-4 pl-[8rem]">
           {firstDateError && <p>{firstDateError}</p>}
-          {endDateError && <p>{endDateError}</p>}
+          {lastDateError && <p>{lastDateError}</p>}
         </div>
       )}
     </div>

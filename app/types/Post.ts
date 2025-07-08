@@ -1,11 +1,12 @@
-export interface Post {
+export interface Post<TCategory = string> {
+  id?: number
   title: string
-  content: string
+  contents: string
   price: number
-  location: string
+  place: string
   category: string[]
-  startData: Date
-  endDate: Date
-  mainImage?: FileList
-  detailImage?: FileList
+  firstDate: Date
+  lastDate: Date
+  mainImage: File
+  detailImage?: File[]
 }

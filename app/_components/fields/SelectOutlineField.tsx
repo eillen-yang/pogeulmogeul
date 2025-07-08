@@ -1,10 +1,11 @@
+import { UseFormRegisterReturn } from 'react-hook-form'
 import Select from '../ui/Select'
 
 type SelectFieldProps = {
   label: string
   name: string
   options: string[]
-  register: any
+  register: UseFormRegisterReturn
   required?: boolean
   error?: string
 }
@@ -23,6 +24,9 @@ export default function SelectOutlineField({
       <div className="flex-4/5">
         <Select
           {...register}
+          onChange={(e) => register.onChange(e)}
+          onBlur={register.onBlur}
+          ref={register.ref}
           variant="unstyled"
           defaultValue=""
         >
