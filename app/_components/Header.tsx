@@ -46,7 +46,7 @@ export default function Header() {
         isColors ? 'bg-[var(--main-color)]' : 'bg-white',
       )}
     >
-      <div className="container mx-auto px-3">
+      <div className="w-full max-w-[1024px] mx-auto">
         <div className="flex justify-between items-center">
           <h1>
             <Link
