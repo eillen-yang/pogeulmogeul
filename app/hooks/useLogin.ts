@@ -26,7 +26,11 @@ export const useLogin = () => {
       console.log('로그인 응답', user)
 
       setAuth(user, token)
-      router.replace('/')
+
+      const redirectTo =
+        localStorage.getItem('redirectAfterLogin') || '/'
+      localStorage.removeItem('redirectAfterLogin')
+      router.replace(redirectTo)
     },
     onError: (error: any) => {
       alert(error.message || '로그인 실패')
