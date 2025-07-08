@@ -5,7 +5,7 @@ import PostProfile from './PostProfile'
 import { TabMenu } from './TabMenu'
 import { useState } from 'react'
 import UserImages from './UserImages'
-import UserProfileContent from './UserProfileContent'
+import UserPostContent from './UserPostContent'
 import { useAuthStore } from '@/app/stores/authStore'
 import { useRouter } from 'next/navigation'
 
@@ -33,11 +33,7 @@ export default function UserClientComponent() {
           onTabChange={setActiveTab}
           userName="대상혁"
         />
-        {activeTab === '작성글' && (
-          <ul className="flex flex-col gap-5">
-            <UserProfileContent />
-          </ul>
-        )}
+        {activeTab === '작성글' && <UserPostContent />}
         {activeTab === '상대방 이미지' && <UserImages />}
       </div>
     </div>

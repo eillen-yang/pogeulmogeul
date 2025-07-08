@@ -4,12 +4,13 @@ import { TabType } from '@/app/types/Tabs'
 import PostProfile from './PostProfile'
 import { TabMenu } from './TabMenu'
 import { useState } from 'react'
-import MyProfileContent from './MyProfileContent'
 import MyImages from './MyImages'
 import { useAuthStore } from '@/app/stores/authStore'
 import { useRouter } from 'next/navigation'
+import MylikeContent from './MylikeContent'
+import MyPostContent from './MyPostContent'
 
-const TABS: TabType[] = ['내 프로필', '등록 이미지']
+const TABS: TabType[] = ['내 작성글', '등록 이미지', '좋아요']
 export default function MyClientComponent() {
   const router = useRouter()
   const { user } = useAuthStore()
@@ -31,8 +32,9 @@ export default function MyClientComponent() {
           activeTab={activeTab}
           onTabChange={(tab) => setActiveTab(tab)}
         />
-        {activeTab === '내 프로필' && <MyProfileContent />}
+        {activeTab === '내 작성글' && <MyPostContent />}
         {activeTab === '등록 이미지' && <MyImages />}
+        {activeTab === '좋아요' && <MylikeContent />}
       </div>
     </div>
   )
