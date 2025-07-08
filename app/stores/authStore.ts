@@ -1,15 +1,17 @@
-// /app/stores/authStore.ts
 import { create } from 'zustand'
+import { UserType } from '../types/Auth'
 
 type User = {
   id: string
   name: string
   email: string
+  role: UserType
 }
 
 type AuthState = {
   user: User | null
   token: string | null
+  isInitialized: boolean
   setAuth: (user: User, token: string) => void
   logout: () => void
   initialize: () => void
@@ -18,6 +20,7 @@ type AuthState = {
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   token: null,
+  isInitialized: false,
 
   setAuth: (user, token) => {
     if (user) {
@@ -32,7 +35,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   logout: () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    set({ user: null, token: null })
+    set({ user: null, token: null, isInitialized: true })
   },
 
   initialize: () => {
@@ -44,13 +47,17 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({
           token,
           user: parsed,
+          isInitialized: true,
         })
       } catch (error) {
         console.error(
           'Failed to parse user from localStorage:',
           error,
         )
+        set({ isInitialized: true })
       }
+    } else {
+      set({ isInitialized: true })
     }
   },
 }))
