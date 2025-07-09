@@ -6,8 +6,15 @@ import background from '@/public/sample.jpg'
 import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
 import heart from '@/public/icon/profile_heart.svg'
+import { UserInfo } from '@/app/types/UserInfo'
 
-export default function PostProfile() {
+interface PostCardProps {
+  post: UserInfo
+}
+
+export default function PostCard({ post }: PostCardProps) {
+  // console.log('post', post)
+
   return (
     <div>
       <Image

@@ -1,18 +1,19 @@
 import { create } from 'zustand'
 import { UserType } from '../types/Auth'
+import { UserInfo } from '../types/UserInfo'
 
 type User = {
   id: string
   name: string
   email: string
-  role: UserType
+  userRank: UserType
 }
 
 type AuthState = {
-  user: User | null
+  user: UserInfo | null
   token: string | null
   isInitialized: boolean
-  setAuth: (user: User, token: string) => void
+  setAuth: (user: UserInfo, token: string) => void
   logout: () => void
   initialize: () => void
 }
@@ -50,10 +51,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           isInitialized: true,
         })
       } catch (error) {
-        console.error(
-          'Failed to parse user from localStorage:',
-          error,
-        )
+        console.error('Failed to parse me from localStorage:', error)
         set({ isInitialized: true })
       }
     } else {

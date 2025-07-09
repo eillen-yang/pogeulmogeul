@@ -14,7 +14,7 @@ const makeRequestBody = (
     lastDate: form.lastDate.toISOString(),
   }
 
-  console.log('makeRequest Category', form.category)
+  console.log('makeRequest Category', form)
 
   if (pathname.includes('photoshop')) {
     return { ...base, category: form.category, price: form.price }
@@ -48,16 +48,18 @@ export const postService = {
     const requestBody = makeRequestBody(pathname, email, form)
     const formData = new FormData()
 
-    console.log('service form', formData, form, form.category)
-
     formData.append(
       'RequestBody',
       new Blob([JSON.stringify(requestBody)], {
         type: 'application/json',
       }),
     )
-    formData.append('Title', Title)
-    Details.forEach((file) => formData.append('Details', file))
+    if (Title) {
+      formData.append('Title', Title)
+    }
+    if (Details) {
+      Details.forEach((file) => formData.append('Details', file))
+    }
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(pathname)}`,
