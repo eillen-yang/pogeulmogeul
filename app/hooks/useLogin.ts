@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { LoginFormData, UserType } from '../types/Auth'
 import { authService } from '../api/services/authService'
 import { useAuthStore } from '../stores/authStore'
+import { userService } from '../api/services/userService'
 
 export const useLogin = () => {
   const router = useRouter()
@@ -13,7 +14,7 @@ export const useLogin = () => {
   const mutation = useMutation({
     mutationFn: async (data: LoginFormData & { type: UserType }) => {
       const loginRes = await authService.login(data)
-      const userInfo = await authService.getUserInfo(
+      const userInfo = await userService.getUserInfo(
         data.email,
         data.type,
       )

@@ -14,19 +14,30 @@ export default function UserPofileCard() {
           <Image
             width={46}
             height={46}
-            src={profile}
+            src={
+              // user.profileBasicImgPath &&
+              // user.profileBasicImgPath.length > 0
+              //   ? user.profileBasicImgPath[0]
+              //   :
+              profile
+            }
             alt="profile"
           />
         </Link>
         <div>
           <span className="text-[var(--color-5)] text-lg">
             일반회원
+            {/* {user.userRank} */}
           </span>
           <Link
-            href={'/:username'}
+            href={`
+            /:username`}
             className="flex items-center"
           >
-            <span className="text-2xl font-semibold">대상혁</span>
+            <span className="text-2xl font-semibold">
+              대상혁
+              {/* {user.name} */}
+            </span>
             <Image
               src={arrowRight}
               alt="링크이동"

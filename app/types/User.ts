@@ -9,6 +9,18 @@ export interface User {
   intro?: string
 }
 
+export interface BasicUser {
+  email: string
+  name: string
+  gender: string
+  city: string
+  nationality: string
+  intro: string
+  userRank: string
+  profileBasicImgPath: string[]
+  self: boolean
+}
+
 export interface ModelUser {
   email: string
   height: string

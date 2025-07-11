@@ -37,7 +37,6 @@ export default function EditForm() {
       title: '',
       contents: '',
       price: 0,
-      place: '',
       category: [],
       firstDate: undefined,
       lastDate: undefined,

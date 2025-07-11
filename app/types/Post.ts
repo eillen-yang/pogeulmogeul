@@ -1,4 +1,4 @@
-export interface Post<TCategory = string> {
+export interface Post {
   id?: number
   title: string
   contents: string

@@ -8,7 +8,7 @@ import { postService } from '../api/services/postService'
 import { categoryMap } from '../utils/categoryMap'
 
 interface UsePostSubmitProps {
-  mainImage: File | null
+  mainImage?: File | null
   detailImages?: File[]
   isEdit: boolean
 }
@@ -24,7 +24,9 @@ export const usePostSubmit = ({
 
   const onSubmit = useCallback(
     async (form: Post) => {
-      console.log('onSubmit 실행됌', form, mainImage, detailImages)
+      console.log('onSubmit 실행됌', form)
+
+      console.log('디버깅 user token', user, token)
 
       if (!user || !token) {
         alert('로그인이 필요합니다.')
@@ -55,14 +57,6 @@ export const usePostSubmit = ({
       const validCategoryValues = Object.values(categoryMap)
       const categoryJob = validCategoryValues.find((val) =>
         pathname.includes(val),
-      )
-
-      console.log(
-        'category',
-        categoryList,
-        categoryJob,
-        validCategoryValues,
-        form,
       )
 
       try {
