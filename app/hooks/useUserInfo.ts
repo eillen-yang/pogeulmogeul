@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { UserType } from '../types/Auth'
 import { userService } from '../api/services/userService'
-import { UserInfo } from '../types/UserInfo'
+import { AllUserInfo, UserInfo } from '../types/UserInfo'
 
 export const useUserInfo = (email: string, type: UserType) => {
-  return useQuery<UserInfo, Error>({
+  return useQuery<AllUserInfo, Error>({
     queryKey: ['userInfo', email, type],
     queryFn: () => userService.getUserInfo(email, type),
     enabled: !!email && !!type,

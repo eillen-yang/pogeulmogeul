@@ -12,3 +12,35 @@ export interface UserInfo {
   profileBasicImgPath?: string[]
   self: boolean
 }
+
+export interface AllUserInfo {
+  requestBody: {
+    uid: number
+    email: string
+    passwd: string
+    name: string
+    gender: string
+    nationality: string
+    city: string
+    intro: string
+    profileMainImg: string | null
+    profileBasicImgPath: string[]
+    userRank: string
+    height: string | null
+    weight: string | null
+    top: string | null
+    bottom: string | null
+    shoes: string | null
+    profileModelImgPath: string[]
+    businessTrip: string | null
+    correnction: string | null
+    production: string | null
+    profileProPhotoImgPath: string[]
+    portfolioPath: string | null
+    url: string | null
+    social: boolean
+    model: boolean
+    proPhoto: boolean
+  }
+  self: boolean
+}
