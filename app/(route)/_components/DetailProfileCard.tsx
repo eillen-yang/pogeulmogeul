@@ -22,6 +22,8 @@ interface DetailProfileCardProps {
 export default function DetailProfileCard({
   user,
 }: DetailProfileCardProps) {
+  console.log('user Detail', user)
+
   return (
     <div>
       <Image
@@ -32,7 +34,7 @@ export default function DetailProfileCard({
       />
       <div className="relative px-5">
         <div className="pb-10">
-          <div className="flex items-end gap-4 absolute left-40 -top-1/9 -translate-x-1/2 -translate-y-1/2">
+          <div className="flex items-end gap-4 absolute left-40 -top-1/5 -translate-x-1/2 -translate-y-1/2">
             <Image
               width={80}
               height={80}

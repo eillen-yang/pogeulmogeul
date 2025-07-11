@@ -20,14 +20,16 @@ export default function UserClientComponent() {
 
   const email = user?.email ?? ''
   const userType = mapUserTypeToLabel(
-    (user?.userRank ?? '일반회원') as UserType,
+    (user?.userRank ?? '회원') as UserType,
   )
 
-  const { data: userInfo, isLoading } = useUserInfo(email, userType)
+  const { data: userInfo, isLoading } = useUserInfo(email, 'all')
   if (!user) {
     router.replace('/auth/login')
     return
   }
+
+  console.log('상대방 username 페이지', userInfo)
 
   if (!user || isLoading || !userInfo) return null
 

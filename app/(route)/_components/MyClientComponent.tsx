@@ -27,7 +27,7 @@ export default function MyClientComponent() {
 
   console.log('user auth', user)
 
-  const { data: userInfo, isLoading } = useUserInfo(email, userType)
+  const { data: userInfo, isLoading } = useUserInfo(email, 'all')
 
   useEffect(() => {
     if (!user) {

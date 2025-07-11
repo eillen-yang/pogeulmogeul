@@ -28,11 +28,7 @@ export default function MyProfileContent() {
   } = useForm<AllUserInfo>()
 
   const email = user?.email ?? ''
-  const userType = mapUserTypeToLabel(
-    (user?.userRank ?? '일반회원') as UserType,
-  )
   const { data: userInfo, isLoading } = useUserInfo(email, 'all')
-  const { data: me } = useUserInfo(email, userType)
 
   const fieldNames = ['passwd', 'nationality', 'city', 'intro']
   const { editable, enable, disable } = useEditableFields(fieldNames)
@@ -63,7 +59,7 @@ export default function MyProfileContent() {
     }
   }, [userInfo, setValue])
 
-  console.log('userInfo', userInfo, 'me', me, 'user', user)
+  console.log('userInfo', userInfo, 'user', user)
 
   if (!user || isLoading || !userInfo) return null
 
