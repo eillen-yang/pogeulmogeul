@@ -6,6 +6,7 @@ type TextareaFieldProps = {
   register: any
   required?: boolean
   placeholder?: string
+  defaultValue?: string
 }
 
 export default function TextareaField({
@@ -14,6 +15,7 @@ export default function TextareaField({
   register,
   placeholder,
   required = false,
+  defaultValue,
 }: TextareaFieldProps) {
   return (
     <div>
