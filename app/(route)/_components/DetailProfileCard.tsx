@@ -5,17 +5,23 @@ import background from '@/public/sample.jpg'
 import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
 import heart from '@/public/icon/profile_heart.svg'
-import { UserInfo } from '@/app/types/UserInfo'
+import { AllUserInfo, UserInfo } from '@/app/types/UserInfo'
+import {
+  BasicUser,
+  ModelUser,
+  PhotographerUser,
+  User,
+} from '@/app/types/User'
+
+type UserType = BasicUser | ModelUser | PhotographerUser
 
 interface DetailProfileCardProps {
-  user: UserInfo
+  user: AllUserInfo
 }
 
 export default function DetailProfileCard({
   user,
 }: DetailProfileCardProps) {
-  console.log('user', user)
-
   return (
     <div>
       <Image
@@ -31,9 +37,9 @@ export default function DetailProfileCard({
               width={80}
               height={80}
               src={
-                user.profileBasicImgPath &&
-                user.profileBasicImgPath.length > 0
-                  ? user.profileBasicImgPath[0]
+                user.requestBody.profileBasicImgPath &&
+                user.requestBody.profileBasicImgPath.length > 0
+                  ? user.requestBody.profileBasicImgPath[0]
                   : dummy
               }
               alt="내 프로필"
@@ -41,10 +47,10 @@ export default function DetailProfileCard({
             <div className="flex items-start justify-center gap-3">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold">
-                  {user.name}
+                  {user.requestBody.name}
                 </span>
                 <span className="text-lg text-[var(--color-6)] font-medium">
-                  {user.userRank}
+                  {user.requestBody.userRank}
                 </span>
               </div>
               <button>
@@ -71,7 +77,7 @@ export default function DetailProfileCard({
               <span>캘린더 보기</span>
             </Link>
             <Link
-              href={user.self ? '/chat' : '/me/edit'}
+              href={user.self === false ? '/chat' : '/me/edit'}
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"
             >
               <Image
@@ -81,7 +87,9 @@ export default function DetailProfileCard({
                 alt="제안하기"
               />
               <span>
-                {user.self ? '제안하기' : '내 프로필 수정/등록'}
+                {user.self === false
+                  ? '제안하기'
+                  : '내 프로필 수정/등록'}
               </span>
             </Link>
           </div>
@@ -91,35 +99,35 @@ export default function DetailProfileCard({
             <div className="text-xl">
               <span className="text-black font-bold">이메일</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.email}
+                {user.requestBody.email}
               </p>
             </div>
             <div className="text-xl">
               <span className="text-black font-bold">지역</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.city}
+                {user.requestBody.city}
               </p>
             </div>
             <div className="text-xl">
               <span className="text-black font-bold">성별</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.gender}
+                {user.requestBody.gender}
               </p>
             </div>
             <div className="text-xl">
               <span className="text-black font-bold">내/외국인</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.nationality}
+                {user.requestBody.nationality}
               </p>
             </div>
 
-            {user.intro !== '' ? (
+            {user.requestBody.intro !== '' ? (
               <div>
                 <span className="text-lg text-black font-bold">
                   소개
                 </span>
                 <p className="font-medium text-[var(--color-6)]">
-                  {user.intro}
+                  {user.requestBody.intro}
                 </p>
               </div>
             ) : null}
@@ -128,22 +136,93 @@ export default function DetailProfileCard({
           {/* 일반 회원이 아닐경우 */}
           <div className="pt-10 flex flex-col gap-5">
             {/* 모델일 경우 */}
-            <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-              <span className="flex-1 text-lg font-bold">몸무게</span>
-              <p className="flex-3/5 text-lg font-normal">53kg</p>
-            </div>
-            <div className="flex gap-2 py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-              <span className="flex-1 text-lg font-bold">키</span>
-              <p className="flex-3/5 text-lg font-normal">174cm</p>
-            </div>
-            <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-              <span className="flex-1 text-lg font-bold">상의</span>
-              <p className="flex-3/5 text-lg font-normal">S</p>
-            </div>
-            <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-              <span className="flex-1 text-lg font-bold">하의</span>
-              <p className="flex-3/5 text-lg font-normal">S</p>
-            </div>
+            {user.requestBody.userRank === '모델회원' && (
+              <>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    몸무게
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.weight}kg
+                  </p>
+                </div>
+                <div className="flex gap-2 py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">키</span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.height}cm
+                  </p>
+                </div>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    상의
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.top}
+                  </p>
+                </div>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    하의
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.bottom}
+                  </p>
+                </div>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    신발
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.shoes}
+                  </p>
+                </div>
+              </>
+            )}
+
+            {user.requestBody.userRank === '사진기사회원' && (
+              <>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    출장
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.businessTrip}
+                  </p>
+                </div>
+                <div className="flex gap-2 py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    보정
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.correnction}
+                  </p>
+                </div>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    연출
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.production}
+                  </p>
+                </div>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    포트폴리오 주소
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.url}
+                  </p>
+                </div>
+                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1 text-lg font-bold">
+                    포트폴리오 파일
+                  </span>
+                  <p className="flex-3/5 text-lg font-normal">
+                    {user.requestBody.portfolioPath}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
