@@ -42,4 +42,22 @@ export const authService = {
 
     return res.json()
   },
+
+  getUserInfo: async (email: string, type: UserType) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_ENDPOINT}/user/info/${type}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      },
+    )
+
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.message || '유저 정보 조회 실패')
+    }
+
+    return res.json()
+  },
 }

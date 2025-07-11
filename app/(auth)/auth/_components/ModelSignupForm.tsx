@@ -53,7 +53,6 @@ export default function ModelSignupForm() {
           required: '키는 필수입니다.',
         })}
         error={errors.height?.message}
-        required
         placeholder="키를 입력해주세요."
       />
       <InputInlineField
@@ -63,7 +62,6 @@ export default function ModelSignupForm() {
           required: '몸무게는 필수입니다.',
         })}
         error={errors.weight?.message}
-        required
         placeholder="몸무게를 입력해주세요."
       />
 
@@ -74,7 +72,6 @@ export default function ModelSignupForm() {
           required: '상의 사이즈는 필수입니다.',
         })}
         error={errors.top?.message}
-        required
         placeholder="상의 사이즈를 입력해주세요."
       />
 
@@ -85,7 +82,6 @@ export default function ModelSignupForm() {
           required: '하의사이즈는 필수입니다.',
         })}
         error={errors.bottom?.message}
-        required
         placeholder="하의 사이즈를 입력해주세요."
       />
 
@@ -96,7 +92,6 @@ export default function ModelSignupForm() {
           required: '신발사이즈는 필수입니다.',
         })}
         error={errors.shoes?.message}
-        required
         placeholder="신발사이즈를 입력해주세요."
       />
 
