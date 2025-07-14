@@ -5,8 +5,13 @@ import UserPostCard from './UserPostCard'
 import { usePosts } from '@/app/hooks/usePosts'
 import { usePathname } from 'next/navigation'
 
-export default function UserPostProfileCard() {
-  const pathname = usePathname()
+interface Props {
+  url?: string
+}
+
+export default function UserPostProfileCard({ url }: Props) {
+  const fallbackPathname = usePathname()
+  const pathname = url || fallbackPathname
   const { data, isLoading, error } = usePosts(pathname)
 
   console.log('data', data)
