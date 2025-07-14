@@ -9,27 +9,38 @@ import calendar from '@/public/icon/gray_calendar.svg'
 import heart from '@/public/icon/profile_heart.svg'
 import { useParams, usePathname } from 'next/navigation'
 import { usePost } from '@/app/hooks/usePost'
-import { useAuthStore } from '@/app/stores/authStore'
 import dayjs from 'dayjs'
+import { usePosts } from '@/app/hooks/usePosts'
+import { useAuthStore } from '@/app/stores/authStore'
 
 export default function PostCard() {
   const params = useParams()
-
   const postId = Number(params?.postId)
-  const email = useAuthStore((state) => state.user?.email || '')
   const cateType = usePathname()
+
+  const meEmail = useAuthStore((state) => state.user?.email || '')
+
+  const { data: postList } = usePosts(cateType)
+  const matchedPost = postList?.find((post) => post.bid === postId)
+  const email = matchedPost?.baseBoard.email || ''
 
   const { data, isLoading, error } = usePost(postId, email, cateType)
 
-  const createAt = dayjs(data.createAt).format('YYYY.MM.DD HH:mm')
-  const firstDate = dayjs(data.firstDate).format('YYYY.MM.DD HH:mm')
-  const lastDate = dayjs(data.lastDate).format('YYYY.MM.DD HH:mm')
-  const formatted = data.price?.toLocaleString()
+  const createAt = dayjs(data?.createAt).format('YYYY.MM.DD HH:mm')
+  const firstDate = dayjs(data?.firstDate).format('YYYY.MM.DD HH:mm')
+  const lastDate = dayjs(data?.lastDate).format('YYYY.MM.DD HH:mm')
+  const formatted = data?.price?.toLocaleString()
 
-  if (isLoading) return <div>로딩 중 입니다...</div>
-  if (error) return <div>{error.message}</div>
-
-  console.log('data', data, postId, email, cateType)
+  if (isLoading || !email || !postId || isNaN(postId))
+    return <div>로딩 중 입니다...</div>
+  if (error)
+    return (
+      <div>
+        {error.message.includes('findBoard is null')
+          ? '해당 게시글이 존재하지 않거나 삭제되었습니다.'
+          : `에러 발생: ${error.message}`}
+      </div>
+    )
 
   return (
     <div>
@@ -80,18 +91,30 @@ export default function PostCard() {
               />
               <span>캘린더 보기</span>
             </Link>
-            <Link
-              href={'/chat'}
-              className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"
-            >
-              <Image
-                width={12}
-                height={12}
-                src={catting}
-                alt="제안하기"
-              />
-              <span>제안하기</span>
-            </Link>
+            {meEmail === email ? (
+              <button className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl">
+                <Image
+                  width={12}
+                  height={12}
+                  src={catting}
+                  alt="삭제하기"
+                />
+                <span>삭제하기</span>
+              </button>
+            ) : (
+              <Link
+                href={'/chat'}
+                className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"
+              >
+                <Image
+                  width={12}
+                  height={12}
+                  src={catting}
+                  alt="제안하기"
+                />
+                <span>제안하기</span>
+              </Link>
+            )}
           </div>
         </div>
         <div className="mt-8 text-2xl">
