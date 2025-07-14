@@ -78,10 +78,7 @@ export const usePostSubmit = ({
               token,
             )
 
-        const bid = result.data.bid
-        if (!bid) throw new Error('게시글 ID 누락')
-
-        router.push(`/post/${categoryJob}/${bid}`)
+        router.push(`/post/${categoryJob}`)
       } catch (err) {
         console.error(err)
         alert(
