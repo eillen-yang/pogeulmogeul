@@ -1,4 +1,4 @@
-import { Post } from '@/app/types/Post'
+import { Post, PostList } from '@/app/types/Post'
 import { getApiEndpoint } from '@/app/utils/getApiEndPoint'
 
 const makeRequestBody = (
@@ -98,6 +98,17 @@ export const postService = {
     }
   },
 
+  read: async (pathname: string): Promise<PostList[]> => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(pathname)}`,
+      { method: 'GET' },
+    )
+    if (!res.ok) {
+      throw new Error('게시글 목록 조회에 실패했습니다.')
+    }
+    return res.json()
+  },
+
   update: async (
     form: Post,
     Title: File,
@@ -107,7 +118,7 @@ export const postService = {
     token: string,
   ) => {
     const requestBody = {
-      id: form.id,
+      id: form.bid,
       ...makeRequestBody(pathname, email, form),
     }
 

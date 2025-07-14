@@ -1,55 +1,78 @@
-'use client'
-
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { Post, PostList } from '@/app/types/Post'
+import dayjs from 'dayjs'
 
 type Props = {
-  url?: string
+  post: PostList
+  pathname: string
 }
 
-export default function UserPostCard({ url }: Props) {
-  const pathname = usePathname()
+export default function UserPostCard({ post, pathname }: Props) {
+  const createAt = dayjs(post?.baseBoard.createAt).format(
+    'YYYY.MM.DD HH:mm',
+  )
+  const firstDate = dayjs(post?.baseBoard.firstDate).format(
+    'YYYY.MM.DD HH:mm',
+  )
+  const lastDate = dayjs(post?.baseBoard.lastDate).format(
+    'YYYY.MM.DD HH:mm',
+  )
+  const formatted = post.price?.toLocaleString()
 
   return (
-    <div className="flex gap-3 p-3">
-      <Link href={`post/:categoryJob/:postId`}>
-        <img
-          width={160}
-          height={160}
-          src={faker.image.avatar()}
-          className="rounded-3xl"
-          alt="모델구해요 게시글 이미지"
-        />
-      </Link>
-      <div className="flex flex-col gap-1.5">
-        <div className="text-lg text-[var(--color-4)] font-semibold">
-          <span>서울 · </span>
-          <span>2024.02.20 13:00</span>
-        </div>
-        <Link
-          href={`${url}/:postId`}
-          className="text-2xl text-[var(--color-10)] font-bold leading-none"
-        >
-          스튜디오 촬영 가능한 모델 구합니다! 스튜디오 촬영 가능한
-          모델 구합니다!
+    <>
+      <div
+        className="flex gap-3 p-3"
+        key={post?.bid}
+      >
+        <Link href={`${pathname}/${post?.bid}`}>
+          <img
+            width={160}
+            height={160}
+            src={faker.image.avatar()}
+            className="rounded-3xl"
+            alt="모델구해요 게시글 이미지"
+          />
         </Link>
-        <p className="text-lg text-[var(--color-6)] font-semibold">
-          03.13. 금요일 오후 12:00 ~ 03.13. 금요일 오후 01:00
-        </p>
-        <span className="text-[var(--foreground)] text-xl font-bold">
-          85,000원
-        </span>
-        <div className="flex items-center gap-2.5 text-lg text-[var(--main-color)]">
-          <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
-            전신
-          </span>
-          <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
-            기타
-          </span>
+        <div className="flex flex-col gap-1.5">
+          <div className="text-lg text-[var(--color-4)] font-semibold">
+            <span>{post?.place} · </span>
+            <span>{createAt}</span>
+          </div>
+          <Link
+            href={`${pathname}/${post?.bid}`}
+            className="text-2xl text-[var(--color-10)] font-bold leading-none"
+          >
+            {post.baseBoard?.title}
+          </Link>
+          <p className="text-lg text-[var(--color-6)] font-semibold">
+            {firstDate} ~ {lastDate}
+          </p>
+          {formatted === '0' ? (
+            <span className="text-[var(--foreground)] text-xl font-bold">
+              무료지원
+            </span>
+          ) : (
+            <span className="text-[var(--foreground)] text-xl font-bold">
+              {formatted}원
+            </span>
+          )}
+          <div className="flex items-center gap-2.5 text-lg text-[var(--main-color)]">
+            {post.bigCategory && (
+              <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
+                {post.bigCategory}
+              </span>
+            )}
+            {post.category.length > 0 && (
+              <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
+                {post.category}
+              </span>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
