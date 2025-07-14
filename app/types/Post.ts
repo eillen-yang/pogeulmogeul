@@ -29,4 +29,25 @@ export interface PostList {
   price?: string
 }
 
-export interface PostDetail {}
+export interface PostDetail {
+  name: string
+  title: string
+  contents: string
+  price?: number
+  place?: string
+  category: string[] | string
+  createdAt: string
+  firstDate: string
+  lastDate: string
+  gender: string
+  nationality: string
+  city: string
+  businessTrip: string | null
+  correction: string | null
+  production: string | null
+  portfolioPath: string | null
+  titlePath: string | null
+  detailPath: string[] | null
+  userRank: string
+  url: string | null
+}

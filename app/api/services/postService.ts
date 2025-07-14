@@ -174,4 +174,24 @@ export const postService = {
 
     return res.json()
   },
+
+  detail: async (postId: number, email: string, cateType: string) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(cateType)}/detail`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: postId, email }),
+      },
+    )
+
+    if (!res.ok) {
+      const err = await res.text()
+      console.error('❌ 상세 조회 에러', res.status, err)
+      throw new Error(`게시글 상세 조회 실퓨ㅐ: ${res.status}${err}`)
+    }
+    return res.json()
+  },
 }

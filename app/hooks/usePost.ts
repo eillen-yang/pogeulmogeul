@@ -1,12 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
-import { Post, PostList } from '../types/Post'
 import { postService } from '../api/services/postService'
 
-export function usePosts(pathname: string) {
-  return useQuery<PostList[], Error>({
-    queryKey: ['posts', pathname],
-    queryFn: () => postService.read(pathname),
+export const usePost = (
+  postId: number,
+  email: string,
+  cateType: string,
+) => {
+  return useQuery({
+    queryKey: ['post', postId, email],
+    queryFn: () => postService.detail(postId, email, cateType),
+    enabled: !!postId && !!email,
     staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
   })
 }

@@ -2,7 +2,7 @@
 
 import UserPofileCard from './UserPofileCard'
 import UserPostCard from './UserPostCard'
-import { usePosts } from '@/app/hooks/usePost'
+import { usePosts } from '@/app/hooks/usePosts'
 import { usePathname } from 'next/navigation'
 
 export default function UserPostProfileCard() {

@@ -1,4 +1,5 @@
-import { faker } from '@faker-js/faker'
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import dummy from '@/public/dummy.svg'
@@ -6,14 +7,29 @@ import background from '@/public/sample.jpg'
 import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
 import heart from '@/public/icon/profile_heart.svg'
-import { UserInfo } from '@/app/types/UserInfo'
+import { useParams, usePathname } from 'next/navigation'
+import { usePost } from '@/app/hooks/usePost'
+import { useAuthStore } from '@/app/stores/authStore'
+import dayjs from 'dayjs'
 
-interface PostCardProps {
-  post: UserInfo
-}
+export default function PostCard() {
+  const params = useParams()
 
-export default function PostCard({ post }: PostCardProps) {
-  // console.log('post', post)
+  const postId = Number(params?.postId)
+  const email = useAuthStore((state) => state.user?.email || '')
+  const cateType = usePathname()
+
+  const { data, isLoading, error } = usePost(postId, email, cateType)
+
+  const createAt = dayjs(data.createAt).format('YYYY.MM.DD HH:mm')
+  const firstDate = dayjs(data.firstDate).format('YYYY.MM.DD HH:mm')
+  const lastDate = dayjs(data.lastDate).format('YYYY.MM.DD HH:mm')
+  const formatted = data.price?.toLocaleString()
+
+  if (isLoading) return <div>로딩 중 입니다...</div>
+  if (error) return <div>{error.message}</div>
+
+  console.log('data', data, postId, email, cateType)
 
   return (
     <div>
@@ -34,9 +50,11 @@ export default function PostCard({ post }: PostCardProps) {
             />
             <div className="flex items-start justify-center gap-3">
               <div className="flex flex-col">
-                <span className="text-2xl font-bold">닉네임</span>
+                <span className="text-2xl font-bold">
+                  {data.name}
+                </span>
                 <span className="text-lg text-[var(--color-6)] font-medium">
-                  일반회원
+                  {data.userRank}
                 </span>
               </div>
               <button>
@@ -76,67 +94,44 @@ export default function PostCard({ post }: PostCardProps) {
             </Link>
           </div>
         </div>
-        <div className="mt-8">
+        <div className="mt-8 text-2xl">
           <div className="flex flex-col gap-2">
-            <span className="text-lg text-[var(--color-4)] font-medium">
-              2024.03.24 14:00
+            <span className="text-[var(--color-4)] font-medium">
+              {createAt}
             </span>
-            <p className="text-2xl font-bold">
-              야외 컨셉 촬영, 피팅, 쇼핑몰 등 (얼굴노출O) 모델
-              해드립니다!!
-            </p>
+            <p className="font-bold">{data.title}</p>
             <div>
-              <strong className="text-[var(--red-color)] text-2xl">
-                300,000
+              <strong className="text-[var(--red-color)]">
+                {formatted}
               </strong>
-              <span className="text-lg text-[var(--color-4)] font-medium">
+              <span className="text-[var(--color-4)] font-medium">
                 원
               </span>
             </div>
           </div>
-          <div className="pt-10 flex flex-col gap-10">
+          <div className="pt-10 flex flex-col gap-10 text-xl">
             <div className="flex flex-col gap-5">
               <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-                <span className="flex-1 text-lg font-bold">
-                  카테고리
-                </span>
-                <p className="flex-3/5 text-lg font-normal">
-                  얼굴, 전신, 기타
+                <span className="flex-1 font-bold">카테고리</span>
+                <p className="flex-3/5 font-normal">
+                  {data.category}
                 </p>
               </div>
               <div className="flex gap-2 py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-                <span className="flex-1 text-lg font-bold">
-                  날짜/시간
-                </span>
-                <p className="flex-3/5 text-lg font-normal">
-                  2024.03.13. 금요일 PM12:00 ~ 2024.03.13. 금요일
-                  PM01:00
+                <span className="flex-1 font-bold">날짜/시간</span>
+                <p className="flex-3/5 font-normal">
+                  {firstDate} ~ {lastDate}
                 </p>
               </div>
               <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-                <span className="flex-1 text-lg font-bold">지역</span>
-                <p className="flex-3/5 text-lg font-normal">
-                  서울시 강남구
-                </p>
+                <span className="flex-1 font-bold">지역</span>
+                <p className="flex-3/5 font-normal">{data.place}</p>
               </div>
             </div>
 
             <div className="py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-              <span className="text-lg font-bold">상세내용</span>
-              <p className="pt-3 text-lg font-normal">
-                안녕하세요 A컴퍼니 입니다. 모델/피팅/룩북/쇼핑몰 모델
-                진행 가능합니다. 촬영은 1시간부터 가능하고 장시간
-                촬영도 가능합니다 자연스러운 헤어/메이크업 가능합니다.
-                그 외에 협의 사항도 전달 주시면 협의 가능합니다.
-                채팅주세요 감사합니다! 모델/피팅/룩북/쇼핑몰 모델 진행
-                가능합니다. 촬영은 1시간부터 가능하고 장시간 촬영도
-                가능합니다 자연스러운 헤어/메이크업 가능합니다. 그
-                외에 협의 사항도 전달 주시면 협의 가능합니다.
-                채팅주세요 감사합니다! 모델/피팅/룩북/쇼핑몰 모델 진행
-                가능합니다. 노출 촬영은 죄송하지만 안하고있습니다!
-                좋은 기회가 되어 많은 촬영을 할 수 있다면
-                좋겠습니다감사합니다!!ㅎㅎ
-              </p>
+              <span className="font-bold">상세내용</span>
+              <p className="pt-3 font-normal">{data.contents}</p>
             </div>
           </div>
         </div>
