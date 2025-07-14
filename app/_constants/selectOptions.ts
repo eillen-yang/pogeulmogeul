@@ -30,11 +30,13 @@ export const modelCategoryOptions = [
   '기타',
 ]
 export const photoCategoryOptions = [
-  '프로필(개인, 바디, 증명, 여권)',
+  '프로필',
+  '바디프로필',
+  '증명사진',
   '스냅',
   '웨딩',
   '스트릿',
-  '행사(공연, 기업, 돌잔치, 결혼식)',
+  '행사',
   '기타',
 ]
 export const photoshopCategoryOptions = ['해줘', '해줄게']
