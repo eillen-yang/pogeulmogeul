@@ -14,7 +14,7 @@ export default function UserPostProfileCard({ url }: Props) {
   const pathname = url || fallbackPathname
   const { data, isLoading, error } = usePosts(pathname)
 
-  console.log('data', data)
+  console.log('게시글 리스트 data : ', data)
 
   if (isLoading) return <div>로딩중...</div>
   if (error) return <div>에러 발생 : {error.message}</div>
@@ -43,7 +43,7 @@ export default function UserPostProfileCard({ url }: Props) {
             pathname={pathname}
           />
           <hr className="mx-auto w-11/12 text-center text-[var(--color-3)]" />
-          <UserPofileCard />
+          <UserPofileCard post={post} />
         </div>
       ))}
     </>

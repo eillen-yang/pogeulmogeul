@@ -32,11 +32,7 @@ export default function PostCard() {
   const matchedPostId = postList?.find((post) => post.bid === postId)
   const id = matchedPostId?.bid || 0
 
-  const { data, isLoading, error, refetch } = usePost(
-    postId,
-    email,
-    cateType,
-  )
+  const { data, isLoading, error } = usePost(postId, email, cateType)
 
   const createAt = dayjs(data?.createAt).format('YYYY.MM.DD HH:mm')
   const firstDate = dayjs(data?.firstDate).format('YYYY.MM.DD HH:mm')
@@ -55,7 +51,7 @@ export default function PostCard() {
     try {
       await postService.delete(cateType, id, email, token)
       alert('게시물이 삭제되었습니다.')
-      router.back()
+      router.push('/')
     } catch (error: any) {
       console.error('삭제 실패', error)
       alert(`삭제 실패 : ${error.message}`)
