@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 import { Post } from '../types/Post'
 import { postService } from '../api/services/postService'
 import { categoryMap } from '../utils/categoryMap'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface UsePostSubmitProps {
   mainImage?: File | null
@@ -21,6 +22,7 @@ export const usePostSubmit = ({
   const router = useRouter()
   const pathname = usePathname()
   const { user, token } = useAuthStore()
+  const queryClient = useQueryClient()
 
   const onSubmit = useCallback(
     async (form: Post) => {
@@ -78,6 +80,9 @@ export const usePostSubmit = ({
               token,
             )
 
+        queryClient.invalidateQueries({
+          queryKey: ['posts', `/post/${categoryJob}`],
+        })
         router.push(`/post/${categoryJob}`)
       } catch (err) {
         console.error(err)
