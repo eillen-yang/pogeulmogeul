@@ -2,7 +2,7 @@ import { Post, PostList } from '@/app/types/Post'
 import { getApiEndpoint } from '@/app/utils/getApiEndPoint'
 
 const makeRequestBody = (
-  pathname: string,
+  cateType: string,
   email: string,
   form: Post,
 ) => {
@@ -14,7 +14,7 @@ const makeRequestBody = (
     lastDate: form.lastDate.toISOString(),
   }
 
-  if (pathname.includes('photoshop')) {
+  if (cateType.includes('photoshop')) {
     return {
       ...base,
       category:
@@ -24,12 +24,12 @@ const makeRequestBody = (
       price: form.price,
     }
   }
-  if (pathname.includes('free')) {
+  if (cateType.includes('free')) {
     return { ...base, place: form.place }
   }
   if (
-    pathname.includes('model') ||
-    pathname.includes('photographer')
+    cateType.includes('model') ||
+    cateType.includes('photographer')
   ) {
     return {
       ...base,
@@ -48,11 +48,11 @@ export const postService = {
     form: Post,
     Title: File,
     Details: File[],
-    pathname: string,
+    cateType: string,
     email: string,
     token: string,
   ) => {
-    const requestBody = makeRequestBody(pathname, email, form)
+    const requestBody = makeRequestBody(cateType, email, form)
     const formData = new FormData()
 
     console.log('✅ requestBody', requestBody)
@@ -73,7 +73,7 @@ export const postService = {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(pathname)}`,
+        `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(cateType)}`,
         {
           method: 'POST',
           headers: { Token: token },
