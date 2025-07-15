@@ -1,8 +1,8 @@
-import { Post } from '@/app/types/Post'
+import { Post, PostList } from '@/app/types/Post'
 import { getApiEndpoint } from '@/app/utils/getApiEndPoint'
 
 const makeRequestBody = (
-  pathname: string,
+  cateType: string,
   email: string,
   form: Post,
 ) => {
@@ -14,7 +14,7 @@ const makeRequestBody = (
     lastDate: form.lastDate.toISOString(),
   }
 
-  if (pathname.includes('photoshop')) {
+  if (cateType.includes('photoshop')) {
     return {
       ...base,
       category:
@@ -24,12 +24,12 @@ const makeRequestBody = (
       price: form.price,
     }
   }
-  if (pathname.includes('free')) {
+  if (cateType.includes('free')) {
     return { ...base, place: form.place }
   }
   if (
-    pathname.includes('model') ||
-    pathname.includes('photographer')
+    cateType.includes('model') ||
+    cateType.includes('photographer')
   ) {
     return {
       ...base,
@@ -48,11 +48,11 @@ export const postService = {
     form: Post,
     Title: File,
     Details: File[],
-    pathname: string,
+    cateType: string,
     email: string,
     token: string,
   ) => {
-    const requestBody = makeRequestBody(pathname, email, form)
+    const requestBody = makeRequestBody(cateType, email, form)
     const formData = new FormData()
 
     console.log('✅ requestBody', requestBody)
@@ -73,7 +73,7 @@ export const postService = {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(pathname)}`,
+        `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(cateType)}`,
         {
           method: 'POST',
           headers: { Token: token },
@@ -98,6 +98,17 @@ export const postService = {
     }
   },
 
+  read: async (pathname: string): Promise<PostList[]> => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(pathname)}`,
+      { method: 'GET' },
+    )
+    if (!res.ok) {
+      throw new Error('게시글 목록 조회에 실패했습니다.')
+    }
+    return res.json()
+  },
+
   update: async (
     form: Post,
     Title: File,
@@ -107,7 +118,7 @@ export const postService = {
     token: string,
   ) => {
     const requestBody = {
-      id: form.id,
+      id: form.bid,
       ...makeRequestBody(pathname, email, form),
     }
 
@@ -127,7 +138,7 @@ export const postService = {
       }${getApiEndpoint(pathname)}`,
       {
         method: 'PUT',
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Token: token },
         body: formData,
       },
     )
@@ -149,8 +160,8 @@ export const postService = {
       {
         method: 'DELETE',
         headers: {
+          Token: token,
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ id, email }),
       },
@@ -161,6 +172,26 @@ export const postService = {
       throw new Error(err.message || '게시글 삭제 실패ㅠ')
     }
 
+    return res.json()
+  },
+
+  detail: async (postId: number, email: string, cateType: string) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(cateType)}/detail`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: postId, email }),
+      },
+    )
+
+    if (!res.ok) {
+      const err = await res.text()
+      console.error('❌ 상세 조회 에러', res.status, err)
+      throw new Error(`게시글 상세 조회 실퓨ㅐ: ${res.status}${err}`)
+    }
     return res.json()
   },
 }

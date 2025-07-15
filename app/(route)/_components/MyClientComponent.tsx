@@ -13,7 +13,7 @@ import { mapUserTypeToLabel } from '@/app/utils/mapUserTypeToLabel'
 import { UserType } from '@/app/types/Auth'
 import DetailProfileCard from './DetailProfileCard'
 
-const TABS: TabType[] = ['내 작성글', '등록 이미지', '좋아요']
+const TABS: TabType[] = ['등록 이미지', '좋아요']
 
 export default function MyClientComponent() {
   const router = useRouter()
@@ -50,7 +50,7 @@ export default function MyClientComponent() {
           activeTab={activeTab}
           onTabChange={(tab) => setActiveTab(tab)}
         />
-        {activeTab === '내 작성글' && <MyPostContent />}
+        {/* {activeTab === '내 작성글' && <MyPostContent />} */}
         {activeTab === '등록 이미지' && <MyImages />}
         {activeTab === '좋아요' && <MylikeContent />}
       </div>
