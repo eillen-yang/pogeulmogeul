@@ -138,7 +138,7 @@ export const postService = {
       }${getApiEndpoint(pathname)}`,
       {
         method: 'PUT',
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Token: token },
         body: formData,
       },
     )
@@ -160,8 +160,8 @@ export const postService = {
       {
         method: 'DELETE',
         headers: {
+          Token: token,
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ id, email }),
       },

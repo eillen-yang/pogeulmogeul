@@ -7,29 +7,60 @@ import background from '@/public/sample.jpg'
 import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
 import heart from '@/public/icon/profile_heart.svg'
-import { useParams, usePathname } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { usePost } from '@/app/hooks/usePost'
 import dayjs from 'dayjs'
 import { usePosts } from '@/app/hooks/usePosts'
 import { useAuthStore } from '@/app/stores/authStore'
+import { postService } from '@/app/api/services/postService'
+import { useEffect } from 'react'
 
 export default function PostCard() {
+  const router = useRouter()
+  const cateType = usePathname()
   const params = useParams()
   const postId = Number(params?.postId)
-  const cateType = usePathname()
 
   const meEmail = useAuthStore((state) => state.user?.email || '')
+  const token = useAuthStore((state) => state.token)
 
   const { data: postList } = usePosts(cateType)
-  const matchedPost = postList?.find((post) => post.bid === postId)
-  const email = matchedPost?.baseBoard.email || ''
+  const matchedPostEmail = postList?.find(
+    (post) => post.bid === postId,
+  )
+  const email = matchedPostEmail?.baseBoard.email || ''
+  const matchedPostId = postList?.find((post) => post.bid === postId)
+  const id = matchedPostId?.bid || 0
 
-  const { data, isLoading, error } = usePost(postId, email, cateType)
+  const { data, isLoading, error, refetch } = usePost(
+    postId,
+    email,
+    cateType,
+  )
 
   const createAt = dayjs(data?.createAt).format('YYYY.MM.DD HH:mm')
   const firstDate = dayjs(data?.firstDate).format('YYYY.MM.DD HH:mm')
   const lastDate = dayjs(data?.lastDate).format('YYYY.MM.DD HH:mm')
   const formatted = data?.price?.toLocaleString()
+
+  const handleDelete = async () => {
+    if (!token) {
+      alert('로그인이 필요합니다.')
+      return
+    }
+
+    const confirmDelete = confirm('정말 삭제하시겠습니까 ?')
+    if (!confirmDelete) return
+
+    try {
+      await postService.delete(cateType, id, email, token)
+      alert('게시물이 삭제되었습니다.')
+      router.back()
+    } catch (error: any) {
+      console.error('삭제 실패', error)
+      alert(`삭제 실패 : ${error.message}`)
+    }
+  }
 
   if (isLoading || !email || !postId || isNaN(postId))
     return <div>로딩 중 입니다...</div>
@@ -92,13 +123,10 @@ export default function PostCard() {
               <span>캘린더 보기</span>
             </Link>
             {meEmail === email ? (
-              <button className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl">
-                <Image
-                  width={12}
-                  height={12}
-                  src={catting}
-                  alt="삭제하기"
-                />
+              <button
+                onClick={handleDelete}
+                className="flex items-center justify-center gap-1.5 h-14 bg-[var(--red-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"
+              >
                 <span>삭제하기</span>
               </button>
             ) : (
