@@ -38,5 +38,5 @@ export interface PhotographerUser {
     production: string
     url: string
   }
-  File: FileList
+  File: string
 }
