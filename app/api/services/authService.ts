@@ -7,6 +7,17 @@ export const authService = {
     type: UserType,
   ) => {
     const isFormData = formData instanceof FormData
+
+    console.log(
+      '🔥 회원가입 요청 URL:',
+      `${process.env.NEXT_PUBLIC_ENDPOINT}/user/join/${type}`,
+    )
+    console.log('🔥 전송 타입:', type)
+    console.log(
+      '🔥 전송 데이터:',
+      isFormData ? '[FormData]' : JSON.stringify(formData, null, 2),
+    )
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_ENDPOINT}/user/join/${type}`,
       {

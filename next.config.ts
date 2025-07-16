@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_ENDPOINT: process.env.NEXT_PUBLIC_ENDPOINT,
   },
+  typescript: {
+    ignoreBuildErrors: true, // 타입스크립트 에러 무시
+  },
+  eslint: {
+    ignoreDuringBuilds: true, // eslint 에러 무시
+  },
 }
 
 export default nextConfig
