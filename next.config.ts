@@ -1,17 +1,15 @@
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   env: {
     NEXT_PUBLIC_ENDPOINT: process.env.NEXT_PUBLIC_ENDPOINT,
   },
   typescript: {
-    ignoreBuildErrors: true, // 타입스크립트 에러 무시
+    ignoreBuildErrors: true,
   },
   eslint: {
-    ignoreDuringBuilds: true, // eslint 에러 무시
+    ignoreDuringBuilds: true,
   },
 }
 
-export default nextConfig
+module.exports = nextConfig
