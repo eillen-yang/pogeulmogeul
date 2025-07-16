@@ -3,6 +3,7 @@ import './globals.css'
 import AuthSession from './_components/AuthSession'
 import ReactQueryProvider from './_providers/ReactQueryProvider'
 import AuthInitializer from './_components/AuthProvider'
+import Home from './page'
 
 export const metadata: Metadata = {
   title: {
