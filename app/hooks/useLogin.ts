@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { LoginFormData, UserType } from '../types/Auth'
 import { authService } from '../api/services/authService'
 import { useAuthStore } from '../stores/authStore'
+import { userService } from '../api/services/userService'
 
 export const useLogin = () => {
   const router = useRouter()
@@ -13,7 +14,7 @@ export const useLogin = () => {
   const mutation = useMutation({
     mutationFn: async (data: LoginFormData & { type: UserType }) => {
       const loginRes = await authService.login(data)
-      const userInfo = await authService.getUserInfo(
+      const userInfo = await userService.getUserInfo(
         data.email,
         data.type,
       )
@@ -26,7 +27,11 @@ export const useLogin = () => {
       console.log('로그인 응답', user)
 
       setAuth(user, token)
-      router.replace('/')
+
+      const redirectTo =
+        localStorage.getItem('redirectAfterLogin') || '/'
+      localStorage.removeItem('redirectAfterLogin')
+      router.replace(redirectTo)
     },
     onError: (error: any) => {
       alert(error.message || '로그인 실패')

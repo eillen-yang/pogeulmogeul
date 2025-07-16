@@ -17,7 +17,8 @@ const variants = {
     'bg-[var(--main-color)] text-white shadow-md hover:bg-[var(--main-hover-color)] disabled:bg-[#2e1dad]',
   ghost:
     'bg-[#f5f5f9] text-[#333] hover:bg-[#e8e8f0]disabled:bg-[#f5f5f9] disabled:text-[#aaa]',
-  secondary: 'bg-secondary text-white hover:bg-indigo-500',
+  secondary:
+    'border border-indigo-500 text-[var(--main-color)] hover:bg-indigo-500 hover:text-white',
 }
 
 export const Button = ({

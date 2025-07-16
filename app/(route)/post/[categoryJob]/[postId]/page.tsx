@@ -1,11 +1,11 @@
-import PostProfile from '@/app/(route)/_components/PostProfile'
+import PostCard from '@/app/(route)/_components/PostCard'
 import { faker } from '@faker-js/faker'
 
 export default function Page() {
   return (
     <div className="flex gap-4 pb-64">
       <div className="flex-1/4">
-        <PostProfile />
+        <PostCard />
       </div>
 
       <div className="flex-1 p-5 h-full border border-[var(--color-2)] rounded-2xl">

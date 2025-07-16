@@ -6,11 +6,13 @@ import { useAuthStore } from '../stores/authStore'
 type Props = { children: ReactNode }
 
 export default function AuthInitializer({ children }: Props) {
-  const initialize = useAuthStore((state) => state.initialize)
+  const { isInitialized, initialize } = useAuthStore()
 
   useEffect(() => {
     initialize()
   }, [initialize])
+
+  if (!isInitialized) return null // 로딩스피너 추가
 
   return <>{children}</>
 }

@@ -79,7 +79,7 @@ export default function ImgUploadOutlineField({
       </div>
       {/* 이미지를 추가했으면 (length > 0) && () */}
       <div
-        className="w-full min-h-60 flex items-center justify-center cursor-pointer"
+        className="relative w-full min-h-60 flex items-center justify-center cursor-pointer"
         onClick={handleClick}
       >
         {previewUrls.length === 0 ? (

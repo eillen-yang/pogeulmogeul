@@ -1,7 +1,7 @@
 'use client'
 
 import InputInlineField from '@/app/_components/fields/InputInlineField'
-import SelectField from '@/app/_components/fields/SelectInlineField'
+import SelectInlineField from '@/app/_components/fields/SelectInlineField'
 import TextareaField from '@/app/_components/fields/TextareaField'
 import { Button } from '@/app/_components/ui/Button'
 import {
@@ -69,7 +69,6 @@ export default function BasicSignupForm() {
           },
         })}
         error={errors.email?.message as string | undefined}
-        required
         type="text"
         placeholder="이메일을 입력해 주세요."
         button={
@@ -95,7 +94,6 @@ export default function BasicSignupForm() {
         })}
         error={errors.passwd?.message as string | undefined}
         placeholder="비밀번호를 입력해주세요. (8자리 이상)"
-        required
       />
       <InputInlineField
         label="비밀번호 확인 *"
@@ -108,7 +106,6 @@ export default function BasicSignupForm() {
         })}
         error={errors.passwd2?.message as string | undefined}
         placeholder="비밀번호를 한번 더 입력 해주세요."
-        required
       />
       <InputInlineField
         label="닉네임 *"
@@ -121,7 +118,6 @@ export default function BasicSignupForm() {
           },
         })}
         error={errors.name?.message as string | undefined}
-        required
         placeholder="닉네임을 입력해주세요."
         button={
           <Button
@@ -133,7 +129,7 @@ export default function BasicSignupForm() {
           </Button>
         }
       />
-      <SelectField
+      <SelectInlineField
         label="성별 *"
         name="gender"
         register={register('gender', {
@@ -143,7 +139,7 @@ export default function BasicSignupForm() {
         required
         options={genderOptions}
       />
-      <SelectField
+      <SelectInlineField
         label="국적 *"
         name="nationality"
         register={register('nationality', {
@@ -153,7 +149,7 @@ export default function BasicSignupForm() {
         required
         options={nationalityOptions}
       />
-      <SelectField
+      <SelectInlineField
         label="지역 *"
         name="city"
         register={register('city', {

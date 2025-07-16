@@ -6,9 +6,10 @@ import { useCallback } from 'react'
 import { Post } from '../types/Post'
 import { postService } from '../api/services/postService'
 import { categoryMap } from '../utils/categoryMap'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface UsePostSubmitProps {
-  mainImage: File | null
+  mainImage?: File | null
   detailImages?: File[]
   isEdit: boolean
 }
@@ -21,10 +22,13 @@ export const usePostSubmit = ({
   const router = useRouter()
   const pathname = usePathname()
   const { user, token } = useAuthStore()
+  const queryClient = useQueryClient()
 
   const onSubmit = useCallback(
     async (form: Post) => {
-      console.log('onSubmit 실행됌', form, mainImage, detailImages)
+      console.log('onSubmit 실행됌', form)
+
+      console.log('디버깅 user token', user, token)
 
       if (!user || !token) {
         alert('로그인이 필요합니다.')
@@ -57,14 +61,6 @@ export const usePostSubmit = ({
         pathname.includes(val),
       )
 
-      console.log(
-        'category',
-        categoryList,
-        categoryJob,
-        validCategoryValues,
-        form,
-      )
-
       try {
         const result = isEdit
           ? await postService.update(
@@ -84,10 +80,10 @@ export const usePostSubmit = ({
               token,
             )
 
-        const bid = result.data.bid
-        if (!bid) throw new Error('게시글 ID 누락')
-
-        router.push(`/post/${categoryJob}/${bid}`)
+        queryClient.invalidateQueries({
+          queryKey: ['posts', `/post/${categoryJob}`],
+        })
+        router.push(`/post/${categoryJob}`)
       } catch (err) {
         console.error(err)
         alert(

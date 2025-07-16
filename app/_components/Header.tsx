@@ -75,14 +75,19 @@ export default function Header() {
               />
             </Link> */}
             {/* 로그인 안했을 경우 */}
-            <div className="flex gap-2 font-semibold text-xl">
+            <div className="flex items-center gap-2 font-semibold text-xl">
               {user ? (
-                <button
-                  onClick={logout}
-                  className="block py-2 px-7 text-white rounded-3xl border border-white bg-[var(--main-color)] hover:bg-[var(--main-hover-color)]"
-                >
-                  로그아웃
-                </button>
+                <>
+                  <span className="text-[var(--main-color)] font-bold text-2xl">
+                    {user.name}님!
+                  </span>
+                  <button
+                    onClick={logout}
+                    className="block py-2 px-7 text-white rounded-3xl border border-white bg-[var(--main-color)] hover:bg-[var(--main-hover-color)]"
+                  >
+                    로그아웃
+                  </button>
+                </>
               ) : (
                 <>
                   <Link
@@ -93,7 +98,7 @@ export default function Header() {
                   </Link>
                   <Link
                     href={'/auth/signup/step01'}
-                    className="block py-2 px-7 text-[var(--main-color)] bg-white hover:bg-[var(--main-color)] hover:text-white rounded-3xl border border-white hover:border hover:border-white"
+                    className="block py-2 px-7 text-[var(--main-color)] bg-white hover:bg-[var(--main-color)] hover:text-white rounded-3xl border border-[var(--main-color)] hover:border hover:border-white"
                   >
                     회원가입
                   </Link>

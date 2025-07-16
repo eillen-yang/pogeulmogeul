@@ -1,13 +1,51 @@
+'use client'
+
 import UserPofileCard from './UserPofileCard'
 import UserPostCard from './UserPostCard'
+import { usePosts } from '@/app/hooks/usePosts'
+import { usePathname } from 'next/navigation'
 
-type Props = { url: string }
+interface Props {
+  url?: string
+}
+
 export default function UserPostProfileCard({ url }: Props) {
+  const fallbackPathname = usePathname()
+  const pathname = url || fallbackPathname
+  const { data, isLoading, error } = usePosts(pathname)
+
+  console.log('게시글 리스트 data : ', data)
+
+  if (isLoading) return <div>로딩중...</div>
+  if (error) return <div>에러 발생 : {error.message}</div>
+
+  if (data?.length === 0) {
+    return (
+      <div className="flex items-center justify-center w-full min-h-80 border border-[var(--main-color)] rounded-2xl text-xl font-semibold text-[var(--main-color)] text-center">
+        <p>
+          아직 게시물이 없습니다.
+          <br />
+          가장 먼저 게시글을 작성해보세요!
+        </p>
+      </div>
+    )
+  }
+
   return (
-    <div className="border border-[var(--color-3)] rounded-3xl">
-      <UserPostCard url={url} />
-      <hr className="mx-auto w-11/12 text-center text-[var(--color-3)]" />
-      <UserPofileCard />
-    </div>
+    <>
+      {data?.map((post) => (
+        <div
+          className="border border-[var(--color-3)] rounded-3xl"
+          key={post.bid}
+        >
+          <UserPostCard
+            post={post}
+            pathname={pathname}
+          />
+          <hr className="mx-auto w-11/12 text-center text-[var(--color-3)]" />
+          <UserPofileCard post={post} />
+        </div>
+      ))}
+    </>
   )
 }

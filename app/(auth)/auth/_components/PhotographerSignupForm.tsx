@@ -100,7 +100,6 @@ export default function PhotographerSignupForm() {
             required: '포트폴리오 주소를 입력해주세요.',
           })}
           error={errors.RequestBody?.url?.message}
-          required
           placeholder="포트폴리오 주소를 입력해주세요."
         />
 

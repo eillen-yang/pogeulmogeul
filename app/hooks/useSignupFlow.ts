@@ -3,8 +3,9 @@
 import { useRouter } from 'next/navigation'
 import { authService } from '@/app/api/services/authService'
 import { useSignupStore } from '@/app/stores/signupStore'
-import { User, ModelUser } from '@/app/types/User'
+import { User } from '@/app/types/User'
 import { UserType } from '@/app/types/Auth'
+import { userService } from '../api/services/userService'
 
 // useSignup()과 중복이 너무 많아서 안쓰는 hook
 export const useSignupFlow = () => {
@@ -21,7 +22,7 @@ export const useSignupFlow = () => {
       if (signupType === 'basic') {
         router.push('/auth/signup/step03')
       } else {
-        const userInfo = await authService.getUserInfo(
+        const userInfo = await userService.getUserInfo(
           data.email,
           'basic',
         )

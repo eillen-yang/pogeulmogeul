@@ -5,8 +5,13 @@ import arrowRight from '@/public/icon/arrow_right.svg'
 import calendar from '@/public/icon/profile_calendar.svg'
 import talk from '@/public/icon/profile_talk.svg'
 import heart from '@/public/icon/profile_heart.svg'
+import { PostList } from '@/app/types/Post'
 
-export default function UserPofileCard() {
+type Props = {
+  post: PostList
+}
+
+export default function UserPofileCard({ post }: Props) {
   return (
     <div className="flex justify-between py-3 px-2.5">
       <div className="flex items-center gap-4">
@@ -14,19 +19,30 @@ export default function UserPofileCard() {
           <Image
             width={46}
             height={46}
-            src={profile}
+            src={
+              // user.profileBasicImgPath &&
+              // user.profileBasicImgPath.length > 0
+              //   ? user.profileBasicImgPath[0]
+              //   :
+              profile
+            }
             alt="profile"
           />
         </Link>
         <div>
           <span className="text-[var(--color-5)] text-lg">
             일반회원
+            {/* {user.userRank} */}
           </span>
           <Link
-            href={'/:username'}
+            href={`
+            /:username`}
             className="flex items-center"
           >
-            <span className="text-2xl font-semibold">대상혁</span>
+            <span className="text-2xl font-semibold">
+              {post?.baseBoard.email}
+              {/* {user.name} */}
+            </span>
             <Image
               src={arrowRight}
               alt="링크이동"
