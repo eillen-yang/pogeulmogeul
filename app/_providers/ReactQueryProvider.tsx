@@ -12,12 +12,16 @@ export default function ReactQueryProvider({
 }: PropsWithChildren) {
   const [client] = useState(() => new QueryClient())
 
+  const isDev = process.env.NODE_ENV === 'development'
+
   return (
     <QueryClientProvider client={client}>
       {children}
-      <div style={{ fontSize: '16px' }}>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </div>
+      {isDev && (
+        <div style={{ fontSize: '16px' }}>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </div>
+      )}
     </QueryClientProvider>
   )
 }

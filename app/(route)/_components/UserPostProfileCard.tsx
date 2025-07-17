@@ -14,10 +14,20 @@ export default function UserPostProfileCard({ url }: Props) {
   const pathname = url || fallbackPathname
   const { data, isLoading, error } = usePosts(pathname)
 
-  console.log('게시글 리스트 data : ', data)
+  console.log('게시글 리스트 data : ', data, pathname)
 
-  if (isLoading) return <div>로딩중...</div>
-  if (error) return <div>에러 발생 : {error.message}</div>
+  if (isLoading)
+    return (
+      <div>
+        <span>로딩중...</span>
+      </div>
+    )
+  if (error)
+    return (
+      <div className="text-red-500 border border-[var(--red-color)] rounded-2xl w-full min-h-80 text-xl font-medium flex items-center justify-center">
+        <span>에러 발생 : {error.message}</span>
+      </div>
+    )
 
   if (data?.length === 0) {
     return (

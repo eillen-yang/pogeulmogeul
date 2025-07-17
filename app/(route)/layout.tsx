@@ -15,9 +15,7 @@ export default function Layout({ children }: Props) {
             <div className="flex flex-row">
               <Sidebar />
               <section className="flex-1">
-                <div className="pl-80 min-h-dvh">
-                  <MainContent>{children}</MainContent>
-                </div>
+                <div className="pl-80 min-h-dvh">{children}</div>
               </section>
             </div>
           </div>
