@@ -13,6 +13,7 @@ import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
 import { useSignup } from '@/app/hooks/useSignup'
 import { useSignupFlow } from '@/app/hooks/useSignupFlow'
 import { useCheckStore } from '@/app/stores/checkStore'
+import { useSignupStore } from '@/app/stores/signupStore'
 import { UserType } from '@/app/types/Auth'
 import { User } from '@/app/types/User'
 import { useState } from 'react'
@@ -44,6 +45,8 @@ export default function BasicSignupForm() {
 
   const passwd = watch('passwd')
 
+  const { setBasicInfo } = useSignupStore()
+
   const onSubmit = (
     data: User,
     signupType: UserType,
@@ -53,7 +56,17 @@ export default function BasicSignupForm() {
       alert('중복검사를 완료해주세요.')
       return
     }
-    signup({ formData: data, signupType, redirectType })
+
+    signup(
+      { formData: data, signupType, redirectType },
+      {
+        onSuccess: () => {
+          if (redirectType !== 'basic' && data.email) {
+            setBasicInfo(data, data.email)
+          }
+        },
+      },
+    )
   }
 
   return (

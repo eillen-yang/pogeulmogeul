@@ -40,6 +40,7 @@ export default function ModelSignupForm() {
       redirectType: 'basic',
     })
     clearSignup()
+    router.push('/auth/signup/step03')
   }
   return (
     <form
@@ -96,9 +97,8 @@ export default function ModelSignupForm() {
       />
 
       <Button
-        type="button"
+        type="submit"
         className="py-5"
-        onClick={() => router.push('/auth/signup/step03')}
       >
         모델회원으로 가입 완료하기
       </Button>

@@ -23,6 +23,8 @@ export default function PhotographerSignupForm() {
   const { userEmail, clearSignup } = useSignupStore()
   const { mutate: signup } = useSignup()
 
+  console.log('pro photo userEmail: ', userEmail)
+
   const onSubmit = (photographerData: PhotographerUser) => {
     if (!userEmail) {
       alert('회원가입 정보가 누락되었습니다.')
@@ -56,6 +58,7 @@ export default function PhotographerSignupForm() {
       {
         onSuccess: () => {
           clearSignup()
+          router.push('/auth/signup/step03')
         },
       },
     )
@@ -115,9 +118,8 @@ export default function PhotographerSignupForm() {
       </div>
 
       <Button
-        type="button"
+        type="submit"
         className="py-5"
-        onClick={() => router.push('/auth/signup/step03')}
       >
         사진작가회원으로 가입 완료하기
       </Button>
