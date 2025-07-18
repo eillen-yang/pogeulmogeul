@@ -24,8 +24,6 @@ export const useLogin = () => {
       }
     },
     onSuccess: ({ token, user }) => {
-      console.log('로그인 응답', user)
-
       setAuth(user, token)
 
       const redirectTo =

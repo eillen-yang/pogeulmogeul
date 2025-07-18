@@ -55,8 +55,6 @@ export const postService = {
     const requestBody = makeRequestBody(cateType, email, form)
     const formData = new FormData()
 
-    console.log('✅ requestBody', requestBody)
-
     formData.append(
       'RequestBody',
       new Blob([JSON.stringify(requestBody)], {
@@ -99,8 +97,6 @@ export const postService = {
   },
 
   read: async (pathname: string): Promise<PostList[]> => {
-    console.log('🥹 read 호출 시 cateType:', pathname)
-
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}${getApiEndpoint(pathname)}`,
       { method: 'GET' },
