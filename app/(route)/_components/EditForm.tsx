@@ -64,10 +64,7 @@ export default function EditForm() {
 
   return (
     <form
-      onSubmit={handleSubmit((form) => {
-        console.log('폼 제출됌', form)
-        onSubmit(form)
-      })}
+      onSubmit={handleSubmit((form) => onSubmit(form))}
       className="flex flex-col gap-5 text-2xl"
       // className="space-y-4 p-6 max-w-3xl mx-auto"
     >

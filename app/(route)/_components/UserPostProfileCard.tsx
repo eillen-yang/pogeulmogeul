@@ -14,6 +14,8 @@ export default function UserPostProfileCard({ url }: Props) {
   const pathname = url || fallbackPathname
   const { data, isLoading, error } = usePosts(pathname)
 
+  const isMainPage = fallbackPathname === '/'
+
   console.log('게시글 리스트 data : ', data, pathname)
 
   if (isLoading)
@@ -24,12 +26,14 @@ export default function UserPostProfileCard({ url }: Props) {
     )
   if (error)
     return (
-      <div className="text-red-500 border border-[var(--red-color)] rounded-2xl w-full min-h-80 text-xl font-medium flex items-center justify-center">
+      <div className="text-red-500 border border-[var(--red-color)] rounded-2xl w-full min-h-96 text-xl font-medium flex items-center justify-center">
         <span>에러 발생 : {error.message}</span>
       </div>
     )
 
-  if (data?.length === 0) {
+  const postList = isMainPage ? data?.slice(0, 1) : data
+
+  if (!postList || postList.length === 0) {
     return (
       <div className="flex items-center justify-center w-full min-h-80 border border-[var(--main-color)] rounded-2xl text-xl font-semibold text-[var(--main-color)] text-center">
         <p>
@@ -43,7 +47,7 @@ export default function UserPostProfileCard({ url }: Props) {
 
   return (
     <>
-      {data?.map((post) => (
+      {postList?.map((post) => (
         <div
           className="border border-[var(--color-3)] rounded-3xl"
           key={post.bid}

@@ -26,8 +26,6 @@ export const usePostSubmit = ({
 
   const onSubmit = useCallback(
     async (form: Post) => {
-      console.log('onSubmit 실행됌', form)
-
       console.log('디버깅 user token', user, token)
 
       if (!user || !token) {

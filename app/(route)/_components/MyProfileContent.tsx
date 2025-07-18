@@ -59,8 +59,6 @@ export default function MyProfileContent() {
     }
   }, [userInfo, setValue])
 
-  console.log('userInfo', userInfo, 'user', user)
-
   if (!user || isLoading || !userInfo) return null
 
   const onSubmit = () => {}

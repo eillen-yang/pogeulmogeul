@@ -27,10 +27,12 @@ export default function UserPostCard({ post, pathname }: Props) {
         className="flex gap-3 p-3"
         key={post?.bid}
       >
-        <Link href={`${pathname}/${post?.bid}`}>
+        <Link
+          href={`${pathname}/${post?.bid}`}
+          className="flex-none"
+        >
           <img
-            width={160}
-            height={160}
+            width={140}
             src={faker.image.avatar()}
             className="rounded-3xl"
             alt="모델구해요 게시글 이미지"
@@ -43,11 +45,11 @@ export default function UserPostCard({ post, pathname }: Props) {
           </div>
           <Link
             href={`${pathname}/${post?.bid}`}
-            className="text-2xl text-[var(--color-10)] font-bold leading-none"
+            className="pr-1.5 line-clamp-2 text-2xl text-[var(--color-10)] font-bold leading-none"
           >
             {post.baseBoard?.title}
           </Link>
-          <p className="text-lg text-[var(--color-6)] font-semibold">
+          <p className="text-xl text-[var(--color-6)] font-semibold">
             {firstDate} ~ {lastDate}
           </p>
           {formatted === '0' ? (
