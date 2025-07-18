@@ -19,9 +19,9 @@ export default function PhotographerSignupForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<PhotographerUser>()
-  const [signupType, setSignupType] = useState<UserType>('pro-photo')
+
   const { userEmail, clearSignup } = useSignupStore()
-  const { mutate: signup, isPending } = useSignup()
+  const { mutate: signup } = useSignup()
 
   const onSubmit = (photographerData: PhotographerUser) => {
     if (!userEmail) {
@@ -51,10 +51,14 @@ export default function PhotographerSignupForm() {
       formData.append('File', file)
     }
 
-    if (signupType === 'pro-photo') {
-      signup({ formData, type: signupType })
-      clearSignup()
-    }
+    signup(
+      { formData, signupType: 'pro-photo', redirectType: 'basic' },
+      {
+        onSuccess: () => {
+          clearSignup()
+        },
+      },
+    )
   }
   return (
     <form
@@ -111,9 +115,9 @@ export default function PhotographerSignupForm() {
       </div>
 
       <Button
-        type="submit"
+        type="button"
         className="py-5"
-        onClick={() => setSignupType('pro-photo')}
+        onClick={() => router.push('/auth/signup/step03')}
       >
         사진작가회원으로 가입 완료하기
       </Button>

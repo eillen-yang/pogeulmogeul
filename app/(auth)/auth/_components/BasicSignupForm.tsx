@@ -28,7 +28,6 @@ export default function BasicSignupForm() {
   const { checkEmail, checkNickname } = useCheckDuplication()
   const { emailChecked, nicknameChecked } = useCheckStore()
 
-  const [signupType, setSignupType] = useState<UserType>('basic')
   const { mutate: signup } = useSignup()
 
   const handleCheckEmail = async () => {
@@ -45,19 +44,20 @@ export default function BasicSignupForm() {
 
   const passwd = watch('passwd')
 
-  const onSubmit = (data: User) => {
+  const onSubmit = (
+    data: User,
+    signupType: UserType,
+    redirectType: UserType,
+  ) => {
     if (!emailChecked || !nicknameChecked) {
       alert('중복검사를 완료해주세요.')
       return
     }
-    signup({ formData: data, type: signupType })
+    signup({ formData: data, signupType, redirectType })
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full flex flex-col gap-5"
-    >
+    <form className="w-full flex flex-col gap-5">
       <InputInlineField
         label="이메일 *"
         name="email"
@@ -167,25 +167,31 @@ export default function BasicSignupForm() {
       />
 
       <Button
-        onClick={() => setSignupType('basic')}
-        type="submit"
+        type="button"
         className="py-5"
+        onClick={handleSubmit((data) =>
+          onSubmit(data, 'basic', 'basic'),
+        )}
       >
         일반회원으로 가입하기
       </Button>
       <Button
         variant="ghost"
-        type="submit"
+        type="button"
         className="py-5"
-        onClick={() => setSignupType('model')}
+        onClick={handleSubmit((data) =>
+          onSubmit(data, 'basic', 'model'),
+        )}
       >
         모델회원으로 가입하기
       </Button>
       <Button
         variant="ghost"
-        type="submit"
+        type="button"
         className="py-5"
-        onClick={() => setSignupType('pro-photo')}
+        onClick={handleSubmit((data) =>
+          onSubmit(data, 'basic', 'pro-photo'),
+        )}
       >
         사진작가회원으로 가입하기
       </Button>

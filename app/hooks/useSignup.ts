@@ -6,36 +6,26 @@ import { authService } from '../api/services/authService'
 import { ModelUser, PhotographerUser, User } from '../types/User'
 import { UserType } from '../types/Auth'
 
+type SignupPayload = {
+  formData: User | ModelUser | PhotographerUser | FormData
+  signupType: UserType
+  redirectType: UserType
+}
 export const useSignup = () => {
   const router = useRouter()
 
   const mutation = useMutation({
-    mutationFn: async ({
-      formData,
-      type,
-    }: {
-      formData: User | ModelUser | PhotographerUser | FormData
-      type: UserType
-    }) => {
-      await authService.signup(formData, type)
-
-      return { formData, type }
+    mutationFn: async ({ formData, signupType }: SignupPayload) => {
+      await authService.signup(formData, signupType)
     },
-    onSuccess: ({ type }) => {
-      const currentPath = window.location.pathname
-      if (type === 'basic') {
-        router.push('/auth/signup/step03')
-        return
-      }
+    onSuccess: (_, variables) => {
+      const { redirectType } = variables
 
-      if (currentPath.includes('/step02')) {
+      if (redirectType === 'basic') {
         router.push('/auth/signup/step03')
-        return
-      }
-
-      if (type === 'model') {
+      } else if (redirectType === 'model') {
         router.push('/auth/signup/step02/model')
-      } else if (type === 'pro-photo') {
+      } else if (redirectType === 'pro-photo') {
         router.push('/auth/signup/step02/pro-photo')
       }
     },
