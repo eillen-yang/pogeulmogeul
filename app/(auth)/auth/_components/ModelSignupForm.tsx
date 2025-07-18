@@ -17,9 +17,8 @@ export default function ModelSignupForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<Omit<ModelUser, 'email'>>()
-  const [signupType, setSignupType] = useState<UserType>('model')
   const { userEmail, clearSignup } = useSignupStore()
-  const { mutate: signup, isPending } = useSignup()
+  const { mutate: signup } = useSignup()
 
   const onSubmit = (modelData: Omit<ModelUser, 'email'>) => {
     if (!userEmail) {
@@ -35,11 +34,12 @@ export default function ModelSignupForm() {
 
     console.log('email', modelData, userEmail, finalData)
 
-    if (signupType === 'model') {
-      signup({ formData: finalData, type: signupType })
-      clearSignup()
-      router.push('/auth/signup/step03')
-    }
+    signup({
+      formData: finalData,
+      signupType: 'model',
+      redirectType: 'basic',
+    })
+    clearSignup()
   }
   return (
     <form
@@ -96,9 +96,9 @@ export default function ModelSignupForm() {
       />
 
       <Button
-        type="submit"
+        type="button"
         className="py-5"
-        onClick={() => setSignupType('model')}
+        onClick={() => router.push('/auth/signup/step03')}
       >
         모델회원으로 가입 완료하기
       </Button>
