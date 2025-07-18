@@ -12,7 +12,7 @@ export const useCheckDuplication = () => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ENDPOINT}/user/duplicate/email`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/duplicate/email`,
         {
           method: 'POST',
           headers: {
@@ -43,7 +43,7 @@ export const useCheckDuplication = () => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ENDPOINT}/user/duplicate/name`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/duplicate/name`,
         {
           method: 'POST',
           headers: {
