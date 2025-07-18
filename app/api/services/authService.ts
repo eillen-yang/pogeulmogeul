@@ -10,7 +10,7 @@ export const authService = {
 
     console.log(
       '🔥 회원가입 요청 URL:',
-      `${process.env.NEXT_PUBLIC_ENDPOINT}/user/join/${type}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/join/${type}`,
     )
     console.log('🔥 전송 타입:', type)
     console.log(
@@ -19,7 +19,7 @@ export const authService = {
     )
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ENDPOINT}/user/join/${type}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/join/${type}`,
       {
         method: 'POST',
         headers: isFormData
@@ -38,7 +38,7 @@ export const authService = {
   },
   login: async (data: LoginFormData) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ENDPOINT}/login`,
+      `${process.env.NEXT_PUBLIC_API_URL}/login`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,7 +56,7 @@ export const authService = {
 
   getUserInfo: async (email: string, type: UserType) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ENDPOINT}/user/info/${type}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/info/${type}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

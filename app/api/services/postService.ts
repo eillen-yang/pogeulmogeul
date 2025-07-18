@@ -73,7 +73,7 @@ export const postService = {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(cateType)}`,
+        `${process.env.NEXT_PUBLIC_API_URL}${getApiEndpoint(cateType)}`,
         {
           method: 'POST',
           headers: { Token: token },
@@ -99,8 +99,10 @@ export const postService = {
   },
 
   read: async (pathname: string): Promise<PostList[]> => {
+    console.log('🥹 read 호출 시 cateType:', pathname)
+
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(pathname)}`,
+      `${process.env.NEXT_PUBLIC_API_URL}${getApiEndpoint(pathname)}`,
       { method: 'GET' },
     )
     if (!res.ok) {
@@ -133,9 +135,7 @@ export const postService = {
     Details.forEach((file) => formData.append('Details', file))
 
     const res = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_ENDPOINT
-      }${getApiEndpoint(pathname)}`,
+      `${process.env.NEXT_PUBLIC_API_URL}${getApiEndpoint(pathname)}`,
       {
         method: 'PUT',
         headers: { Token: token },
@@ -156,7 +156,7 @@ export const postService = {
     const endpoint = getApiEndpoint(boardType)
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ENDPOINT}${endpoint}`,
+      `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`,
       {
         method: 'DELETE',
         headers: {
@@ -177,7 +177,7 @@ export const postService = {
 
   detail: async (postId: number, email: string, cateType: string) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ENDPOINT}${getApiEndpoint(cateType)}/detail`,
+      `${process.env.NEXT_PUBLIC_API_URL}${getApiEndpoint(cateType)}/detail`,
       {
         method: 'POST',
         headers: {

@@ -8,5 +8,5 @@ export const getApiEndpoint = (cateTYpe: string) => {
     return '/board/pro-photo/need'
   if (cateTYpe.includes('photoshop')) return '/board/photo-shop'
   if (cateTYpe.includes('free')) return '/board/talent-donation'
-  return '/'
+  throw new Error(`❌ 유효하지 않은 cateType: ${cateTYpe}`)
 }
