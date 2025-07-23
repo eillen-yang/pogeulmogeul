@@ -32,21 +32,22 @@ export default function PhotographerSignupForm() {
       return
     }
 
-    const finalData = {
-      RequestBody: {
-        ...photographerData,
-        email: userEmail,
-      },
+    const requestBody = {
+      businessTrip: photographerData.RequestBody.businessTrip,
+      correction: photographerData.RequestBody.correction,
+      production: photographerData.RequestBody.production,
+      url: photographerData.RequestBody.url,
+      email: userEmail,
     }
 
     const formData = new FormData()
-    const requestBody = new Blob(
-      [JSON.stringify(finalData.RequestBody)],
-      {
+
+    formData.append(
+      'RequestBody',
+      new Blob([JSON.stringify(requestBody)], {
         type: 'application/json',
-      },
+      }),
     )
-    formData.append('RequestBody', requestBody)
 
     const file = photographerData.File?.[0]
     if (file) {
