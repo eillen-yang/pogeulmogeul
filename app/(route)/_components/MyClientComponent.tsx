@@ -21,9 +21,6 @@ export default function MyClientComponent() {
   const [activeTab, setActiveTab] = useState<TabType>(TABS[0])
 
   const email = user?.email ?? ''
-  const userType = mapUserTypeToLabel(
-    (user?.userRank ?? '일반회원') as UserType,
-  )
 
   const { data: userInfo, isLoading } = useUserInfo(email, 'all')
 
