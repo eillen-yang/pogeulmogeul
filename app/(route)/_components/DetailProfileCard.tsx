@@ -9,7 +9,7 @@ import { AllUserInfo } from '@/app/types/UserInfo'
 
 interface DetailProfileCardProps {
   user: AllUserInfo
-  email: string
+  email?: string
 }
 
 export default function DetailProfileCard({
@@ -17,8 +17,6 @@ export default function DetailProfileCard({
   email,
 }: DetailProfileCardProps) {
   console.log('user Detail', user)
-
-  console.log('user DDDDD', user.requestBody.email, email)
 
   return (
     <div>

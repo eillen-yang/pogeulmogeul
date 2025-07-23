@@ -40,3 +40,32 @@ export interface PhotographerUser {
   }
   File?: string
 }
+
+export interface PickUser {
+  uid: number
+  name: string
+  email: string
+  passwd: string
+  gender: '남성' | '여성'
+  nationality: string
+  city: string
+  height: string
+  weight: string
+  top: string
+  bottom: string
+  shoes: string
+  intro: string
+  profileMainImg: string | null
+  profileBasicImgPath: string[]
+  profileModelImgPath: string[]
+  profileProPhotoImgPath: string[]
+  portfolioPath: string | null
+  businessTrip: string | null
+  correction: string | null
+  production: string | null
+  url: string | null
+  social: boolean
+  model: boolean
+  proPhoto: boolean
+  userRank: '일반회원' | '모델회원' | '사진기사회원'
+}
