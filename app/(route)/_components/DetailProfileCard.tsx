@@ -5,24 +5,20 @@ import background from '@/public/sample.jpg'
 import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
 import heart from '@/public/icon/profile_heart.svg'
-import { AllUserInfo, UserInfo } from '@/app/types/UserInfo'
-import {
-  BasicUser,
-  ModelUser,
-  PhotographerUser,
-  User,
-} from '@/app/types/User'
-
-type UserType = BasicUser | ModelUser | PhotographerUser
+import { AllUserInfo } from '@/app/types/UserInfo'
 
 interface DetailProfileCardProps {
   user: AllUserInfo
+  email: string
 }
 
 export default function DetailProfileCard({
   user,
+  email,
 }: DetailProfileCardProps) {
   console.log('user Detail', user)
+
+  console.log('user DDDDD', user.requestBody.email, email)
 
   return (
     <div>
@@ -79,7 +75,11 @@ export default function DetailProfileCard({
               <span>캘린더 보기</span>
             </Link>
             <Link
-              href={user.self === false ? '/chat' : '/me/edit'}
+              href={
+                user.requestBody.email !== email
+                  ? '/chat'
+                  : '/me/edit'
+              }
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"
             >
               <Image
@@ -89,7 +89,7 @@ export default function DetailProfileCard({
                 alt="제안하기"
               />
               <span>
-                {user.self === false
+                {user.requestBody.email !== email
                   ? '제안하기'
                   : '내 프로필 수정/등록'}
               </span>
@@ -196,7 +196,7 @@ export default function DetailProfileCard({
                     보정
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.correnction}
+                    {user.requestBody.correction}
                   </p>
                 </div>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">

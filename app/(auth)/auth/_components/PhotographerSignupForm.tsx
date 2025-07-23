@@ -23,8 +23,6 @@ export default function PhotographerSignupForm() {
   const { userEmail, clearSignup } = useSignupStore()
   const { mutate: signup } = useSignup()
 
-  console.log('pro photo userEmail: ', userEmail)
-
   const onSubmit = (photographerData: PhotographerUser) => {
     if (!userEmail) {
       alert('회원가입 정보가 누락되었습니다.')
