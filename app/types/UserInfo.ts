@@ -33,7 +33,7 @@ export interface AllUserInfo {
     shoes: string | null
     profileModelImgPath: string[]
     businessTrip: string | null
-    correnction: string | null
+    correction: string | null
     production: string | null
     profileProPhotoImgPath: string[]
     portfolioPath: string | null
