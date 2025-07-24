@@ -59,7 +59,10 @@ export default function UserPhotoCard({
           {user?.userRank ?? fa?.fuserRank}
         </span>
       </Link>
-      <UserProfileCard user={user} />
+      <UserProfileCard
+        user={user}
+        fa={fa}
+      />
     </div>
   )
 }

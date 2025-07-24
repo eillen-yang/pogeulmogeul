@@ -1,15 +1,20 @@
 import UserPhotoCard from './UserPhotoCard'
 
-export default function MylikeContent() {
+interface MylikeContentProps {
+  favorites: FavoriteUsers[]
+}
+
+export default function MylikeContent({
+  favorites,
+}: MylikeContentProps) {
   return (
     <div className="grid grid-cols-2 gap-3">
-      <UserPhotoCard />
-      <UserPhotoCard />
-      <UserPhotoCard />
-      <UserPhotoCard />
-      <UserPhotoCard />
-      <UserPhotoCard />
-      <UserPhotoCard />
+      {favorites.map((fa: FavoriteUsers) => (
+        <UserPhotoCard
+          fa={fa}
+          key={fa.fid}
+        />
+      ))}
     </div>
   )
 }
