@@ -8,24 +8,39 @@ import { useAuthStore } from '@/app/stores/authStore'
 import { TabMenu } from './TabMenu'
 import MyImages from './MyImages'
 import MylikeContent from './MylikeContent'
-import MyPostContent from './MyPostContent'
-import { mapUserTypeToLabel } from '@/app/utils/mapUserTypeToLabel'
-import { UserType } from '@/app/types/Auth'
 import DetailProfileCard from './DetailProfileCard'
+import { favoriteService } from '@/app/api/services/favoriteService'
 
 const TABS: TabType[] = ['등록 이미지', '좋아요']
 
 export default function MyClientComponent() {
   const router = useRouter()
-  const { user } = useAuthStore()
+  const { user, token } = useAuthStore()
   const [activeTab, setActiveTab] = useState<TabType>(TABS[0])
+  const [favorites, setFavorites] = useState<FavoriteUsers[]>([])
+  const [isLoadingFavorites, setIsLoadingFavorites] = useState(true)
 
   const email = user?.email ?? ''
-  const userType = mapUserTypeToLabel(
-    (user?.userRank ?? '일반회원') as UserType,
-  )
-
   const { data: userInfo, isLoading } = useUserInfo(email, 'all')
+
+  console.log('favorites', favorites)
+
+  useEffect(() => {
+    if (!token) return
+
+    const fetchFavorites = async () => {
+      try {
+        const data = await favoriteService.getAllFavorites(token)
+        setFavorites(data)
+      } catch (error) {
+        console.error('즐겨찾기 불러오기 실패ㅠ', error)
+      } finally {
+        setIsLoadingFavorites(false)
+      }
+    }
+
+    fetchFavorites()
+  }, [token])
 
   useEffect(() => {
     if (!user) {
@@ -34,7 +49,8 @@ export default function MyClientComponent() {
     }
   }, [user])
 
-  if (!user || isLoading || !userInfo) return null
+  if (!user || isLoading || !userInfo || isLoadingFavorites)
+    return null
 
   return (
     <div className="flex gap-4 pb-64">
@@ -53,7 +69,9 @@ export default function MyClientComponent() {
         />
         {/* {activeTab === '내 작성글' && <MyPostContent />} */}
         {activeTab === '등록 이미지' && <MyImages />}
-        {activeTab === '좋아요' && <MylikeContent />}
+        {activeTab === '좋아요' && (
+          <MylikeContent favorites={favorites} />
+        )}
       </div>
     </div>
   )

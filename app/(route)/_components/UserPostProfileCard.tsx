@@ -1,6 +1,6 @@
 'use client'
 
-import UserPofileCard from './UserPofileCard'
+import UserProfileCard from './UserProfileCard'
 import UserPostCard from './UserPostCard'
 import { usePosts } from '@/app/hooks/usePosts'
 import { usePathname } from 'next/navigation'
@@ -57,7 +57,7 @@ export default function UserPostProfileCard({ url }: Props) {
             pathname={pathname}
           />
           <hr className="mx-auto w-11/12 text-center text-[var(--color-3)]" />
-          <UserPofileCard post={post} />
+          <UserProfileCard post={post} />
         </div>
       ))}
     </>

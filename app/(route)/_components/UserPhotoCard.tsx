@@ -1,12 +1,24 @@
 import Link from 'next/link'
-import UserPofileCard from './UserPofileCard'
 import { faker } from '@faker-js/faker'
+import { PickUser } from '@/app/types/User'
+import UserProfileCard from './UserProfileCard'
 
-export default function UserPhotoCard() {
+interface UserPhotoCardProps {
+  user?: PickUser
+  fa?: FavoriteUsers
+}
+
+export default function UserPhotoCard({
+  user,
+  fa,
+}: UserPhotoCardProps) {
   return (
-    <div className="w-full">
+    <div
+      className="w-full"
+      key={user?.uid ?? fa?.fid}
+    >
       <Link
-        href={'/:username'}
+        href={`/${user?.uid ?? fa?.fid}`}
         className={`relative flex flex-1/3 w-full h-fit pb-[350px] rounded-3xl bg-no-repeat bg-center bg-cover`}
         style={{
           backgroundImage: `url(${faker.image.avatar()})`,
@@ -16,16 +28,41 @@ export default function UserPhotoCard() {
 
         <div className="absolute w-full left-0 bottom-0 p-5 rounded-bl-3xl rounded-br-3xl z-10">
           <div className="flex flex-col text-[var(--color-2)] text-2xl font-bold">
-            <span>서울 · 내국인</span>
-            <span>170cm · 58kg</span>
-            <span>상 30 · 하 26 · 상 240</span>
+            <span>
+              {user?.city ?? fa?.fcity} ·{' '}
+              {user?.nationality ?? fa?.fnationality}
+            </span>
+            {(user?.userRank ?? fa?.fuserRank) === '모델회원' && (
+              <>
+                <span>
+                  {user?.height ?? fa?.fheight}cm ·{' '}
+                  {user?.weight ?? fa?.fweight}kg
+                </span>
+                <span>
+                  상의{user?.top ?? fa?.ftop} · 하의{user?.bottom} ·
+                  신발
+                  {user?.shoes ?? fa?.fshoes}
+                </span>
+              </>
+            )}
+            {(user?.userRank ?? fa?.fuserRank) === '사진기사회원' && (
+              <>
+                <span>
+                  출장 · {user?.businessTrip} | 보정 ·{' '}
+                  {user?.correction} | 연출 · {user?.production}
+                </span>
+              </>
+            )}
           </div>
         </div>
-        <span className="absolute bottom-5 right-5 w-10 h-6 bg-white/10 text-white text-[1.4rem] font-bold text-center leading-[2.5rem] rounded-[0.4rem]">
-          모델
+        <span className="absolute top-5 right-5 w-auto h-auto px-2 bg-[var(--main-color)] text-white text-2xl font-bold text-center leading-[2.5rem] rounded-[0.4rem]">
+          {user?.userRank ?? fa?.fuserRank}
         </span>
       </Link>
-      <UserPofileCard />
+      <UserProfileCard
+        user={user}
+        fa={fa}
+      />
     </div>
   )
 }

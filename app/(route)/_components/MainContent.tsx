@@ -1,8 +1,27 @@
+'use client'
+
 import { Title } from '@/app/_components/Title'
 import UserPostProfileCard from './UserPostProfileCard'
 import UserPhotoCard from './UserPhotoCard'
+import { postService } from '@/app/api/services/postService'
+import { useEffect, useState } from 'react'
 
 export default function MainContent() {
+  const [pickUsers, setPickUsers] = useState([])
+
+  useEffect(() => {
+    const fetchPickUsers = async () => {
+      try {
+        const data = await postService.getPickPosts()
+        setPickUsers(data)
+        console.log('pickUsers', data)
+      } catch (err) {
+        console.error('추천 pink 게시글 로딩 실패', err)
+      }
+    }
+    fetchPickUsers()
+  }, [])
+
   return (
     <div className="flex flex-col gap-14">
       {/* 구해요 섹션 */}
@@ -32,13 +51,9 @@ export default function MainContent() {
           highlight="포글모글 추천 "
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <UserPhotoCard />
-          <UserPhotoCard />
-          <UserPhotoCard />
-          <UserPhotoCard />
-          <UserPhotoCard />
-          <UserPhotoCard />
-          <UserPhotoCard />
+          {pickUsers.map((user) => (
+            <UserPhotoCard user={user} />
+          ))}
         </div>
       </div>
     </div>

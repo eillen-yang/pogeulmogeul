@@ -6,16 +6,32 @@ import calendar from '@/public/icon/profile_calendar.svg'
 import talk from '@/public/icon/profile_talk.svg'
 import heart from '@/public/icon/profile_heart.svg'
 import { PostList } from '@/app/types/Post'
+import { PickUser } from '@/app/types/User'
 
-type Props = {
-  post: PostList
+interface UserPofileCardProps {
+  user?: PickUser
+  post?: PostList
+  fa?: FavoriteUsers
 }
 
-export default function UserPofileCard({ post }: Props) {
+export default function UserProfileCard({
+  user,
+  post,
+  fa,
+}: UserPofileCardProps) {
+  console.log(
+    'user user user ',
+    user,
+    'post post post',
+    post,
+    'fa fa fa ',
+    fa,
+  )
+
   return (
     <div className="flex justify-between py-3 px-2.5">
       <div className="flex items-center gap-4">
-        <Link href={'/:username'}>
+        <Link href={`/${user?.uid ?? fa?.fid}`}>
           <Image
             width={46}
             height={46}
@@ -31,17 +47,16 @@ export default function UserPofileCard({ post }: Props) {
         </Link>
         <div>
           <span className="text-[var(--color-5)] text-lg">
-            일반회원
-            {/* {user.userRank} */}
+            {/* 일반회원 */}
+            {user?.userRank ?? fa?.fuserRank ?? '일반회원'}
           </span>
           <Link
-            href={`
-            /:username`}
+            href={`/${user?.uid ?? post?.bid ?? fa?.fid}`}
             className="flex items-center"
           >
             <span className="text-2xl font-semibold">
-              {post?.baseBoard.email}
-              {/* {user.name} */}
+              {/* 닉네임 */}
+              {user?.name ?? post?.baseBoard.email ?? fa?.name}
             </span>
             <Image
               src={arrowRight}
@@ -51,7 +66,7 @@ export default function UserPofileCard({ post }: Props) {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <Link href={'/:username/calendar'}>
+        <Link href={`/${user?.uid ?? post?.bid ?? fa?.fid}/calender`}>
           <Image
             width={20}
             height={20}
@@ -59,7 +74,7 @@ export default function UserPofileCard({ post }: Props) {
             alt="캘린더"
           />
         </Link>
-        <Link href={'/:username/chatting'}>
+        <Link href={`/${user?.uid ?? post?.bid ?? fa?.fid}/catting`}>
           <Image
             width={20}
             height={20}

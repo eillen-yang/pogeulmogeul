@@ -190,4 +190,18 @@ export const postService = {
     }
     return res.json()
   },
+  getPickPosts: async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/pick`,
+      {
+        method: 'GET',
+      },
+    )
+
+    if (!res.ok) {
+      throw new Error('Pick 게시물 가져오기 실패')
+    }
+
+    return res.json()
+  },
 }
