@@ -10,12 +10,12 @@ export default function NotFound() {
     <main className="relative flex min-h-screen items-center justify-center bg-[#F6F6FA] px-4 py-10 text-center overflow-hidden">
       <div className="z-10">
         {/* ✅ 픽셀 스타일 숫자 */}
-        <h1 className="text-[80px] md:text-[100px] text-[#200080] font-pixel leading-none tracking-wider">
+        <h1 className="text-[80px] md:text-[100px] text-[#200080] font-bold leading-none tracking-wider">
           404
         </h1>
 
         <p className="mt-4 text-gray-800 text-2xl md:text-3xl">
-          요청하신 페이지를 찾을 수 없습니다{' '}
+          요청하신 페이지를 찾을 수 없습니다
           <span className="inline-block">😢</span>
         </p>
         <p className="mt-1 text-xl text-gray-600">
