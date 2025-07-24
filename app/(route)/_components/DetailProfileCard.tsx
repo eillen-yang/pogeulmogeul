@@ -205,8 +205,8 @@ export default function DetailProfileCard({
                     {user.requestBody.production}
                   </p>
                 </div>
-                <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-                  <span className="flex-1 text-lg font-bold">
+                {/* <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
+                  <span className="flex-1/3 text-lg font-bold">
                     포트폴리오 주소
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
@@ -214,13 +214,13 @@ export default function DetailProfileCard({
                   </p>
                 </div>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
-                  <span className="flex-1 text-lg font-bold">
+                  <span className="flex-1/3 text-lg font-bold">
                     포트폴리오 파일
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
                     {user.requestBody.portfolioPath}
                   </p>
-                </div>
+                </div> */}
               </>
             )}
           </div>
