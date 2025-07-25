@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import ReactQueryProvider from './_providers/ReactQueryProvider'
 import AuthInitializer from './_components/AuthProvider'
+import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: {
@@ -23,6 +24,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <AuthInitializer>
             {/* <AuthSession> */}
+            <Toaster position="top-center" />
             {children}
             {/* </AuthSession> */}
           </AuthInitializer>
