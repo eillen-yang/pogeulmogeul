@@ -11,8 +11,7 @@ import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 
 export default function MainContent() {
   const [pickUsers, setPickUsers] = useState<PickUser[]>([])
-  const { favorites, favoriteMap, toggleFavorite } =
-    useFavoriteToggle()
+  const { favoriteMap, toggleFavorite } = useFavoriteToggle()
 
   useEffect(() => {
     const fetchPickUsers = async () => {
@@ -60,10 +59,8 @@ export default function MainContent() {
             <UserPhotoCard
               user={user}
               key={user.uid}
-              isFavorite={favoriteMap[user.uid] ?? false}
-              onFavoriteToggle={() =>
-                toggleFavorite(user.uid, user.name)
-              }
+              isFavorite={favoriteMap[user.name] ?? false}
+              onFavoriteToggle={() => toggleFavorite(user.name)}
             />
           ))}
         </div>

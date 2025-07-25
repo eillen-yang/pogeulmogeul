@@ -6,14 +6,14 @@ import { favoriteService } from '../api/services/favoriteService'
 import { useQuery } from '@tanstack/react-query'
 
 export const useFavoriteToggle = () => {
-  const { token } = useAuthStore()
+  const { token, user } = useAuthStore()
   const { addFavorite, removeFavorite, isAdding, isRemoving } =
     useFavorites()
   const [favoriteMap, setFavoriteMap] = useState<
-    Record<number, boolean>
+    Record<string, boolean>
   >({})
 
-  const { data: favorites = [] } = useQuery({
+  const { data: favorites = [] } = useQuery<FavoriteUsers[]>({
     queryKey: ['favorites'],
     queryFn: () => favoriteService.getAllFavorites(token!),
     enabled: !!token,
@@ -21,28 +21,33 @@ export const useFavoriteToggle = () => {
   })
 
   useEffect(() => {
+    console.log('💡즐겨찾기 목록:', favorites)
     if (favorites.length > 0) {
       const map = favorites.reduce(
-        (acc: Record<number, boolean>, user: FavoriteUsers) => {
-          acc[user.fid] = true
+        (acc: Record<string, boolean>, favUser) => {
+          acc[favUser.name] = true
           return acc
         },
-        {} as Record<string, boolean>,
+        {},
       )
       setFavoriteMap(map)
     }
-  }, [token])
+  }, [token, favorites])
 
-  const toggleFavorite = (uid: number, name: string) => {
+  const toggleFavorite = (name: string) => {
     if (!token) {
       toast.error('로그인이 필요합니다.')
       return
     }
-    const isFav = favoriteMap[uid] ?? false
+    if (user?.name === name) {
+      toast('자기 자신은 즐겨찾기 할 수 없습니다.')
+      return
+    }
+    const isFav = favoriteMap[name] ?? false
 
     setFavoriteMap((prev) => ({
       ...prev,
-      [uid]: !isFav,
+      [name]: !isFav,
     }))
 
     if (isFav) {

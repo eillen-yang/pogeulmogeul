@@ -66,10 +66,10 @@ export default function UserPhotoCard({
         </span>
       </Link>
       <UserProfileCard
+        onFavoriteToggle={onFavoriteToggle}
+        isFavorite={isFavorite}
         user={user}
         fa={fa}
-        isFavorite={isFavorite}
-        onFavoriteToggle={onFavoriteToggle}
       />
     </div>
   )

@@ -2,8 +2,8 @@ import UserPhotoCard from './UserPhotoCard'
 
 interface MylikeContentProps {
   favorites: FavoriteUsers[]
-  favoriteMap: Record<number, boolean>
-  onFavoriteToggle: (uid: number, name: string) => void
+  favoriteMap: Record<string, boolean>
+  onFavoriteToggle: (name: string) => void
 }
 
 export default function MylikeContent({
@@ -25,8 +25,8 @@ export default function MylikeContent({
         <UserPhotoCard
           fa={fa}
           key={fa.fid}
-          isFavorite={favoriteMap[fa.fid] ?? false}
-          onFavoriteToggle={() => onFavoriteToggle(fa.fid, fa.name)}
+          isFavorite={favoriteMap[fa.name] ?? false}
+          onFavoriteToggle={() => onFavoriteToggle(fa.name)}
         />
       ))}
     </div>

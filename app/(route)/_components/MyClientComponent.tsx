@@ -9,7 +9,6 @@ import { TabMenu } from './TabMenu'
 import MyImages from './MyImages'
 import MylikeContent from './MylikeContent'
 import DetailProfileCard from './DetailProfileCard'
-import { favoriteService } from '@/app/api/services/favoriteService'
 import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 
 const TABS: TabType[] = ['등록 이미지', '좋아요']
