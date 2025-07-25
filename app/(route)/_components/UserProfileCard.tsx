@@ -4,30 +4,25 @@ import profile from '@/public/dummy.svg'
 import arrowRight from '@/public/icon/arrow_right.svg'
 import calendar from '@/public/icon/profile_calendar.svg'
 import talk from '@/public/icon/profile_talk.svg'
-import heart from '@/public/icon/profile_heart.svg'
 import { PostList } from '@/app/types/Post'
 import { PickUser } from '@/app/types/User'
+import { FavoriteButton } from './FavoriteButton'
 
 interface UserPofileCardProps {
   user?: PickUser
   post?: PostList
   fa?: FavoriteUsers
+  isFavorite: boolean
+  onFavoriteToggle: () => void
 }
 
 export default function UserProfileCard({
   user,
   post,
   fa,
+  isFavorite,
+  onFavoriteToggle,
 }: UserPofileCardProps) {
-  console.log(
-    'user user user ',
-    user,
-    'post post post',
-    post,
-    'fa fa fa ',
-    fa,
-  )
-
   return (
     <div className="flex justify-between py-3 px-2.5">
       <div className="flex items-center gap-4">
@@ -82,14 +77,10 @@ export default function UserProfileCard({
             alt="채팅"
           />
         </Link>
-        <button>
-          <Image
-            width={20}
-            height={20}
-            src={heart}
-            alt="좋아요"
-          />
-        </button>
+        <FavoriteButton
+          isActive={isFavorite}
+          onClick={onFavoriteToggle}
+        />
       </div>
     </div>
   )

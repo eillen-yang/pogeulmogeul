@@ -5,9 +5,13 @@ import UserPostProfileCard from './UserPostProfileCard'
 import UserPhotoCard from './UserPhotoCard'
 import { postService } from '@/app/api/services/postService'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { PickUser } from '@/app/types/User'
+import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 
 export default function MainContent() {
-  const [pickUsers, setPickUsers] = useState([])
+  const [pickUsers, setPickUsers] = useState<PickUser[]>([])
+  const { favoriteMap, toggleFavorite } = useFavoriteToggle()
 
   useEffect(() => {
     const fetchPickUsers = async () => {
@@ -52,7 +56,12 @@ export default function MainContent() {
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {pickUsers.map((user) => (
-            <UserPhotoCard user={user} />
+            <UserPhotoCard
+              user={user}
+              key={user.uid}
+              isFavorite={favoriteMap[user.name] ?? false}
+              onFavoriteToggle={() => toggleFavorite(user.name)}
+            />
           ))}
         </div>
       </div>

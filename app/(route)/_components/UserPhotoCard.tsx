@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 import { PickUser } from '@/app/types/User'
@@ -6,11 +8,15 @@ import UserProfileCard from './UserProfileCard'
 interface UserPhotoCardProps {
   user?: PickUser
   fa?: FavoriteUsers
+  isFavorite: boolean
+  onFavoriteToggle: () => void
 }
 
 export default function UserPhotoCard({
   user,
   fa,
+  isFavorite,
+  onFavoriteToggle,
 }: UserPhotoCardProps) {
   return (
     <div
@@ -60,6 +66,8 @@ export default function UserPhotoCard({
         </span>
       </Link>
       <UserProfileCard
+        onFavoriteToggle={onFavoriteToggle}
+        isFavorite={isFavorite}
         user={user}
         fa={fa}
       />

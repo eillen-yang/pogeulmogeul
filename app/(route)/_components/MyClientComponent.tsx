@@ -9,38 +9,19 @@ import { TabMenu } from './TabMenu'
 import MyImages from './MyImages'
 import MylikeContent from './MylikeContent'
 import DetailProfileCard from './DetailProfileCard'
-import { favoriteService } from '@/app/api/services/favoriteService'
+import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 
 const TABS: TabType[] = ['등록 이미지', '좋아요']
 
 export default function MyClientComponent() {
   const router = useRouter()
-  const { user, token } = useAuthStore()
+  const { user } = useAuthStore()
   const [activeTab, setActiveTab] = useState<TabType>(TABS[0])
-  const [favorites, setFavorites] = useState<FavoriteUsers[]>([])
-  const [isLoadingFavorites, setIsLoadingFavorites] = useState(true)
+  const { favorites, favoriteMap, toggleFavorite } =
+    useFavoriteToggle()
 
   const email = user?.email ?? ''
   const { data: userInfo, isLoading } = useUserInfo(email, 'all')
-
-  console.log('favorites', favorites)
-
-  useEffect(() => {
-    if (!token) return
-
-    const fetchFavorites = async () => {
-      try {
-        const data = await favoriteService.getAllFavorites(token)
-        setFavorites(data)
-      } catch (error) {
-        console.error('즐겨찾기 불러오기 실패ㅠ', error)
-      } finally {
-        setIsLoadingFavorites(false)
-      }
-    }
-
-    fetchFavorites()
-  }, [token])
 
   useEffect(() => {
     if (!user) {
@@ -49,8 +30,7 @@ export default function MyClientComponent() {
     }
   }, [user])
 
-  if (!user || isLoading || !userInfo || isLoadingFavorites)
-    return null
+  if (!user || isLoading || !userInfo) return null
 
   return (
     <div className="flex gap-4 pb-64">
@@ -70,7 +50,11 @@ export default function MyClientComponent() {
         {/* {activeTab === '내 작성글' && <MyPostContent />} */}
         {activeTab === '등록 이미지' && <MyImages />}
         {activeTab === '좋아요' && (
-          <MylikeContent favorites={favorites} />
+          <MylikeContent
+            favorites={favorites}
+            favoriteMap={favoriteMap}
+            onFavoriteToggle={toggleFavorite}
+          />
         )}
       </div>
     </div>
