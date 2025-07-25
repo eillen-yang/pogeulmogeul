@@ -10,6 +10,7 @@ import MyImages from './MyImages'
 import MylikeContent from './MylikeContent'
 import DetailProfileCard from './DetailProfileCard'
 import { favoriteService } from '@/app/api/services/favoriteService'
+import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 
 const TABS: TabType[] = ['등록 이미지', '좋아요']
 
@@ -19,11 +20,11 @@ export default function MyClientComponent() {
   const [activeTab, setActiveTab] = useState<TabType>(TABS[0])
   const [favorites, setFavorites] = useState<FavoriteUsers[]>([])
   const [isLoadingFavorites, setIsLoadingFavorites] = useState(true)
+  const { favoriteMap, toggleFavorite, setFavoriteMap } =
+    useFavoriteToggle()
 
   const email = user?.email ?? ''
   const { data: userInfo, isLoading } = useUserInfo(email, 'all')
-
-  console.log('favorites', favorites)
 
   useEffect(() => {
     if (!token) return
@@ -32,6 +33,12 @@ export default function MyClientComponent() {
       try {
         const data = await favoriteService.getAllFavorites(token)
         setFavorites(data)
+
+        const map: Record<number, boolean> = {}
+        data.forEach((fav: FavoriteUsers) => {
+          map[fav.fid] = true
+        })
+        setFavoriteMap(map)
       } catch (error) {
         console.error('즐겨찾기 불러오기 실패ㅠ', error)
       } finally {
@@ -40,7 +47,7 @@ export default function MyClientComponent() {
     }
 
     fetchFavorites()
-  }, [token])
+  }, [token, setFavoriteMap])
 
   useEffect(() => {
     if (!user) {
@@ -70,7 +77,11 @@ export default function MyClientComponent() {
         {/* {activeTab === '내 작성글' && <MyPostContent />} */}
         {activeTab === '등록 이미지' && <MyImages />}
         {activeTab === '좋아요' && (
-          <MylikeContent favorites={favorites} />
+          <MylikeContent
+            favorites={favorites}
+            favoriteMap={favoriteMap}
+            onFavoriteToggle={toggleFavorite}
+          />
         )}
       </div>
     </div>
