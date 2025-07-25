@@ -16,38 +16,13 @@ const TABS: TabType[] = ['등록 이미지', '좋아요']
 
 export default function MyClientComponent() {
   const router = useRouter()
-  const { user, token } = useAuthStore()
+  const { user } = useAuthStore()
   const [activeTab, setActiveTab] = useState<TabType>(TABS[0])
-  const [favorites, setFavorites] = useState<FavoriteUsers[]>([])
-  const [isLoadingFavorites, setIsLoadingFavorites] = useState(true)
-  const { favoriteMap, toggleFavorite, setFavoriteMap } =
+  const { favorites, favoriteMap, toggleFavorite } =
     useFavoriteToggle()
 
   const email = user?.email ?? ''
   const { data: userInfo, isLoading } = useUserInfo(email, 'all')
-
-  useEffect(() => {
-    if (!token) return
-
-    const fetchFavorites = async () => {
-      try {
-        const data = await favoriteService.getAllFavorites(token)
-        setFavorites(data)
-
-        const map: Record<number, boolean> = {}
-        data.forEach((fav: FavoriteUsers) => {
-          map[fav.fid] = true
-        })
-        setFavoriteMap(map)
-      } catch (error) {
-        console.error('즐겨찾기 불러오기 실패ㅠ', error)
-      } finally {
-        setIsLoadingFavorites(false)
-      }
-    }
-
-    fetchFavorites()
-  }, [token, setFavoriteMap])
 
   useEffect(() => {
     if (!user) {
@@ -56,8 +31,7 @@ export default function MyClientComponent() {
     }
   }, [user])
 
-  if (!user || isLoading || !userInfo || isLoadingFavorites)
-    return null
+  if (!user || isLoading || !userInfo) return null
 
   return (
     <div className="flex gap-4 pb-64">

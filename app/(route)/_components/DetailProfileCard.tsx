@@ -6,6 +6,7 @@ import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
 import heart from '@/public/icon/profile_heart.svg'
 import { AllUserInfo } from '@/app/types/UserInfo'
+import { FavoriteButton } from './FavoriteButton'
 
 interface DetailProfileCardProps {
   user: AllUserInfo
@@ -49,14 +50,16 @@ export default function DetailProfileCard({
                   {user.requestBody.userRank}
                 </span>
               </div>
-              <button>
-                <Image
-                  width={20}
-                  height={20}
-                  src={heart}
-                  alt="좋아요"
-                />
-              </button>
+              {user.requestBody.email !== email && (
+                <button>
+                  <Image
+                    width={20}
+                    height={20}
+                    src={heart}
+                    alt="좋아요"
+                  />
+                </button>
+              )}
             </div>
           </div>
           <div className="mt-28 flex flex-col gap-3">

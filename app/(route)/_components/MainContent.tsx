@@ -5,38 +5,14 @@ import UserPostProfileCard from './UserPostProfileCard'
 import UserPhotoCard from './UserPhotoCard'
 import { postService } from '@/app/api/services/postService'
 import { useEffect, useState } from 'react'
-import { useFavorites } from '@/app/hooks/useFavorites'
-import { useAuthStore } from '@/app/stores/authStore'
 import { toast } from 'react-hot-toast'
 import { PickUser } from '@/app/types/User'
+import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 
 export default function MainContent() {
   const [pickUsers, setPickUsers] = useState<PickUser[]>([])
-  const [favoriteMap, setFavoriteMap] = useState<
-    Record<number, boolean>
-  >({})
-  const { token } = useAuthStore()
-  const { addFavorite, removeFavorite } = useFavorites()
-
-  const toggleFavorite = (uid: number, name: string) => {
-    const isFav = favoriteMap[uid] ?? false
-
-    if (!token) {
-      toast.error('로그인이 필요합니다.')
-      return
-    }
-
-    if (isFav) {
-      removeFavorite(name)
-    } else {
-      addFavorite(name)
-    }
-
-    setFavoriteMap((prev) => ({
-      ...prev,
-      [uid]: !isFav,
-    }))
-  }
+  const { favorites, favoriteMap, toggleFavorite } =
+    useFavoriteToggle()
 
   useEffect(() => {
     const fetchPickUsers = async () => {

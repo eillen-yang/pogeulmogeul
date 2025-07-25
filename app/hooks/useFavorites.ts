@@ -16,6 +16,7 @@ export const useFavorites = () => {
       favoriteService.addFavorite({ name, token }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['favorites'] })
+      toast.success('즐겨찾기에 추가 되었습니다.')
     },
     onError: () => {
       toast.error('즐겨찾기추가 처리 중 문제가 발생했어요.')
@@ -27,6 +28,7 @@ export const useFavorites = () => {
       favoriteService.removeFavorite({ name, token }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['favorites'] })
+      toast.success('즐겨찾기에 삭제 되었습니다.')
     },
     onError: () => {
       toast.error('즐겨찾기취소 처리 중 문제가 발생했어요.')

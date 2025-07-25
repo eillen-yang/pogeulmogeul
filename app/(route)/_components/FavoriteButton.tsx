@@ -1,13 +1,10 @@
 'use client'
 
-import { useFavorites } from '@/app/hooks/useFavorites'
-import { memo, useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
+import { memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import fullHeart from '@/public/icon/profile_fullheart.svg'
 import heart from '@/public/icon/profile_heart.svg'
-import { useAuthStore } from '@/app/stores/authStore'
 
 interface FavoriteButtonProps {
   isActive: boolean
