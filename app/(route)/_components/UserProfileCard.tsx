@@ -23,15 +23,6 @@ export default function UserProfileCard({
   isFavorite,
   onFavoriteToggle,
 }: UserPofileCardProps) {
-  console.log(
-    'user user user ',
-    user,
-    'post post post',
-    post,
-    'fa fa fa ',
-    fa,
-  )
-
   return (
     <div className="flex justify-between py-3 px-2.5">
       <div className="flex items-center gap-4">
