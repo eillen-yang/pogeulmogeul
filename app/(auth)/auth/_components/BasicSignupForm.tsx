@@ -11,12 +11,10 @@ import {
 } from '@/app/_constants/selectOptions'
 import { useCheckDuplication } from '@/app/hooks/useCheckDuplication'
 import { useSignup } from '@/app/hooks/useSignup'
-import { useSignupFlow } from '@/app/hooks/useSignupFlow'
 import { useCheckStore } from '@/app/stores/checkStore'
 import { useSignupStore } from '@/app/stores/signupStore'
 import { UserType } from '@/app/types/Auth'
 import { User } from '@/app/types/User'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function BasicSignupForm() {
