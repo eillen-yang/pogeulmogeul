@@ -11,7 +11,7 @@ export const favoriteService = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Token: token!,
         },
         body: JSON.stringify({ name }),
       },
@@ -30,7 +30,7 @@ export const favoriteService = {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Token: token!,
         },
         body: JSON.stringify({ name }),
       },
