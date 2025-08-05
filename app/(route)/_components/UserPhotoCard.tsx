@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 import { PickUser } from '@/app/types/User'

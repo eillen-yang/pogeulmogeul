@@ -11,11 +11,15 @@ import { FavoriteButton } from './FavoriteButton'
 interface DetailProfileCardProps {
   user: AllUserInfo
   email?: string
+  isFavorite: boolean
+  onFavoriteToggle: () => void
 }
 
 export default function DetailProfileCard({
   user,
   email,
+  isFavorite,
+  onFavoriteToggle,
 }: DetailProfileCardProps) {
   console.log('user Detail', user)
 
@@ -51,20 +55,16 @@ export default function DetailProfileCard({
                 </span>
               </div>
               {user.requestBody.email !== email && (
-                <button>
-                  <Image
-                    width={20}
-                    height={20}
-                    src={heart}
-                    alt="좋아요"
-                  />
-                </button>
+                <FavoriteButton
+                  isActive={isFavorite}
+                  onClick={onFavoriteToggle}
+                />
               )}
             </div>
           </div>
           <div className="mt-28 flex flex-col gap-3">
             <Link
-              href={'/calendar'}
+              href={`/${user.requestBody.uid}/calendar`}
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--color-1)] text-[var(--color-8)] font-bold text-xl rounded-xl"
             >
               <Image
@@ -78,7 +78,7 @@ export default function DetailProfileCard({
             <Link
               href={
                 user.requestBody.email !== email
-                  ? '/chat'
+                  ? `${user.requestBody.uid}/catting`
                   : '/me/edit'
               }
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"

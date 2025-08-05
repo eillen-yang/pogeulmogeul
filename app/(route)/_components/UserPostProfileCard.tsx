@@ -4,6 +4,7 @@ import UserProfileCard from './UserProfileCard'
 import UserPostCard from './UserPostCard'
 import { usePosts } from '@/app/hooks/usePosts'
 import { usePathname } from 'next/navigation'
+import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 
 interface Props {
   url?: string
@@ -16,11 +17,12 @@ export default function UserPostProfileCard({ url }: Props) {
 
   const isMainPage = fallbackPathname === '/'
 
+  const { favoriteMap, toggleFavorite } = useFavoriteToggle()
   console.log('게시글 리스트 data : ', data, pathname)
 
   if (isLoading)
     return (
-      <div>
+      <div className="text-[var(--main-color)] border border-[var(--main-color)] rounded-2xl w-full min-h-96 text-xl font-medium flex items-center justify-center">
         <span>로딩중...</span>
       </div>
     )
@@ -56,8 +58,14 @@ export default function UserPostProfileCard({ url }: Props) {
             post={post}
             pathname={pathname}
           />
-          <hr className="mx-auto w-11/12 text-center text-[var(--color-3)]" />
-          <UserProfileCard post={post} />
+          {/* <hr className="mx-auto w-11/12 text-center text-[var(--color-3)]" />
+          <UserProfileCard
+            post={post}
+            isFavorite={favoriteMap[post.baseBoard.email]}
+            onFavoriteToggle={() =>
+              toggleFavorite(post.baseBoard.email)
+            }
+          /> */}
         </div>
       ))}
     </>
