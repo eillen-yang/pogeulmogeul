@@ -5,8 +5,8 @@ import { Post, PostList } from '@/app/types/Post'
 import dayjs from 'dayjs'
 
 type Props = {
-  post: PostList
-  pathname: string
+  post?: PostList
+  pathname?: string
 }
 
 export default function UserPostCard({ post, pathname }: Props) {
@@ -19,7 +19,7 @@ export default function UserPostCard({ post, pathname }: Props) {
   const lastDate = dayjs(post?.baseBoard.lastDate).format(
     'YYYY.MM.DD HH:mm',
   )
-  const formatted = post.price?.toLocaleString()
+  const formatted = post?.price?.toLocaleString()
 
   return (
     <>
@@ -47,7 +47,7 @@ export default function UserPostCard({ post, pathname }: Props) {
             href={`${pathname}/${post?.bid}`}
             className="pr-1.5 line-clamp-2 text-2xl text-[var(--color-10)] font-bold leading-none"
           >
-            {post.baseBoard?.title}
+            {post?.baseBoard?.title}
           </Link>
           <p className="text-xl text-[var(--color-6)] font-semibold">
             {firstDate} ~ {lastDate}
@@ -62,14 +62,14 @@ export default function UserPostCard({ post, pathname }: Props) {
             </span>
           )}
           <div className="flex items-center gap-2.5 text-lg text-[var(--main-color)]">
-            {post.bigCategory && (
+            {post?.bigCategory && (
               <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
-                {post.bigCategory}
+                {post?.bigCategory}
               </span>
             )}
-            {post.category.length > 0 && (
+            {post?.category.length! > 0 && (
               <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
-                {post.category}
+                {post?.category}
               </span>
             )}
           </div>

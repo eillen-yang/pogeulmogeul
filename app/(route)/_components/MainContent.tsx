@@ -18,7 +18,6 @@ export default function MainContent() {
       try {
         const data = await postService.getPickPosts()
         setPickUsers(data)
-        console.log('pickUsers', data)
       } catch (err) {
         console.error('추천 pink 게시글 로딩 실패', err)
       }

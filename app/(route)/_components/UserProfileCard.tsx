@@ -24,7 +24,7 @@ export default function UserProfileCard({
   onFavoriteToggle,
 }: UserPofileCardProps) {
   return (
-    <div className="flex justify-between py-3 px-2.5">
+    <div className="flex justify-between py-3 px-4">
       <div className="flex items-center gap-4">
         <Link href={`/${user?.uid ?? fa?.fid}`}>
           <Image
