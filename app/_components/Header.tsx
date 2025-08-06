@@ -46,7 +46,7 @@ export default function Header() {
         isColors ? 'bg-[var(--main-color)]' : 'bg-white',
       )}
     >
-      <div className="w-full max-w-[1024px] mx-auto">
+      <div className="w-full max-w-[1024px] px-5 mx-auto">
         <div className="flex justify-between items-center">
           <h1>
             <Link
@@ -60,30 +60,35 @@ export default function Header() {
               />
             </Link>
           </h1>
-          <div className="flex items-center gap-5 text-white">
-            <Link href={'/me/calender'}>
-              <Image
-                width={16}
-                src={isColors ? CalenderWhite : Calender}
-                alt="calender icon"
-              />
-            </Link>
-            <Link href={'/me/catting'}>
-              <Image
-                src={isColors ? TalkWhite : Talk}
-                alt="Talk icon"
-              />
-            </Link>
+
+          <div className="flex items-center">
+            {user && (
+              <div className="md:flex items-center gap-5 text-white hidden">
+                <Link href={'/me/calender'}>
+                  <Image
+                    width={16}
+                    src={isColors ? CalenderWhite : Calender}
+                    alt="calender icon"
+                  />
+                </Link>
+                <Link href={'/me/catting'}>
+                  <Image
+                    src={isColors ? TalkWhite : Talk}
+                    alt="Talk icon"
+                  />
+                </Link>
+              </div>
+            )}
             {/* 로그인 안했을 경우 */}
             <div className="flex items-center gap-2 font-semibold text-xl">
               {user ? (
                 <>
-                  <span className="text-[var(--main-color)] font-bold text-2xl">
+                  <span className="mr-2 underline text-[var(--main-color)] font-bold text-2xl">
                     {user.name}님!
                   </span>
                   <button
                     onClick={logout}
-                    className="block py-2 px-7 text-white rounded-3xl border border-white bg-[var(--main-color)] hover:bg-[var(--main-hover-color)]"
+                    className="md:block hidden py-2 px-7 text-white rounded-3xl border border-white bg-[var(--main-color)] hover:bg-[var(--main-hover-color)]"
                   >
                     로그아웃
                   </button>
@@ -105,37 +110,50 @@ export default function Header() {
                 </>
               )}
             </div>
+
             <div
               className="relative"
               ref={dropdownRef}
             >
-              <button
-                onClick={() => setIsOpen((prev) => !prev)}
-                className="transition-transform duration-200 hover:scale-105"
-              >
-                {user && (
+              {user && (
+                <button
+                  onClick={() => setIsOpen((prev) => !prev)}
+                  className="transition-transform duration-200 hover:scale-105"
+                >
                   <Image
                     className="w-20"
                     src={isOpen ? MenuHover : Menu}
                     alt="menu"
                   />
-                )}
-              </button>
+                </button>
+              )}
 
               {isOpen && (
-                <ul className="absolute right-0 mt-3 flex flex-col gap-3 px-7 py-5 w-40 bg-white text-[var(--color-10)] text-xl font-semibold shadow-lg rounded-lg z-50">
-                  <li className="hover:underline">
-                    <Link href={'/me'}>마이페이지</Link>
-                  </li>
-                  <li className="hover:underline">
-                    <Link href={`/me/calender`}>캘린더</Link>
-                  </li>
-                  <li className="hover:underline">
-                    <Link href={`/me/catting`}>채팅</Link>
-                  </li>
-                  {/* <li className="hover:underline">
+                <ul className="absolute right-0 mt-3 flex flex-col gap-3 px-7 py-5 w-max bg-white text-[var(--color-10)] text-xl font-semibold shadow-lg rounded-lg z-50">
+                  {user && (
+                    <>
+                      <li className="pb-4 md:hidden border-b border-[var(--color-2)]">
+                        <button
+                          onClick={logout}
+                          className="py-2 px-4 rounded-2xl text-white bg-[var(--main-color)]"
+                        >
+                          로그아웃
+                        </button>
+                      </li>
+                      <li className="hover:underline">
+                        <Link href={'/me'}>마이페이지</Link>
+                      </li>
+                      <li className="hover:underline">
+                        <Link href={`/me/calender`}>캘린더</Link>
+                      </li>
+                      <li className="hover:underline">
+                        <Link href={`/me/catting`}>채팅</Link>
+                      </li>
+                      {/* <li className="hover:underline">
                     <Link href={'/heart-list'}>관심목록</Link>
                   </li> */}
+                    </>
+                  )}
                 </ul>
               )}
             </div>
