@@ -14,7 +14,7 @@ export default function InputOutlineField({
   ...rest
 }: Props) {
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <label className="flex items-center gap-10 border border-[var(--color-2)] rounded-2xl ring-[var(--main-color)]">
         <span className="flex-1 text-center font-bold">{label}</span>
         <input

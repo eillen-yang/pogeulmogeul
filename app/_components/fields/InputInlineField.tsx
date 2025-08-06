@@ -53,7 +53,6 @@ export default function InputInlineField({
         />
         {button && button}
       </div>
-      {error && <p className="text-red-500 text-md mt-2">{error}</p>}
     </div>
   )
 }
