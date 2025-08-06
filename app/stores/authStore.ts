@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { UserType } from '../types/Auth'
 import { UserInfo } from '../types/UserInfo'
+import { toast } from 'react-hot-toast'
 
 type User = {
   id: string
@@ -36,6 +37,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   logout: () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    toast.success('로그아웃되었습니다.')
     set({ user: null, token: null, isInitialized: true })
   },
 

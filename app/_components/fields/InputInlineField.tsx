@@ -39,7 +39,7 @@ export default function InputInlineField({
     ...(!readOnly && !disabled && register ? register : {}),
   }
   return (
-    <div className="mb-4">
+    <div>
       {label && (
         <label className="block pl-2 mb-1 text-xl font-semibold">
           {label}
@@ -53,7 +53,6 @@ export default function InputInlineField({
         />
         {button && button}
       </div>
-      {error && <p className="text-red-500 text-md mt-2">{error}</p>}
     </div>
   )
 }
