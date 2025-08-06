@@ -36,7 +36,6 @@ export default function LoginForm() {
           },
         })}
         error={errors.email?.message}
-        required
         placeholder="이메일을 입력해주세요."
       />
 
@@ -52,7 +51,6 @@ export default function LoginForm() {
           },
         })}
         error={errors.passwd?.message}
-        required
         placeholder="비밀번호를 입력해주세요."
       />
       <div className="flex justify-center gap-4">
