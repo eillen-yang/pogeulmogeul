@@ -32,8 +32,6 @@ export default function ModelSignupForm() {
       email: userEmail,
     }
 
-    console.log('email', modelData, userEmail, finalData)
-
     signup({
       formData: finalData,
       signupType: 'model',
