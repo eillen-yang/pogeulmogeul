@@ -61,19 +61,19 @@ export default function Header() {
             </Link>
           </h1>
           <div className="flex items-center gap-5 text-white">
-            <Link href={'/:username/canlendar'}>
+            <Link href={'/me/calender'}>
               <Image
                 width={16}
                 src={isColors ? CalenderWhite : Calender}
                 alt="calender icon"
               />
             </Link>
-            {/* <Link href={'/:username/chatting'}>
+            <Link href={'/me/catting'}>
               <Image
                 src={isColors ? TalkWhite : Talk}
                 alt="Talk icon"
               />
-            </Link> */}
+            </Link>
             {/* 로그인 안했을 경우 */}
             <div className="flex items-center gap-2 font-semibold text-xl">
               {user ? (
@@ -128,14 +128,14 @@ export default function Header() {
                     <Link href={'/me'}>마이페이지</Link>
                   </li>
                   <li className="hover:underline">
-                    <Link href={'/calender'}>캘린더</Link>
+                    <Link href={`/me/calender`}>캘린더</Link>
+                  </li>
+                  <li className="hover:underline">
+                    <Link href={`/me/catting`}>채팅</Link>
                   </li>
                   {/* <li className="hover:underline">
-                    <Link href={'/chatting'}>채팅</Link>
-                  </li> */}
-                  <li className="hover:underline">
                     <Link href={'/heart-list'}>관심목록</Link>
-                  </li>
+                  </li> */}
                 </ul>
               )}
             </div>
