@@ -15,6 +15,7 @@ import { useCheckStore } from '@/app/stores/checkStore'
 import { useSignupStore } from '@/app/stores/signupStore'
 import { UserType } from '@/app/types/Auth'
 import { User } from '@/app/types/User'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function BasicSignupForm() {
@@ -26,6 +27,8 @@ export default function BasicSignupForm() {
   } = useForm<User>()
   const { checkEmail, checkNickname } = useCheckDuplication()
   const { emailChecked, nicknameChecked } = useCheckStore()
+  const [showPassword, setShowPassword] = useState(false)
+  const [showPasswordCheck, setShowPasswordCheck] = useState(false)
 
   const { mutate: signup } = useSignup()
 
@@ -92,24 +95,40 @@ export default function BasicSignupForm() {
           </Button>
         }
       />
-      <InputInlineField
-        label="비밀번호 *"
-        name="passwd"
-        type="password"
-        register={register('passwd', {
-          required: '비밀번호는 필수입니다.',
-          minLength: {
-            value: 8,
-            message: '비밀번호는 8자 이상이어야 합니다.',
-          },
-        })}
-        error={errors.passwd?.message as string | undefined}
-        placeholder="비밀번호를 입력해주세요. (8자리 이상)"
-      />
+      <div>
+        <InputInlineField
+          label="비밀번호 *"
+          name="passwd"
+          type={showPassword ? 'text' : 'password'}
+          register={register('passwd', {
+            required: '비밀번호는 필수입니다.',
+            minLength: {
+              value: 8,
+              message: '비밀번호는 8자 이상이어야 합니다.',
+            },
+          })}
+          error={errors.passwd?.message as string | undefined}
+          placeholder="비밀번호를 입력해주세요. (8자리 이상)"
+          button={
+            <Button
+              type="button"
+              variant="primary"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? '숨기기' : '보기'}
+            </Button>
+          }
+        />
+        {!errors.passwd && watch('passwd')?.length >= 8 && (
+          <p className="text-green-600 text-lg mt-1">
+            사용 가능한 비밀번호 입니다.
+          </p>
+        )}
+      </div>
       <InputInlineField
         label="비밀번호 확인 *"
         name="passwd2"
-        type="password"
+        type={showPasswordCheck ? 'text' : 'password'}
         register={register('passwd2', {
           required: '비밀번호 확인은 필수입니다.',
           validate: (value) =>
@@ -117,6 +136,15 @@ export default function BasicSignupForm() {
         })}
         error={errors.passwd2?.message as string | undefined}
         placeholder="비밀번호를 한번 더 입력 해주세요."
+        button={
+          <Button
+            type="button"
+            variant="primary"
+            onClick={() => setShowPasswordCheck((prev) => !prev)}
+          >
+            {showPasswordCheck ? '숨기기' : '보기'}
+          </Button>
+        }
       />
       <InputInlineField
         label="닉네임 *"
