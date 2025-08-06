@@ -24,7 +24,19 @@ export default function RootLayout({
         <ReactQueryProvider>
           <AuthInitializer>
             {/* <AuthSession> */}
-            <Toaster position="top-center" />
+            <Toaster
+              position="top-center"
+              toastOptions={{
+                style: { fontSize: '16px' },
+                success: {
+                  style: {
+                    background: 'var(--main-hover-color)',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                  },
+                },
+              }}
+            />
             {children}
             {/* </AuthSession> */}
           </AuthInitializer>
