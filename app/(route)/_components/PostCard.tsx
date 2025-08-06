@@ -14,12 +14,16 @@ import { usePosts } from '@/app/hooks/usePosts'
 import { useAuthStore } from '@/app/stores/authStore'
 import { postService } from '@/app/api/services/postService'
 import { useEffect } from 'react'
+import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
+import { FavoriteButton } from './FavoriteButton'
 
 export default function PostCard() {
   const router = useRouter()
   const cateType = usePathname()
   const params = useParams()
   const postId = Number(params?.postId)
+
+  const { favoriteMap, toggleFavorite } = useFavoriteToggle()
 
   const meEmail = useAuthStore((state) => state.user?.email || '')
   const token = useAuthStore((state) => state.token)
@@ -28,11 +32,13 @@ export default function PostCard() {
   const matchedPostEmail = postList?.find(
     (post) => post.bid === postId,
   )
+
   const email = matchedPostEmail?.baseBoard.email || ''
   const matchedPostId = postList?.find((post) => post.bid === postId)
   const id = matchedPostId?.bid || 0
 
   const { data, isLoading, error } = usePost(postId, email, cateType)
+  console.log('data', data)
 
   const createAt = dayjs(data?.createAt).format('YYYY.MM.DD HH:mm')
   const firstDate = dayjs(data?.firstDate).format('YYYY.MM.DD HH:mm')
@@ -95,19 +101,17 @@ export default function PostCard() {
                   {data.userRank}
                 </span>
               </div>
-              <button>
-                <Image
-                  width={20}
-                  height={20}
-                  src={heart}
-                  alt="좋아요"
+              {meEmail !== email && (
+                <FavoriteButton
+                  isActive={favoriteMap[data.name] ?? false}
+                  onClick={() => toggleFavorite(data.name)}
                 />
-              </button>
+              )}
             </div>
           </div>
           <div className="pl-48 mt-8 flex flex-col gap-3">
             <Link
-              href={'/calendar'}
+              href={`/${data.name}/calender`}
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--color-1)] text-[var(--color-8)] font-bold text-xl rounded-xl"
             >
               <Image
@@ -127,7 +131,7 @@ export default function PostCard() {
               </button>
             ) : (
               <Link
-                href={'/chat'}
+                href={`/${data.name}/catting`}
                 className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"
               >
                 <Image

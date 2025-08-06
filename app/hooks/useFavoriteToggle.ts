@@ -21,11 +21,11 @@ export const useFavoriteToggle = () => {
   })
 
   useEffect(() => {
-    console.log('💡즐겨찾기 목록:', favorites)
     if (favorites.length > 0) {
       const map = favorites.reduce(
         (acc: Record<string, boolean>, favUser) => {
           acc[favUser.name] = true
+          acc[favUser.email] = true
           return acc
         },
         {},
