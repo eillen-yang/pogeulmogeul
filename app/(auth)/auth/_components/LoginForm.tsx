@@ -4,10 +4,12 @@ import InputInlineField from '@/app/_components/fields/InputInlineField'
 import { Button } from '@/app/_components/ui/Button'
 import { useLogin } from '@/app/hooks/useLogin'
 import { LoginFormData, UserType } from '@/app/types/Auth'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function LoginForm() {
+  const router = useRouter()
   const {
     handleSubmit,
     register,
@@ -55,10 +57,11 @@ export default function LoginForm() {
       />
       <div className="flex justify-center gap-4">
         <Button
+          onClick={() => router.back()}
           variant="ghost"
           type="button"
         >
-          취소
+          이전으로
         </Button>
         <Button
           variant="primary"
