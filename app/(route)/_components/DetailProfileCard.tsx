@@ -4,15 +4,14 @@ import dummy from '@/public/dummy.svg'
 import background from '@/public/sample.jpg'
 import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
-import heart from '@/public/icon/profile_heart.svg'
-import { AllUserInfo } from '@/app/types/UserInfo'
+import { AllUserInfo, PickInfo } from '@/app/types/UserInfo'
 import { FavoriteButton } from './FavoriteButton'
 
 interface DetailProfileCardProps {
-  user: AllUserInfo
+  user: PickInfo
   email?: string
-  isFavorite: boolean
-  onFavoriteToggle: () => void
+  isFavorite?: boolean
+  onFavoriteToggle?: () => void
 }
 
 export default function DetailProfileCard({
@@ -31,16 +30,16 @@ export default function DetailProfileCard({
         src={background}
         alt="프로필 배경 이미지"
       />
-      <div className="relative px-5">
+      <div className="px-5">
         <div className="pb-10">
-          <div className="flex items-end gap-4 absolute left-40 -top-1/9 -translate-x-1/2 -translate-y-1/2">
+          <div className="flex items-end gap-4 -mt-12">
             <Image
               width={80}
               height={80}
               src={
-                user.requestBody.profileBasicImgPath &&
-                user.requestBody.profileBasicImgPath.length > 0
-                  ? user.requestBody.profileBasicImgPath[0]
+                user.profileBasicImgPath &&
+                user.profileBasicImgPath.length > 0
+                  ? user.profileBasicImgPath[0]
                   : dummy
               }
               alt="내 프로필"
@@ -48,23 +47,23 @@ export default function DetailProfileCard({
             <div className="flex items-start justify-center gap-3">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold">
-                  {user.requestBody.name}
+                  {user.name}
                 </span>
                 <span className="text-lg text-[var(--color-6)] font-medium">
-                  {user.requestBody.userRank}
+                  {user.userRank}
                 </span>
               </div>
-              {user.requestBody.email !== email && (
+              {user.email !== email && (
                 <FavoriteButton
-                  isActive={isFavorite}
-                  onClick={onFavoriteToggle}
+                  isActive={isFavorite!}
+                  onClick={onFavoriteToggle!}
                 />
               )}
             </div>
           </div>
-          <div className="mt-28 flex flex-col gap-3">
+          <div className="mt-5 flex flex-col gap-3">
             <Link
-              href={`/${user.requestBody.uid}/calendar`}
+              href={`/${user.uid}/calendar`}
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--color-1)] text-[var(--color-8)] font-bold text-xl rounded-xl"
             >
               <Image
@@ -77,8 +76,8 @@ export default function DetailProfileCard({
             </Link>
             <Link
               href={
-                user.requestBody.email !== email
-                  ? `${user.requestBody.uid}/catting`
+                user.email !== email
+                  ? `${user.uid}/catting`
                   : '/me/edit'
               }
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--main-color)] text-[var(--color-1)] font-bold text-xl rounded-xl"
@@ -90,7 +89,7 @@ export default function DetailProfileCard({
                 alt="제안하기"
               />
               <span>
-                {user.requestBody.email !== email
+                {user.email !== email
                   ? '제안하기'
                   : '내 프로필 수정/등록'}
               </span>
@@ -102,35 +101,35 @@ export default function DetailProfileCard({
             <div className="text-xl">
               <span className="text-black font-bold">이메일</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.requestBody.email}
+                {user.email}
               </p>
             </div>
             <div className="text-xl">
               <span className="text-black font-bold">지역</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.requestBody.city}
+                {user.city}
               </p>
             </div>
             <div className="text-xl">
               <span className="text-black font-bold">성별</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.requestBody.gender}
+                {user.gender}
               </p>
             </div>
             <div className="text-xl">
               <span className="text-black font-bold">내/외국인</span>
               <p className="font-medium text-[var(--color-6)]">
-                {user.requestBody.nationality}
+                {user.nationality}
               </p>
             </div>
 
-            {user.requestBody.intro !== '' ? (
+            {user.intro !== '' ? (
               <div>
                 <span className="text-lg text-black font-bold">
                   소개
                 </span>
                 <p className="font-medium text-[var(--color-6)]">
-                  {user.requestBody.intro}
+                  {user.intro}
                 </p>
               </div>
             ) : null}
@@ -139,20 +138,20 @@ export default function DetailProfileCard({
           {/* 일반 회원이 아닐경우 */}
           <div className="pt-10 flex flex-col gap-5">
             {/* 모델일 경우 */}
-            {user.requestBody.userRank === '모델회원' && (
+            {user.userRank === '모델회원' && (
               <>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
                   <span className="flex-1 text-lg font-bold">
                     몸무게
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.weight}kg
+                    {user.weight}kg
                   </p>
                 </div>
                 <div className="flex gap-2 py-4 px-5 rounded-2xl border border-[var(--color-1)]">
                   <span className="flex-1 text-lg font-bold">키</span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.height}cm
+                    {user.height}cm
                   </p>
                 </div>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
@@ -160,7 +159,7 @@ export default function DetailProfileCard({
                     상의
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.top}
+                    {user.top}
                   </p>
                 </div>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
@@ -168,7 +167,7 @@ export default function DetailProfileCard({
                     하의
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.bottom}
+                    {user.bottom}
                   </p>
                 </div>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
@@ -176,20 +175,20 @@ export default function DetailProfileCard({
                     신발
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.shoes}
+                    {user.shoes}
                   </p>
                 </div>
               </>
             )}
 
-            {user.requestBody.userRank === '사진기사회원' && (
+            {user.userRank === '사진기사회원' && (
               <>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
                   <span className="flex-1 text-lg font-bold">
                     출장
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.businessTrip}
+                    {user.businessTrip}
                   </p>
                 </div>
                 <div className="flex gap-2 py-4 px-5 rounded-2xl border border-[var(--color-1)]">
@@ -197,7 +196,7 @@ export default function DetailProfileCard({
                     보정
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.correction}
+                    {user.correction}
                   </p>
                 </div>
                 <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">
@@ -205,7 +204,7 @@ export default function DetailProfileCard({
                     연출
                   </span>
                   <p className="flex-3/5 text-lg font-normal">
-                    {user.requestBody.production}
+                    {user.production}
                   </p>
                 </div>
                 {/* <div className="flex py-4 px-5 rounded-2xl border border-[var(--color-1)]">

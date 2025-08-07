@@ -36,7 +36,7 @@ export default function MyClientComponent() {
     <div className="flex gap-4 md:flex-row flex-col pb-64">
       <div className="flex-1">
         <DetailProfileCard
-          user={userInfo}
+          user={userInfo.requestBody}
           email={email}
         />
       </div>
