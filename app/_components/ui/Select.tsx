@@ -19,7 +19,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     ref,
   ) => {
     const baseStyle =
-      'w-full text-2xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-[var(--main-color)]'
+      'w-full text-base sm:text-sm p-3 sm:p-2 h-12 sm:h-10 border border-gray-300 rounded-2xl bg-white'
 
     return (
       <>

@@ -20,7 +20,7 @@ export default function SelectOutlineField({
 }: SelectFieldProps) {
   return (
     <div className="flex items-center gap-10 border border-[var(--color-2)] p-2 rounded-2xl w-full bg-white">
-      <span className="flex-1 text-center font-bold">{label}</span>
+      <span className="w-40 text-center font-bold">{label}</span>
       <div className="flex-4/5">
         <Select
           {...register}

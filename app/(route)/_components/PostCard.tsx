@@ -6,14 +6,12 @@ import dummy from '@/public/dummy.svg'
 import background from '@/public/sample.jpg'
 import catting from '@/public/icon/white_talk.svg'
 import calendar from '@/public/icon/gray_calendar.svg'
-import heart from '@/public/icon/profile_heart.svg'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import { usePost } from '@/app/hooks/usePost'
 import dayjs from 'dayjs'
 import { usePosts } from '@/app/hooks/usePosts'
 import { useAuthStore } from '@/app/stores/authStore'
 import { postService } from '@/app/api/services/postService'
-import { useEffect } from 'react'
 import { useFavoriteToggle } from '@/app/hooks/useFavoriteToggle'
 import { FavoriteButton } from './FavoriteButton'
 
@@ -109,7 +107,7 @@ export default function PostCard() {
               )}
             </div>
           </div>
-          <div className="pl-48 mt-8 flex flex-col gap-3">
+          <div className="pl-56 mt-8 flex flex-col gap-3">
             <Link
               href={`/${data.name}/calender`}
               className="flex items-center justify-center gap-1.5 h-14 bg-[var(--color-1)] text-[var(--color-8)] font-bold text-xl rounded-xl"

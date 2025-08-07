@@ -32,12 +32,12 @@ export default function UserClientComponent() {
 
   const { favoriteMap, toggleFavorite } = useFavoriteToggle()
 
-  console.log('상대방 username 페이지', userInfo)
+  console.log('내 username 페이지', userInfo)
 
   if (!user || isLoading || !userInfo) return null
 
   return (
-    <div className="flex gap-4 pb-64">
+    <div className="flex gap-4 md:flex-row flex-col pb-64">
       <div className="flex-1">
         <DetailProfileCard
           user={userInfo}

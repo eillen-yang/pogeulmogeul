@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker'
 
 export default function Page() {
   return (
-    <div className="flex gap-4 pb-64">
+    <div className="flex md:flex-row flex-col gap-4 pb-64">
       <div className="flex-1/4">
         <PostCard />
       </div>
