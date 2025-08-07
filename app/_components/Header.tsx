@@ -46,7 +46,7 @@ export default function Header() {
         isColors ? 'bg-[var(--main-color)]' : 'bg-white',
       )}
     >
-      <div className="w-full max-w-[1024px] px-5 mx-auto">
+      <div className="w-full max-w-[1024px] lg:px-0 px-5 mx-auto">
         <div className="flex justify-between items-center">
           <h1>
             <Link
@@ -61,7 +61,7 @@ export default function Header() {
             </Link>
           </h1>
 
-          <div className="flex items-center">
+          <div className="flex items-center md:gap-5 gap-0">
             {user && (
               <div className="md:flex items-center gap-5 text-white hidden">
                 <Link href={'/me/calender'}>
