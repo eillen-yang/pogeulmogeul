@@ -51,7 +51,7 @@ export default function SelectInlineField({
             </option>
           ))}
         </Select>
-        {button}
+        {button && <div className="flex-shrink-0">{button}</div>}
       </div>
       {error && <p className="text-red-500 text-lg mt-1">{error}</p>}
     </div>

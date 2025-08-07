@@ -25,7 +25,7 @@ export const useCheckDuplication = () => {
       )
       const data = await res.json()
 
-      if (data.exists) {
+      if (data.message && data.message.includes('이미 존재')) {
         setEmailChecked(false)
         return '이미 사용 중인 이메일입니다.'
       } else {
@@ -57,7 +57,7 @@ export const useCheckDuplication = () => {
 
       const data = await res.json()
 
-      if (data.exists) {
+      if (data.message && data.message.includes('이미 존재')) {
         setNicknameChecked(false)
         return '이미 사용 중인 닉네임입니다.'
       } else {

@@ -12,6 +12,7 @@ export default function Sidebar() {
 
   const isPost = pathname.includes('post')
   const isEdit = pathname.includes('edit')
+  const isDetailPage = /\d+$/.test(pathname)
   const toggleMenu = (menu: string) => {
     setOpenMenu((prev) => (prev === menu ? null : menu))
   }
@@ -165,10 +166,10 @@ export default function Sidebar() {
           </li>
         </ul>
 
-        {isPost && !isEdit && (
+        {isPost && !isEdit && !isDetailPage && (
           <Link
             href={`${pathname}/edit`}
-            className="block mt-5 w-full px-4 py-6 border border-[var(--main-color)] text-center rounded-4xl text-2xl text-[var(--main-color)] hover:underline hover:bg-[var(--main-color)] hover:text-white"
+            className="md:block hidden mt-5 w-full p-5 border border-[var(--main-color)] text-center rounded-4xl text-2xl text-[var(--main-color)] hover:underline hover:bg-[var(--main-color)] hover:text-white"
           >
             게시글 작성
           </Link>
@@ -176,113 +177,124 @@ export default function Sidebar() {
       </aside>
 
       {/* 태블릿 이하 */}
-      <nav
-        className={clsx(
-          'flex md:hidden w-full sm:justify-center overflow-x-auto whitespace-nowrap hide-scrollbar justify-start space-x-4 text-xl sm:text-2xl',
-          (openMenu === 'model' || openMenu === 'photo') && 'pb-14',
+      <div className="relative">
+        <nav
+          className={clsx(
+            'flex md:hidden w-full sm:justify-center overflow-x-auto whitespace-nowrap hide-scrollbar justify-start space-x-4 text-xl sm:text-2xl pb-7',
+            (openMenu === 'model' || openMenu === 'photo') && 'pb-14',
+          )}
+        >
+          <Link
+            href="/"
+            className={clsx(
+              'px-4 py-2 rounded-3xl hover:bg-gray-100',
+              pathname === '/' && activeStyle,
+            )}
+          >
+            ❤️ 포글모글 추천
+          </Link>
+
+          {/* 모델 드롭다운 */}
+          <div className="relative">
+            <button
+              onClick={() => toggleMenu('model')}
+              className={clsx(
+                'px-4 py-2 rounded-3xl hover:bg-gray-100',
+                openMenu === 'model' && 'font-bold',
+              )}
+            >
+              💎 모델
+            </button>
+            {openMenu === 'model' && (
+              <ul className="absolute flex gap-4 bg-white mt-2 shadow-lg rounded-xl text-lg w-max">
+                <li
+                  className={clsx(
+                    'px-4 py-2 hover:bg-gray-100',
+                    pathname === '/post/model_wantit' && activeStyle,
+                  )}
+                >
+                  <Link href="/post/model_wantit">모델 필요해</Link>
+                </li>
+                <li
+                  className={clsx(
+                    'px-4 py-2 hover:bg-gray-100',
+                    pathname === '/post/model_doit' && activeStyle,
+                  )}
+                >
+                  <Link href="/post/model_doit">모델 해줄게</Link>
+                </li>
+              </ul>
+            )}
+          </div>
+
+          {/* 사진 촬영 드롭다운 */}
+          <div className="relative">
+            <button
+              onClick={() => toggleMenu('photo')}
+              className={clsx(
+                'px-4 py-2 rounded-3xl hover:bg-gray-100',
+                openMenu === 'photo' && 'font-bold',
+              )}
+            >
+              📸 사진 촬영
+            </button>
+            {openMenu === 'photo' && (
+              <ul className="absolute flex gap-4 bg-white mt-2 shadow-lg rounded-xl text-lg w-max">
+                <li
+                  className={clsx(
+                    'px-4 py-2 hover:bg-gray-100',
+                    pathname === '/post/photographer_wantit' &&
+                      activeStyle,
+                  )}
+                >
+                  <Link href="/post/photographer_wantit">
+                    사진작가 필요해
+                  </Link>
+                </li>
+                <li
+                  className={clsx(
+                    'px-4 py-2 hover:bg-gray-100',
+                    pathname === '/post/photographer_doit' &&
+                      activeStyle,
+                  )}
+                >
+                  <Link href="/post/photographer_doit">
+                    사진작가 해줄게
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
+
+          <Link
+            href="/post/photoshop"
+            className={clsx(
+              'px-4 py-2 rounded-3xl hover:bg-gray-100',
+              pathname === '/post/photoshop' && activeStyle,
+            )}
+          >
+            🎨 포토샵
+          </Link>
+          <Link
+            href="/post/free"
+            className={clsx(
+              'px-4 py-2 rounded-3xl hover:bg-gray-100',
+              pathname === '/post/free' && activeStyle,
+            )}
+          >
+            ✨ 재능기부
+          </Link>
+        </nav>
+
+        {isPost && !isEdit && !isDetailPage && (
+          <Link
+            href={`${pathname}/edit`}
+            className="md:hidden fixed w-14 h-14 leading-14 rounded-full bottom-30 right-8 bg-[var(--main-color)] text-white text-4xl font-bold text-center z-50"
+          >
+            +
+          </Link>
         )}
-      >
-        <Link
-          href="/"
-          className={clsx(
-            'px-4 py-2 rounded-3xl hover:bg-gray-100',
-            pathname === '/' && activeStyle,
-          )}
-        >
-          ❤️ 포글모글 추천
-        </Link>
-
-        {/* 모델 드롭다운 */}
-        <div className="relative">
-          <button
-            onClick={() => toggleMenu('model')}
-            className={clsx(
-              'px-4 py-2 rounded-3xl hover:bg-gray-100',
-              openMenu === 'model' && 'font-bold',
-            )}
-          >
-            💎 모델
-          </button>
-          {openMenu === 'model' && (
-            <ul className="absolute flex gap-4 bg-white mt-2 shadow-lg rounded-xl text-lg w-max">
-              <li
-                className={clsx(
-                  'px-4 py-2 hover:bg-gray-100',
-                  pathname === '/post/model_wantit' && activeStyle,
-                )}
-              >
-                <Link href="/post/model_wantit">모델 필요해</Link>
-              </li>
-              <li
-                className={clsx(
-                  'px-4 py-2 hover:bg-gray-100',
-                  pathname === '/post/model_doit' && activeStyle,
-                )}
-              >
-                <Link href="/post/model_doit">모델 해줄게</Link>
-              </li>
-            </ul>
-          )}
-        </div>
-
-        {/* 사진 촬영 드롭다운 */}
-        <div className="relative">
-          <button
-            onClick={() => toggleMenu('photo')}
-            className={clsx(
-              'px-4 py-2 rounded-3xl hover:bg-gray-100',
-              openMenu === 'photo' && 'font-bold',
-            )}
-          >
-            📸 사진 촬영
-          </button>
-          {openMenu === 'photo' && (
-            <ul className="absolute flex gap-4 bg-white mt-2 shadow-lg rounded-xl text-lg w-max">
-              <li
-                className={clsx(
-                  'px-4 py-2 hover:bg-gray-100',
-                  pathname === '/post/photographer_wantit' &&
-                    activeStyle,
-                )}
-              >
-                <Link href="/post/photographer_wantit">
-                  사진작가 필요해
-                </Link>
-              </li>
-              <li
-                className={clsx(
-                  'px-4 py-2 hover:bg-gray-100',
-                  pathname === '/post/photographer_doit' &&
-                    activeStyle,
-                )}
-              >
-                <Link href="/post/photographer_doit">
-                  사진작가 해줄게
-                </Link>
-              </li>
-            </ul>
-          )}
-        </div>
-
-        <Link
-          href="/post/photoshop"
-          className={clsx(
-            'px-4 py-2 rounded-3xl hover:bg-gray-100',
-            pathname === '/post/photoshop' && activeStyle,
-          )}
-        >
-          🎨 포토샵
-        </Link>
-        <Link
-          href="/post/free"
-          className={clsx(
-            'px-4 py-2 rounded-3xl hover:bg-gray-100',
-            pathname === '/post/free' && activeStyle,
-          )}
-        >
-          ✨ 재능기부
-        </Link>
-      </nav>
+      </div>
     </>
   )
 }
