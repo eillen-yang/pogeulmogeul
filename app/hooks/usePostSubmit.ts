@@ -48,7 +48,10 @@ export const usePostSubmit = ({
         ? form.category
         : [form.category]
 
-      if (categoryList.length === 0) {
+      if (
+        !pathname.includes('free/edit') &&
+        categoryList.length === 0
+      ) {
         alert('카테고리를 선택해주세요.')
         return
       }

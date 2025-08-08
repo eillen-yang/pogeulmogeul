@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
-import Image from 'next/image'
-import { Post, PostList } from '@/app/types/Post'
+import { PostList } from '@/app/types/Post'
 import dayjs from 'dayjs'
 
 type Props = {
@@ -52,7 +51,7 @@ export default function UserPostCard({ post, pathname }: Props) {
           <p className="text-xl text-[var(--color-6)] font-semibold">
             {firstDate} ~ {lastDate}
           </p>
-          {formatted === '0' ? (
+          {!formatted || formatted === '0' ? (
             <span className="text-[var(--foreground)] text-xl font-bold">
               무료지원
             </span>
@@ -67,11 +66,12 @@ export default function UserPostCard({ post, pathname }: Props) {
                 {post?.bigCategory}
               </span>
             )}
-            {post?.category.length! > 0 && (
-              <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
-                {post?.category}
-              </span>
-            )}
+            {pathname?.startsWith('/post/free') === false &&
+              (post?.category ?? []).length > 0 && (
+                <span className="py-1 px-4 border border-[var(--main-color)] rounded-3xl">
+                  {post?.category}
+                </span>
+              )}
           </div>
         </div>
       </div>
