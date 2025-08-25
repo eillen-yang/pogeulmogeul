@@ -15,25 +15,15 @@ const variants: Record<Variant, string> = {
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, error, variant = 'default', ...props }, ref) => {
+  ({ className, variant = 'default', ...props }, ref) => {
     const baseStyle = 'w-full text-2xl rounded-2xl resize-none'
 
     return (
-      <>
-        <textarea
-          ref={ref}
-          className={clsx(
-            baseStyle,
-            variants[variant],
-            error && 'border-red-500',
-            className,
-          )}
-          {...props}
-        />
-        {error && (
-          <p className="text-sm text-red-500 mt-1">{error}</p>
-        )}
-      </>
+      <textarea
+        ref={ref}
+        className={clsx(baseStyle, variants[variant], className)}
+        {...props}
+      />
     )
   },
 )

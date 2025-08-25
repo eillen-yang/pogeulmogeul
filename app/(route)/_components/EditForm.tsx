@@ -31,6 +31,7 @@ export default function EditForm() {
     handleSubmit,
     setValue,
     control,
+    watch,
     formState: { errors },
   } = useForm<Post>({
     defaultValues: {

@@ -18,17 +18,22 @@ export default function TextareaOutlineField({
   error,
 }: TextareaFieldProps) {
   return (
-    <div className="flex gap-10 py-5 border border-[var(--color-2)] rounded-2xl text-2xl">
-      <span className="w-40 text-center font-semibold">{label}</span>
-      <Textarea
-        rows={6}
-        {...register}
-        variant="unstyled"
-        placeholder={placeholder}
-        error={error}
-        className="w-full min-h-[150px]"
-      />
-      {error}
+    <div>
+      <div className="flex gap-10 py-5 border border-[var(--color-2)] rounded-2xl text-2xl">
+        <span className="w-40 text-center font-semibold">
+          {label}
+        </span>
+        <Textarea
+          rows={6}
+          {...register}
+          variant="unstyled"
+          placeholder={placeholder}
+          error={error}
+          className="w-full min-h-[150px]"
+        />
+      </div>
+
+      {error && <p className="text-md text-red-500 mt-1">{error}</p>}
     </div>
   )
 }
