@@ -47,7 +47,7 @@ export default function DateRangePickerField({
         <span className="p-5 md:h-max text-2xl font-semibold border border-[var(--color-2)] rounded-2xl">
           날짜/시간
         </span>
-        <div className="flex gap-4 flex-1 md:flex-row flex-col">
+        <div className="flex gap-4 flex-1 items-center md:flex-row flex-col">
           {/* 시작일 */}
           <Controller
             name={firstDate}
