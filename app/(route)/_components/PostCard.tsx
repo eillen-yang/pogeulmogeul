@@ -180,7 +180,9 @@ export default function PostCard() {
 
             <div className="py-4 px-5 rounded-2xl border border-[var(--color-1)]">
               <span className="font-bold">상세내용</span>
-              <p className="pt-3 font-normal">{data.contents}</p>
+              <p className="pt-3 font-normal whitespace-pre-wrap">
+                {data.contents}
+              </p>
             </div>
           </div>
         </div>

@@ -134,6 +134,7 @@ export default function EditForm() {
         })}
         error={errors.contents?.message}
       />
+
       <div className="flex gap-5">
         <ImgUploadOutlineField
           onChange={(file) => setMainImage(file as File)}
