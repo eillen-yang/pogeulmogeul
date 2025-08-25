@@ -5,14 +5,26 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   error?: string
   register: UseFormRegisterReturn
+  maxLength?: number
+  fieldType?: string
 }
 
 export default function InputOutlineField({
   label,
   error,
   register,
+  maxLength,
+  fieldType = 'default', // 필드 역할 지정
   ...rest
 }: Props) {
+  const defaultMaxLength =
+    maxLength ??
+    (fieldType === 'title'
+      ? 50
+      : fieldType === 'location'
+        ? 30
+        : undefined)
+
   return (
     <div className="flex flex-col gap-2">
       <label className="flex items-center gap-10 border border-[var(--color-2)] rounded-2xl ring-[var(--main-color)]">
@@ -23,6 +35,7 @@ export default function InputOutlineField({
           className="flex-4/5"
           type="text"
           placeholder="제목을 입력해주세요."
+          maxLength={defaultMaxLength}
           {...register}
           {...rest}
         />

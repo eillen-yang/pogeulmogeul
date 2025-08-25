@@ -75,6 +75,7 @@ export default function EditForm() {
         register={register('title', {
           required: '제목을 입력해주세요.',
         })}
+        fieldType="title"
         error={errors.title?.message}
       />
 
@@ -106,6 +107,7 @@ export default function EditForm() {
           register={register('place', {
             required: '장소를 입력해주세요.',
           })}
+          fieldType="location"
           error={errors.place?.message}
         />
       )}
