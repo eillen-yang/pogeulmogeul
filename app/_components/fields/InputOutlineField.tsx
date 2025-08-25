@@ -19,11 +19,18 @@ export default function InputOutlineField({
 }: Props) {
   const defaultMaxLength =
     maxLength ??
-    (fieldType === 'title'
-      ? 50
-      : fieldType === 'location'
-        ? 30
-        : undefined)
+    (fieldType === 'title' ? 50 : fieldType === 'location' ? 30 : 10)
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (
+      rest.type === 'number' &&
+      (e.key === 'ArrowUp' || e.key === 'ArrowDown')
+    ) {
+      e.preventDefault()
+    }
+  }
 
   return (
     <div className="flex flex-col gap-2">
@@ -36,6 +43,7 @@ export default function InputOutlineField({
           type="text"
           placeholder="제목을 입력해주세요."
           maxLength={defaultMaxLength}
+          onKeyDown={handleKeyDown}
           {...register}
           {...rest}
         />
